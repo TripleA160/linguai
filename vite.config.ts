@@ -10,4 +10,5 @@ export default defineConfig({
     svgr(),
     tailwindcss()
   ],
+  base: process.env.VITE_BASE_PATH || "/ai-translator-react",
 })
