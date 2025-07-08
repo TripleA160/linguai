@@ -1,0 +1,67 @@
+import { useCallback, useState, type ReactNode } from "react";
+import { GeminiContext } from "./GeminiContext";
+import type { GeminiContextData } from "../../types/firebase-types";
+import { generateTranslation } from "./gemini-utils";
+import { useFirestore } from "../firestore/useFirestore";
+import { useAuth } from "../auth/useAuth";
+
+export const GeminiProvider = ({ children }: { children: ReactNode }) => {
+  const { addTranslationToUserHistory } = useFirestore();
+  const { currentUser } = useAuth();
+
+  const [currentPrompt, setCurrentPrompt] = useState<string | null>(null);
+  const [currentResponse, setCurrentResponse] = useState<string | null>(null);
+  const [lastRequestTime, setLastRequestTime] = useState<number>(0);
+  const [isRateLimited, setIsRateLimited] = useState<boolean>(false);
+
+  const translate = useCallback(
+    async (
+      text: string,
+      targetLanguage: string = "English",
+      sourceLanguage: string,
+    ) => {
+      const currentTime = Date.now();
+      const timeDifference = currentTime - lastRequestTime;
+
+      if (timeDifference < 1000) {
+        setIsRateLimited(true);
+        await new Promise((resolve) =>
+          setTimeout(resolve, 1000 - timeDifference),
+        );
+        setIsRateLimited(false);
+      }
+      setLastRequestTime(Date.now());
+      const result = await generateTranslation(
+        text,
+        targetLanguage,
+        sourceLanguage,
+      );
+      setCurrentResponse(result);
+      setCurrentPrompt(text);
+      if (currentUser) {
+        await addTranslationToUserHistory({
+          sourceText: text,
+          translatedText: result,
+          sourceLanguage: sourceLanguage,
+          targetLanguage: targetLanguage,
+        });
+      }
+      console.log(`${sourceLanguage}: ${text}`, `${targetLanguage}: ${result}`);
+      return result;
+    },
+    [currentUser, lastRequestTime, addTranslationToUserHistory],
+  );
+
+  const contextData: GeminiContextData = {
+    currentPrompt,
+    currentResponse,
+    translate,
+    isRateLimited,
+  };
+
+  return (
+    <GeminiContext.Provider value={contextData}>
+      {children}
+    </GeminiContext.Provider>
+  );
+};
