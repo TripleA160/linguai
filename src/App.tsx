@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signup from "./Signup";
-import Login from "./Login";
-import Home from "./Home";
-import { AuthProvider } from "../features/auth/AuthProvider";
-import CreateProfile from "./CreateProfile";
-import { GeminiProvider } from "../features/gemini/GeminiProvider";
-import ThemeProvider from "../features/theme/ThemeProvider";
-import { FirestoreProvider } from "../features/firestore/FirestoreProvider";
-import Header from "./Header";
-import TooltipProvider from "../features/tooltip/TooltipProvider";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import { AuthProvider } from "./features/auth/AuthProvider";
+import CreateProfile from "./components/CreateProfile";
+import { GeminiProvider } from "./features/gemini/GeminiProvider";
+import ThemeProvider from "./features/theme/ThemeProvider";
+import { FirestoreProvider } from "./features/firestore/FirestoreProvider";
+import Header from "./components/Header";
+import TooltipProvider from "./features/tooltip/TooltipProvider";
 
 function App() {
   return (
