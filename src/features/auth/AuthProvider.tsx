@@ -3,13 +3,11 @@ import { auth } from "../../config/firebase";
 import { AuthContext } from "./AuthContext";
 import type { User, AuthContextData } from "../../types/firebase-types";
 import { updateUserInAuth } from "./auth-utils";
-import { useFirestore } from "../firestore/useFirestore";
+import { updateUserInDB } from "../firestore/firestore-utils";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const { updateProfileInDB } = useFirestore();
 
   async function signup(email: string, password: string) {
     const userCredential = await auth.createUserWithEmailAndPassword(
@@ -17,7 +15,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       password,
     );
     if (userCredential.user) {
-      await updateProfileInDB({
+      setCurrentUser(userCredential.user);
+      await updateUserInDB(userCredential.user, {
         email,
       });
     }
@@ -49,14 +48,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     displayName?: string;
   }) {
     await updateUserInAuth(currentUser, data);
-    await updateProfileInDB(data);
+    await updateUserInDB(currentUser, data);
   }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
-        console.log("User signed in:", user);
       } else {
         setCurrentUser(null);
       }

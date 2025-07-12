@@ -6,7 +6,7 @@ import {
   useState,
   type ChangeEvent,
 } from "react";
-import { useGemini } from "../features/gemini/gemini-utils";
+import { useGemini } from "../features/gemini/useGemini";
 import { formatFirebaseError } from "../utils/firebase-utils";
 import SwitchButton from "./SwitchButton";
 import { AIError } from "firebase/ai";

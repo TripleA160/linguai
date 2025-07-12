@@ -3,7 +3,7 @@ export type TooltipContextData = {
   isVisible: boolean;
   changeText: (text: string | null) => void;
   hideTooltip: () => void;
-  showTooltip: () => void;
+  showTooltip: (delay?: number) => void;
   toggleTooltip: () => void;
   move: (x?: number, y?: number) => void;
 };

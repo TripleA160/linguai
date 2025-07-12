@@ -104,8 +104,6 @@ export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
       setInitialTranslationHistory(translationHistory);
       isInitialHistory.current = false;
     }
-    console.log("Init History:", initialTranslationHistory);
-    console.log("History:", translationHistory);
   }, [translationHistory, initialTranslationHistory]);
 
   const contextData: FirestoreContextData = {

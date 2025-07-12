@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { TooltipContext } from "./TooltipContext";
 
 const TooltipProvider = ({ children }: { children: ReactNode }) => {
@@ -13,16 +13,56 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
     y: "top" | "bottom";
   }>({ x: "left", y: "top" });
 
+  const currentMousePosition = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const delayTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const changeText = (text: string | null = null) => {
     setCurrentText(text);
   };
 
   const hideTooltip = () => {
+    if (delayTimeout.current) {
+      clearTimeout(delayTimeout.current);
+      delayTimeout.current = null;
+    }
+    if (!isVisible) return;
+
     setIsVisible(false);
   };
 
-  const showTooltip = () => {
-    setIsVisible(true);
+  const showTooltip = (delay: number = 0) => {
+    if (isVisible) return;
+
+    if (delay > 0) {
+      delayTimeout.current = setTimeout(() => {
+        setPosition(currentMousePosition.current);
+        setDirection({
+          x:
+            currentMousePosition.current.x + 252 > window.innerWidth
+              ? "left"
+              : "right",
+          y:
+            currentMousePosition.current.y > window.innerHeight
+              ? "top"
+              : "bottom",
+        });
+        setIsVisible(true);
+        delayTimeout.current = null;
+      }, delay);
+    } else {
+      setPosition(currentMousePosition.current);
+      setDirection({
+        x:
+          currentMousePosition.current.x + 252 > window.innerWidth
+            ? "left"
+            : "right",
+        y:
+          currentMousePosition.current.y > window.innerHeight
+            ? "top"
+            : "bottom",
+      });
+      setIsVisible(true);
+    }
   };
 
   const toggleTooltip = () => {
@@ -41,6 +81,8 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
+      currentMousePosition.current = { x: event.clientX, y: event.clientY };
+
       if (isVisible) {
         setPosition({
           x: event.clientX,

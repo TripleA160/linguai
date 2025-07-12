@@ -45,7 +45,7 @@ const HeaderSettingsArea = () => {
     <>
       <div
         ref={containerRef}
-        className="relative flex items-center justify-start w-1/5"
+        className="relative flex items-center justify-start"
       >
         <GearButton ref={gearButtonRef} onClick={handleGearClick} />
 

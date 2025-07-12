@@ -24,7 +24,6 @@ const LanguageSelector = ({ value, onChange, languages, label, id }: Props) => {
           const selected = languages.find(
             (lang) => lang.code === e.target.value,
           );
-          console.log(selected);
           if (selected) onChange(selected);
         }}
         className="border transition-all duration-180 focus:drop-shadow-button-1 border-border-100

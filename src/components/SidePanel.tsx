@@ -1,6 +1,7 @@
 import { useRef, useState, type ReactNode } from "react";
 import { useTooltip } from "../features/tooltip/useTooltip";
 import { random } from "lodash";
+import DeleteButton from "./DeleteButton";
 
 type Props = {
   label: string;
@@ -9,7 +10,8 @@ type Props = {
     id?: string;
     icon: ReactNode;
     text: string;
-    onClick?: () => void;
+    onSelect?: () => void;
+    onDelete?: () => void;
   }[];
 };
 
@@ -72,9 +74,9 @@ const SidePanel = ({ label, icon, items }: Props) => {
             <button
               key={item.id || item.text + random()}
               onClick={(event) => {
-                if (item.onClick) {
+                if (item.onSelect) {
                   event.stopPropagation();
-                  item.onClick();
+                  item.onSelect();
                 }
               }}
               onMouseEnter={() => {
@@ -97,9 +99,12 @@ const SidePanel = ({ label, icon, items }: Props) => {
               </div>
 
               {!isCollapsed && (
+                <>
                 <div className="text-sm text-primary-200 dark:text-primary-dark-200 truncate w-full pr-1.5">
                   {item.text}
                 </div>
+                <DeleteButton onClick={(event) => { if (item.onDelete) {event.stopPropagation();item.onDelete()}}}/>
+                </>
               )}
             </button>
           ))}

@@ -63,7 +63,7 @@ const HeaderUserArea = () => {
       {currentUser ? (
         <div
           ref={containerRef}
-          className="relative flex items-center justify-end w-1/5"
+          className="relative flex items-center justify-end"
         >
           <div className="flex group items-center gap-2">
             <button

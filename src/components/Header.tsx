@@ -7,9 +7,9 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="w-full z-50 min-h-12 flex items-center justify-center mb-6 pl-2 pr-2">
+    <header className="w-full z-50 min-h-12 flex items-center justify-between mb-6 pl-2 pr-2 relative">
       <HeaderSettingsArea />
-      <div className="flex gap-2 items-center justify-center flex-1">
+      <div className="flex gap-2 items-center justify-center absolute left-1/2 -translate-x-1/2">
         <div
           onClick={() => navigate("/")}
           className="cursor-pointer flex gap-2 items-center justify-center"

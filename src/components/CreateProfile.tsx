@@ -11,7 +11,7 @@ const CreateProfile = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { updateProfileInAuth, currentUser } = useAuth();
+  const { updateProfileInAuth } = useAuth();
   const { updateProfileInDB } = useFirestore();
 
   const navigate = useNavigate();
@@ -33,9 +33,6 @@ const CreateProfile = () => {
         username: usernameRef.current!.value,
         displayName: displayNameRef.current!.value,
       });
-      console.log(usernameRef.current!.value);
-      console.log(displayNameRef.current!.value);
-      console.log(currentUser);
       setError(null);
       navigate("/");
       setLoading(false);
@@ -47,7 +44,7 @@ const CreateProfile = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className="form self-center w-full">
         <h1 className="form-title">Create Profile</h1>
         {error && <div className="form-error">{error}</div>}
         <div className="form-field">

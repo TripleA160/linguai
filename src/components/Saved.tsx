@@ -4,7 +4,6 @@ import { useFirestore } from "../features/firestore/useFirestore";
 import SidePanel from "./SidePanel";
 
 //TODO: Display date of each translation
-//TODO: Add delete button
 const Saved = ({
   onSelect,
 }: {
@@ -16,24 +15,25 @@ const Saved = ({
     targetLanguage: string;
   }) => void;
 }) => {
-  const { savedTranslations } = useFirestore();
+  const { savedTranslations, deleteTranslationFromUserSaved } = useFirestore();
   return (
     <>
       <SidePanel
         label="Saved"
         icon={<SavedIcon />}
-        items={savedTranslations?.map((item) => ({
-          id: item.id,
+        items={savedTranslations?.map((translation) => ({
+          id: translation.id,
           icon: <SavedItemIcon />,
-          text: item.translatedText,
-          onClick: () =>
+          text: translation.translatedText,
+          onSelect: () =>
             onSelect({
-              id: item.id,
-              sourceText: item.sourceText,
-              translatedText: item.translatedText,
-              sourceLanguage: item.sourceLanguage,
-              targetLanguage: item.targetLanguage,
+              id: translation.id,
+              sourceText: translation.sourceText,
+              translatedText: translation.translatedText,
+              sourceLanguage: translation.sourceLanguage,
+              targetLanguage: translation.targetLanguage,
             }),
+            onDelete: () => deleteTranslationFromUserSaved(translation.id)
         }))}
       />
     </>
