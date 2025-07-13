@@ -7,5 +7,5 @@ export const AuthContext = createContext<AuthContextData>({
   login: () => Promise.resolve(null),
   logout: () => Promise.resolve(),
   resetPassword: () => Promise.resolve(),
-  updateProfileInAuth: () => Promise.resolve(),
+  updateProfile: () => Promise.resolve(),
 });

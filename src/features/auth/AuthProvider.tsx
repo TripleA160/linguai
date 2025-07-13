@@ -9,16 +9,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  async function signup(email: string, password: string) {
+  async function signup(email: string, password: string, displayName?: string) {
     const userCredential = await auth.createUserWithEmailAndPassword(
       email,
       password,
     );
     if (userCredential.user) {
       setCurrentUser(userCredential.user);
-      await updateUserInDB(userCredential.user, {
-        email,
-      });
+      if (displayName) {
+        await updateUserInAuth(userCredential.user, { email, displayName });
+        await updateUserInDB(userCredential.user, { email, displayName }, true);
+      } else {
+        await updateUserInDB(
+          userCredential.user,
+          {
+            email,
+          },
+          true,
+        );
+      }
     }
     return userCredential;
   }
@@ -43,12 +52,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await auth.sendPasswordResetEmail(email);
   }
 
-  async function updateProfileInAuth(data: {
-    email?: string;
-    displayName?: string;
-  }) {
-    await updateUserInAuth(currentUser, data);
-    await updateUserInDB(currentUser, data);
+  async function updateProfile(
+    data: { email?: string; displayName?: string },
+    user?: User,
+  ) {
+    if (user) {
+      await updateUserInAuth(user, data);
+      await updateUserInDB(user, data);
+    } else {
+      await updateUserInAuth(currentUser, data);
+      await updateUserInDB(currentUser, data);
+    }
   }
 
   useEffect(() => {
@@ -71,7 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     login,
     logout,
     resetPassword,
-    updateProfileInAuth,
+    updateProfile,
   };
 
   return (

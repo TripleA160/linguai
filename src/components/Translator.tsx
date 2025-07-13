@@ -47,7 +47,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   const [sourceLanguage, setSourceLanguage] = useState<Language>(languages[1]);
   const [targetLanguage, setTargetLanguage] = useState<Language>(languages[0]);
   const [translatedText, setTranslatedText] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { translate } = useGemini();
@@ -67,9 +67,6 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       if (!shouldUpdateTranslation.current || !text || text.length === 0) {
         setTranslatedText("");
         setLoading(false);
-        console.error(
-          `returned from updateTranslation()\nshouldUpdateTranslation = ${shouldUpdateTranslation.current}\ntext = ${text}`,
-        );
         return;
       }
 
@@ -228,14 +225,16 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           pl-3.5 pr-3.5 pt-6 pb-6 rounded-4xl"
       >
         <div className="flex flex-col w-full h-full pl-3.5 pr-3.5 pt-1 pb-1 overflow-y-auto">
-          {error && (
-            <div
-              className="text-red-700 mb-2 text-sm rounded-md p-2 bg-red-100 selection:bg-red-50
-                selection:rounded-md"
-            >
-              {error}
-            </div>
-          )}
+          {error &&
+            (Array.isArray(error) && error.length > 1 ? (
+              <ul className="error mb-2">
+                {error.map((e, i) => (
+                  <li key={i}>{e}</li>
+                ))}
+              </ul>
+            ) : (
+              <div className="error mb-2">{error}</div>
+            ))}
           <div
             className="group border h-48 w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 shrink-0 resize-none
               transition-all duration-300 border-border-100 dark:border-none bg-background-100

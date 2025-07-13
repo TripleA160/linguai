@@ -4,11 +4,12 @@ import { useAuth } from "../features/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const nameRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const passwordConfirmRef = useRef<HTMLInputElement | null>(null);
 
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { signup } = useAuth();
@@ -18,10 +19,26 @@ const Signup = () => {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    if (emailRef.current === null) return setError("Please enter an email.");
+    if (
+      !nameRef.current ||
+      !emailRef.current ||
+      !passwordRef.current ||
+      !passwordConfirmRef.current
+    )
+      return;
 
-    if (passwordRef.current === null)
-      return setError("Please enter a password.");
+    const inputError: string[] = [];
+
+    if (!nameRef.current.value) inputError.push("Please enter a name.");
+
+    if (!emailRef.current.value) inputError.push("Please enter an email.");
+
+    if (!passwordRef.current.value) inputError.push("Please enter a password.");
+
+    if (passwordRef.current.value && !passwordConfirmRef.current.value)
+      inputError.push("Please confirm your password.");
+
+    if (inputError.length > 0) return setError(inputError);
 
     const password = passwordRef.current.value;
     const passwordError: string[] = [];
@@ -47,10 +64,7 @@ const Signup = () => {
         "Password must contain at least one uppercase character.",
       );
 
-    if (passwordError.length > 0) return setError(passwordError.join("\n"));
-
-    if (passwordConfirmRef.current === null)
-      return setError("Please enter password confirmation.");
+    if (passwordError.length > 0) return setError(passwordError);
 
     if (password !== passwordConfirmRef.current.value)
       return setError("Passwords do not match.");
@@ -58,10 +72,10 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      await signup(emailRef.current.value, password);
+      await signup(emailRef.current.value, password, nameRef.current.value);
       setError(null);
       setLoading(false);
-      navigate("/create-profile");
+      navigate("/");
     } catch (error) {
       setError(formatFirebaseError(error));
     }
@@ -71,9 +85,29 @@ const Signup = () => {
     <>
       <form onSubmit={handleSubmit} className="form self-center w-full">
         <h1 className="form-title">Sign Up</h1>
-        {error && <div className="form-error whitespace-pre-line">{error}</div>}
+        {error &&
+          (Array.isArray(error) && error.length > 1 ? (
+            <ul className="error">
+              {error.map((e, i) => (
+                <li key={i}>{e}</li>
+              ))}
+            </ul>
+          ) : (
+            <div className="error">{error}</div>
+          ))}
         <div className="form-field">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="display-name">Name</label>
+          <input
+            ref={nameRef}
+            type="text"
+            id="display-name"
+            name="display-name"
+            required
+            className="form-input"
+          />
+        </div>
+        <div className="form-field">
+          <label htmlFor="email">Email</label>
           <input
             ref={emailRef}
             type="email"
@@ -83,7 +117,7 @@ const Signup = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <input
             ref={passwordRef}
             type="password"
@@ -93,7 +127,7 @@ const Signup = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="password-confirm">Confirm password:</label>
+          <label htmlFor="password-confirm">Confirm password</label>
           <input
             ref={passwordConfirmRef}
             type="password"

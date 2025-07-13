@@ -7,7 +7,7 @@ const Login = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { login } = useAuth();
@@ -17,11 +17,15 @@ const Login = () => {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    if (emailRef.current === null || emailRef.current.value.length === 0)
-      return setError("Please enter an email.");
+    if (!emailRef.current || !passwordRef.current) return;
 
-    if (passwordRef.current === null || passwordRef.current.value.length === 0)
-      return setError("Please enter a password.");
+    const inputError: string[] = [];
+
+    if (!emailRef.current.value) inputError.push("Please enter an email.");
+
+    if (!passwordRef.current.value) inputError.push("Please enter a password.");
+
+    if (inputError.length > 0) return setError(inputError);
 
     setLoading(true);
 
@@ -32,7 +36,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      setError(formatFirebaseError(error));
+      setError([formatFirebaseError(error)]);
     }
   }
 
@@ -40,9 +44,18 @@ const Login = () => {
     <>
       <form onSubmit={handleSubmit} className="form self-center w-full">
         <h1 className="form-title">Login</h1>
-        {error && <div className="form-error">{error}</div>}
+        {error &&
+          (Array.isArray(error) && error.length > 1 ? (
+            <ul className="error">
+              {error.map((e, i) => (
+                <li key={i}>{e}</li>
+              ))}
+            </ul>
+          ) : (
+            <div className="error">{error}</div>
+          ))}
         <div className="form-field">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email</label>
           <input
             ref={emailRef}
             type="email"
@@ -52,7 +65,7 @@ const Login = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <input
             ref={passwordRef}
             type="password"

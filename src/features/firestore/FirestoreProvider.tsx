@@ -4,6 +4,7 @@ import type {
   FirestoreContextData,
   SavedTranslationsItem,
   TranslationHistoryItem,
+  User,
 } from "../../types/firebase-types";
 import { FirestoreContext } from "./FirestoreContext";
 import {
@@ -31,12 +32,18 @@ export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
 
   const isInitialHistory = useRef<boolean>(true);
 
-  async function updateProfileInDB(data: {
-    email?: string;
-    username?: string;
-    displayName?: string;
-  }) {
-    return updateUserInDB(currentUser, data);
+  async function updateProfileInDB(
+    data: {
+      email?: string;
+      displayName?: string;
+    },
+    user?: User,
+  ) {
+    if (user) {
+      return updateUserInDB(user, data);
+    } else {
+      return updateUserInDB(currentUser, data);
+    }
   }
 
   async function addTranslationToUserSaved(translation: {

@@ -3,7 +3,6 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import { AuthProvider } from "./features/auth/AuthProvider";
-import CreateProfile from "./components/CreateProfile";
 import { GeminiProvider } from "./features/gemini/GeminiProvider";
 import ThemeProvider from "./features/theme/ThemeProvider";
 import { FirestoreProvider } from "./features/firestore/FirestoreProvider";
@@ -29,10 +28,6 @@ function App() {
                       <Route path="/" element={<Home />} />
                       <Route path="/signup" element={<Signup />} />
                       <Route path="/login" element={<Login />} />
-                      <Route
-                        path="/create-profile"
-                        element={<CreateProfile />}
-                      />
                     </Routes>
                   </Router>
                 </div>

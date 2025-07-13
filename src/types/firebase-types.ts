@@ -1,4 +1,3 @@
-import type { FirebaseError } from "firebase/app";
 import { auth } from "../config/firebase";
 
 export type User = typeof auth.currentUser;
@@ -8,25 +7,31 @@ export type AuthContextData = {
   signup: (
     email: string,
     password: string,
-  ) => Promise<firebase.default.auth.UserCredential | FirebaseError | null>;
+    displayName?: string,
+  ) => Promise<firebase.default.auth.UserCredential | null>;
   login: (
     email: string,
     password: string,
-  ) => Promise<firebase.default.auth.UserCredential | FirebaseError | null>;
+  ) => Promise<firebase.default.auth.UserCredential | null>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
-  updateProfileInAuth: (data: {
-    email?: string;
-    displayName?: string;
-  }) => Promise<void>;
+  updateProfile: (
+    data: {
+      email?: string;
+      displayName?: string;
+    },
+    user?: User,
+  ) => Promise<void>;
 };
 
 export type FirestoreContextData = {
-  updateProfileInDB: (data: {
-    email?: string;
-    username?: string;
-    displayName?: string;
-  }) => Promise<void>;
+  updateProfileInDB: (
+    data: {
+      email?: string;
+      displayName?: string;
+    },
+    user?: User,
+  ) => Promise<void>;
   addTranslationToUserHistory: (translation: {
     sourceText: string;
     translatedText: string;

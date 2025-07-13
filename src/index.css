@@ -16,8 +16,8 @@
   --color-accent-200: hsl(208, 100%, 37%);
 
   --color-background-100: hsl(0, 0%, 100%);
-  --color-background-200: #f2f5f7;
-  --color-background-300: #e9eef2;
+  --color-background-200: hsl(204, 24%, 96%);
+  --color-background-300: hsl(207, 26%, 93%);
 
   --color-border-100: hsla(215, 16%, 85%, 0.6);
   --color-border-200: hsla(215, 10%, 22%, 0.7);
@@ -29,16 +29,14 @@
   --color-secondary-dark-200: hsl(215, 20%, 68%);
   --color-secondary-dark-300: hsl(215, 15%, 52%);
 
-  --color-background-dark-100: #3c5062;
-  --color-background-dark-200: #334352;
-  --color-background-dark-300: #2f3a46;
-  --color-background-dark-400: #1e242e;
+  --color-background-dark-100: hsl(208, 24%, 31%);
+  --color-background-dark-200: hsl(209, 23%, 26%);
+  --color-background-dark-300: hsl(211, 20%, 23%);
+  --color-background-dark-400: hsl(218, 21%, 15%);
 
   --shadow-subtle: 0 0 5px hsla(0, 0%, 0%, 0.05);
-  --shadow-text-box: 0 0 6px hsla(208, 100%, 55%, 0.25);
-  --drop-shadow-button-1: 0 0 5px hsla(208, 70%, 50%, 0.3);
-  --drop-shadow-button-2: 0 0 7px hsla(208, 70%, 50%, 0.5);
-  --drop-shadow-button-3: 0 0 10px hsla(208, 70%, 50%, 0.75);
+  --shadow-text-box: 0 0 5px hsla(208, 100%, 75%, 0.4);
+  --shadow-button: 0 0 8px hsla(208, 100%, 70%, 0.5);
 }
 
 @utility no-scrollbar {
@@ -47,22 +45,25 @@
 
 @layer components {
   .form {
-    @apply flex max-w-lg min-w-xs flex-1 flex-col gap-4 rounded-md border-1 p-4;
+    @apply bg-background-100 dark:bg-background-dark-300 flex max-w-lg min-w-xs flex-1 flex-col items-center gap-4 rounded-4xl p-6;
   }
   .form-title {
-    @apply mb-6 text-3xl;
+    @apply mb-6 text-3xl select-none;
   }
   .form-input {
-    @apply h-11 w-full rounded-md border-2 border-gray-700 p-2 transition-colors duration-250 focus:border-3;
+    @apply border-border-100 focus:outline-primary-200 dark:focus:outline-primary-dark-200 focus:border-primary-200 dark:focus:border-primary-dark-200 h-11 w-full rounded-md border-2 p-2 outline-1 outline-transparent transition-colors duration-250;
   }
   .form-field {
-    @apply flex flex-col items-start gap-2;
+    @apply flex w-full flex-col items-start gap-2;
   }
   .form-button {
-    @apply focus:drop-shadow-button-2 mt-4 h-11 w-full cursor-pointer rounded-md bg-gray-500 text-white transition-colors duration-250 outline-none hover:bg-gray-600 focus-visible:bg-gray-600 active:bg-gray-700;
+    @apply focus:outline-primary-200 focus:shadow-button dark:focus:outline-primary-dark-200 bg-secondary-100 dark:bg-secondary-dark-100 hover:bg-secondary-200 dark:hover:bg-secondary-dark-200 focus-visible:bg-secondary-200 dark:focus-visible:bg-secondary-dark-200 active:bg-secondary-300 dark:active:bg-secondary-dark-300 mt-4 h-11 w-full cursor-pointer rounded-md text-white outline-1 outline-transparent transition-all duration-180 dark:text-black;
   }
-  .form-error {
-    @apply rounded-xl border-1 border-red-500 p-2 text-red-500;
+  .error {
+    @apply mb-2 w-full rounded-md border-1 border-red-300 p-2 text-sm text-red-400 selection:rounded-md selection:bg-red-100 selection:text-red-600 dark:text-red-300 dark:selection:bg-red-200 dark:selection:text-red-700;
+  }
+  .error li {
+    @apply relative pl-3 before:absolute before:left-0 before:content-['•'];
   }
 }
 
@@ -71,70 +72,3 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */

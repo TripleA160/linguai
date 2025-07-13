@@ -16,14 +16,23 @@ import type {
 
 export async function updateUserInDB(
   user: User,
-  data: { email?: string; username?: string; displayName?: string },
+  data: { email?: string; displayName?: string },
+  firstUpdate: boolean = false,
 ) {
   if (!user) return;
 
   const db = getFirestore();
   const userDoc = doc(db, "users", user.uid);
 
-  await setDoc(userDoc, data, { merge: true });
+  if (firstUpdate) {
+    await setDoc(
+      userDoc,
+      { ...data, createdAt: serverTimestamp() },
+      { merge: true },
+    );
+  } else {
+    await setDoc(userDoc, data, { merge: true });
+  }
 }
 
 export async function addTranslationToHistory(
