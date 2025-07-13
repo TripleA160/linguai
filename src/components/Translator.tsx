@@ -40,13 +40,14 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   const translateInputRef = useRef<HTMLTextAreaElement>(null);
   const translateOutputRef = useRef<HTMLDivElement>(null);
   const delay = useRef<number>(750);
+  const isCancelled = useRef<boolean>(false);
   const shouldUpdateTranslation = useRef<boolean>(true);
-  const isTranslationSaved = useRef<boolean>(false);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
 
   const [sourceLanguage, setSourceLanguage] = useState<Language>(languages[1]);
   const [targetLanguage, setTargetLanguage] = useState<Language>(languages[0]);
   const [translatedText, setTranslatedText] = useState<string | null>(null);
+  const [isTranslationSaved, setIsTranslationSaved] = useState<boolean>(false);
   const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -63,8 +64,9 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
 
   const updateTranslation = useCallback(
     async (text: string) => {
-      isTranslationSaved.current = false;
-      if (!shouldUpdateTranslation.current || !text || text.length === 0) {
+      setIsTranslationSaved(false);
+      if (!shouldUpdateTranslation.current || !text || text.trim() === "") {
+        setSelectedTranslation(null);
         setTranslatedText("");
         setLoading(false);
         return;
@@ -77,6 +79,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           text,
           targetLanguage.name,
           sourceLanguage.name,
+          isCancelled,
         );
         if (result) {
           setError(null);
@@ -96,7 +99,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
         setLoading(false);
       }
     },
-    [sourceLanguage, targetLanguage, translate],
+    [sourceLanguage, targetLanguage, translate, setSelectedTranslation],
   );
 
   const updateTranslationRef = useRef(updateTranslation);
@@ -122,7 +125,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   useEffect(() => {
     if (selectedTranslation) {
       shouldUpdateTranslation.current = false;
-      console.log(selectedTranslation);
+      console.log("Selected translation:", selectedTranslation);
       const sourceLang = languages.find(
         (lang) =>
           lang.name === selectedTranslation.sourceLanguage ||
@@ -138,14 +141,21 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       if (translateInputRef.current)
         translateInputRef.current.value = selectedTranslation.sourceText;
       setTranslatedText(selectedTranslation.translatedText);
-      isTranslationSaved.current = savedTranslations?.find(
-        (translation) => translation.id === selectedTranslation.id,
-      )
-        ? true
-        : false;
+      if (savedTranslations) {
+        const savedVariant = savedTranslations.find(
+          (translation) => translation.id === selectedTranslation.id,
+        );
+        if (savedVariant) setIsTranslationSaved(true);
+        else setIsTranslationSaved(false);
+      }
       setTimeout(() => {
         shouldUpdateTranslation.current = true;
       }, delay.current);
+    } else {
+      console.log("Unselected translation");
+      if (translateInputRef.current) translateInputRef.current.value = "";
+      if (translatedText) setTranslatedText(null);
+      if (isTranslationSaved) setIsTranslationSaved(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTranslation]);
@@ -187,6 +197,14 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
+    if (e.target.value.trim() === "") {
+      isCancelled.current = true;
+      setTranslatedText("");
+      setSelectedTranslation(null);
+      setLoading(false);
+      return;
+    }
+    isCancelled.current = false;
     updateTranslationWithDelay(e.target.value);
   };
 
@@ -202,9 +220,9 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   const handleSave = () => {
     if (!selectedTranslation) return;
 
-    if (isTranslationSaved.current) {
+    if (isTranslationSaved) {
       deleteTranslationFromUserSaved(selectedTranslation.id);
-      isTranslationSaved.current = false;
+      setIsTranslationSaved(false);
     } else {
       addTranslationToUserSaved({
         id: selectedTranslation.id,
@@ -214,7 +232,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
         targetLanguage: selectedTranslation.targetLanguage,
       });
       translateInputRef.current?.focus();
-      isTranslationSaved.current = true;
+      setIsTranslationSaved(true);
     }
   };
 
@@ -292,7 +310,12 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           >
             <div>
               {loading ? (
-                <div className="text-secondary-300">Translating...</div>
+                <div
+                  className="select-none text-secondary-200 dark:text-secondary-dark-200
+                    animate-[pulse_1.2s_cubic-bezier(.2,.35,.8,.65)_infinite]"
+                >
+                  Translating...
+                </div>
               ) : (
                 translatedText
               )}

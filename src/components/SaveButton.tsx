@@ -1,10 +1,10 @@
 import SaveIcon from "../assets/save-icon.svg?react";
-import type { Ref, RefObject } from "react";
+import type { Ref } from "react";
 
 type Props = {
   onClick?: () => void;
   ref?: Ref<HTMLButtonElement>;
-  isSaved?: RefObject<boolean>;
+  isSaved?: boolean;
 };
 
 const SaveButton = ({ onClick, ref, isSaved }: Props) => {
@@ -19,7 +19,7 @@ const SaveButton = ({ onClick, ref, isSaved }: Props) => {
       >
         <SaveIcon
           className={`transition-all duration-180 ${
-            isSaved?.current
+            isSaved
               ? "stroke-[url(#gradientSB)] fill-[url(#gradientSB)]"
               : `stroke-secondary-100 fill-transparent group-hover:stroke-secondary-200
                 group-hover:fill-secondary-200 group-focus:stroke-secondary-200

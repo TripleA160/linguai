@@ -74,14 +74,15 @@ export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function deleteTranslationFromUserHistory(translationID: string) {
-    deleteTranslationFromHistory(currentUser, translationID);
+    await deleteTranslationFromHistory(currentUser, translationID);
 
     const updatedHistory = await getTranslationsFromHistory(currentUser);
     setTranslationHistory(updatedHistory);
+    setInitialTranslationHistory(updatedHistory);
   }
 
   async function deleteTranslationFromUserSaved(translationID: string) {
-    deleteTranslationFromSaved(currentUser, translationID);
+    await deleteTranslationFromSaved(currentUser, translationID);
 
     const updatedSaved = await getTranslationsFromSaved(currentUser);
     setSavedTranslations(updatedSaved);

@@ -1,4 +1,4 @@
-import { useCallback, useState, type ReactNode } from "react";
+import { useCallback, useState, type ReactNode, type RefObject } from "react";
 import { GeminiContext } from "./GeminiContext";
 import type { GeminiContextData } from "../../types/firebase-types";
 import { generateTranslation } from "./gemini-utils";
@@ -19,6 +19,7 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
       text: string,
       targetLanguage: string = "English",
       sourceLanguage: string,
+      isCancelledRef?: RefObject<boolean>,
     ) => {
       const currentTime = Date.now();
       const timeDifference = currentTime - lastRequestTime;
@@ -31,11 +32,17 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
         setIsRateLimited(false);
       }
       setLastRequestTime(Date.now());
+
+      if (isCancelledRef && isCancelledRef.current) return null;
+
       const result = await generateTranslation(
         text,
         targetLanguage,
         sourceLanguage,
       );
+
+      if (isCancelledRef && isCancelledRef.current) return null;
+
       setCurrentResponse(result);
       setCurrentPrompt(text);
       if (currentUser) {

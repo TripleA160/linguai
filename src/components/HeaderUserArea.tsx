@@ -101,7 +101,11 @@ const HeaderUserArea = () => {
           </div>
 
           <DropdownMenu ref={dropdownRef} className="min-w-40">
-            <AuthButton label="Logout" onClick={handleLogoutClick} />
+            <AuthButton
+              label="Logout"
+              onClick={handleLogoutClick}
+              className="w-20"
+            />
           </DropdownMenu>
         </div>
       ) : (

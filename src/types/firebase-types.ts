@@ -1,5 +1,6 @@
 import type { UserCredential } from "firebase/auth";
 import { auth } from "../config/firebase";
+import type { RefObject } from "react";
 
 export type User = typeof auth.currentUser;
 
@@ -57,6 +58,7 @@ export type GeminiContextData = {
     text: string,
     targetLanguage: string,
     sourceLanguage: string,
+    isCancelledRef?: RefObject<boolean>,
   ) => Promise<string | null>;
   isRateLimited: boolean;
 };

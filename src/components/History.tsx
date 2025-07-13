@@ -6,6 +6,7 @@ import SidePanel from "./SidePanel";
 //TODO: Display date of each translation
 const History = ({
   onSelect,
+  onDelete,
 }: {
   onSelect: (item: {
     id: string;
@@ -14,8 +15,9 @@ const History = ({
     sourceLanguage: string;
     targetLanguage: string;
   }) => void;
+  onDelete: (id: string) => void;
 }) => {
-  const { translationHistory, deleteTranslationFromUserHistory } = useFirestore();
+  const { translationHistory } = useFirestore();
   return (
     <>
       <SidePanel
@@ -33,7 +35,7 @@ const History = ({
               sourceLanguage: translation.sourceLanguage,
               targetLanguage: translation.targetLanguage,
             }),
-          onDelete: () => deleteTranslationFromUserHistory(translation.id)
+          onDelete: () => onDelete(translation.id),
         }))}
       />
     </>

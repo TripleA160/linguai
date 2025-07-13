@@ -71,7 +71,7 @@ const SidePanel = ({ label, icon, items }: Props) => {
           ref={containerRef}
         >
           {items?.map((item) => (
-            <button
+            <div
               key={item.id || item.text + random()}
               onClick={(event) => {
                 if (item.onSelect) {
@@ -103,17 +103,17 @@ const SidePanel = ({ label, icon, items }: Props) => {
                   <div className="text-sm text-primary-200 dark:text-primary-dark-200 truncate w-full pr-1.5">
                     {item.text}
                   </div>
-                  <DeleteButton
-                    onClick={(event) => {
-                      if (item.onDelete) {
+                  {item.onDelete && (
+                    <DeleteButton
+                      onClick={(event) => {
                         event.stopPropagation();
-                        item.onDelete();
-                      }
-                    }}
-                  />
+                        item.onDelete?.();
+                      }}
+                    />
+                  )}
                 </>
               )}
-            </button>
+            </div>
           ))}
         </div>
       </div>
