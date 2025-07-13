@@ -7,9 +7,8 @@ import {
   type ChangeEvent,
 } from "react";
 import { useGemini } from "../features/gemini/useGemini";
-import { formatFirebaseError } from "../utils/firebase-utils";
+import { formatAIError } from "../utils/firebase-utils";
 import SwitchButton from "./SwitchButton";
-import { AIError } from "firebase/ai";
 import debounce from "lodash/debounce";
 import LanguageSelector from "./LanguageSelector";
 import { languages, type Language } from "../utils/language-utils";
@@ -86,15 +85,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           setTranslatedText(result);
         }
       } catch (error) {
-        if (
-          error instanceof AIError &&
-          (error.message.includes("You exceeded your current quota") ||
-            error.code.includes("429"))
-        ) {
-          setError("Rate limit reached, please try again later.");
-        } else {
-          setError(formatFirebaseError(error));
-        }
+        setError(formatAIError(error));
       } finally {
         setLoading(false);
       }
