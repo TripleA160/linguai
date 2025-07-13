@@ -1,6 +1,6 @@
 import { useRef, useState, type ReactNode } from "react";
 import { useTooltip } from "../features/tooltip/useTooltip";
-import { random } from "lodash";
+import random from "lodash/random";
 import DeleteButton from "./DeleteButton";
 
 type Props = {
@@ -100,10 +100,17 @@ const SidePanel = ({ label, icon, items }: Props) => {
 
               {!isCollapsed && (
                 <>
-                <div className="text-sm text-primary-200 dark:text-primary-dark-200 truncate w-full pr-1.5">
-                  {item.text}
-                </div>
-                <DeleteButton onClick={(event) => { if (item.onDelete) {event.stopPropagation();item.onDelete()}}}/>
+                  <div className="text-sm text-primary-200 dark:text-primary-dark-200 truncate w-full pr-1.5">
+                    {item.text}
+                  </div>
+                  <DeleteButton
+                    onClick={(event) => {
+                      if (item.onDelete) {
+                        event.stopPropagation();
+                        item.onDelete();
+                      }
+                    }}
+                  />
                 </>
               )}
             </button>

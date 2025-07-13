@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "analyze": "tsc -b && vite build --mode analyze",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -35,6 +36,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-classnames": "^0.7.8",
     "prettier-plugin-tailwindcss": "^0.6.12",
+    "rollup-plugin-visualizer": "^6.0.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5"

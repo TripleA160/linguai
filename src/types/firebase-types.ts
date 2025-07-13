@@ -1,3 +1,4 @@
+import type { UserCredential } from "firebase/auth";
 import { auth } from "../config/firebase";
 
 export type User = typeof auth.currentUser;
@@ -8,11 +9,8 @@ export type AuthContextData = {
     email: string,
     password: string,
     displayName?: string,
-  ) => Promise<firebase.default.auth.UserCredential | null>;
-  login: (
-    email: string,
-    password: string,
-  ) => Promise<firebase.default.auth.UserCredential | null>;
+  ) => Promise<UserCredential | null>;
+  login: (email: string, password: string) => Promise<UserCredential | null>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updateProfile: (

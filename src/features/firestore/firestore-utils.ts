@@ -6,8 +6,10 @@ import {
   orderBy,
   query,
   serverTimestamp,
-} from "firebase/firestore";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+  getFirestore,
+  doc,
+  setDoc,
+} from "firebase/firestore/lite";
 import type {
   SavedTranslationsItem,
   TranslationHistoryItem,

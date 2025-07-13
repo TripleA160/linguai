@@ -1,8 +1,8 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getAI, getGenerativeModel, GoogleAIBackend } from "firebase/ai";
 
-const app = firebase.initializeApp({
+const app = initializeApp({
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
@@ -10,10 +10,9 @@ const app = firebase.initializeApp({
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-  gemeniApiKey: import.meta.env.VITE_GEMENI_API_KEY,
 });
 
-export const auth = firebase.auth(app);
+export const auth = getAuth(app);
 
 export const geminiAi = getAI(app, { backend: new GoogleAIBackend() });
 export const geminiModelMain = getGenerativeModel(geminiAi, {

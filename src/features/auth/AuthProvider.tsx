@@ -4,13 +4,20 @@ import { AuthContext } from "./AuthContext";
 import type { User, AuthContextData } from "../../types/firebase-types";
 import { updateUserInAuth } from "./auth-utils";
 import { updateUserInDB } from "../firestore/firestore-utils";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   async function signup(email: string, password: string, displayName?: string) {
-    const userCredential = await auth.createUserWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
       email,
       password,
     );
@@ -33,7 +40,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function login(email: string, password: string) {
-    const userCredential = await auth.signInWithEmailAndPassword(
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
       email,
       password,
     );
@@ -49,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function resetPassword(email: string) {
-    await auth.sendPasswordResetEmail(email);
+    await sendPasswordResetEmail(auth, email);
   }
 
   async function updateProfile(
@@ -66,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
       } else {

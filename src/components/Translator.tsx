@@ -10,7 +10,7 @@ import { useGemini } from "../features/gemini/useGemini";
 import { formatFirebaseError } from "../utils/firebase-utils";
 import SwitchButton from "./SwitchButton";
 import { AIError } from "firebase/ai";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import LanguageSelector from "./LanguageSelector";
 import { languages, type Language } from "../utils/language-utils";
 import SaveButton from "./SaveButton";

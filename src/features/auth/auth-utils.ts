@@ -1,3 +1,4 @@
+import { updateEmail, updateProfile } from "firebase/auth";
 import type { User } from "../../types/firebase-types";
 
 export async function updateUserInAuth(
@@ -7,9 +8,9 @@ export async function updateUserInAuth(
   if (!user) return;
 
   if (data.email) {
-    await user.updateEmail(data.email);
+    await updateEmail(user, data.email);
   }
   if (data.displayName) {
-    await user.updateProfile({ displayName: data.displayName });
+    await updateProfile(user, { displayName: data.displayName });
   }
 }
