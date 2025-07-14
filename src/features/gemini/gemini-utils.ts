@@ -13,28 +13,33 @@ export async function generateTranslation(
   sourceLanguage?: string,
 ) {
   const prompt = sourceLanguage
-    ? `You are a professional translation assistant.
+    ? `You are a professional translation model with deep understanding of linguistic context.
 
-    Translate the text **only if it is written in any dialect or variation of the ${sourceLanguage} language** (e.g., Modern Standard, colloquial, regional).
+Translate the following text from ${sourceLanguage} to ${targetLanguage}, including regional dialects, slang, idioms, informal speech, and culturally specific insults or humor.
 
-    If the text is not in ${sourceLanguage}, **do not translate it** — just return the input exactly as it is, without formatting, corrections, or changes.
-    
-    Preserve any line breaks, paragraph breaks, or spacing **if they contribute to the structure or meaning** of the text (e.g., poetry, conversations, lists).
+• Convey the **intended tone and meaning**, especially in informal or offensive language — do **not** translate literally.
+• Use natural equivalents in ${targetLanguage} that carry the **same emotional weight**.
+• Do NOT translate slang words literally.
+• Do not respond like a chatbot.
+• Return only the translated text.
+• Translate **only if** the input is in any variation of ${sourceLanguage}. If not, return it as-is without changes.
+• Preserve structure like line breaks, paragraph breaks, or spacing **if they matter to the meaning.**.
 
-    Translate the following text from ${sourceLanguage} to ${targetLanguage}:
+Input:
+${text}`
+    : `You are a professional translation model with deep understanding of linguistic context.
 
-    ${text}
+Detect the language of the input and translate it to ${targetLanguage}, including regional dialects, slang, idioms, informal speech, and culturally specific insults or humor.
 
-    Only return the translated text in ${targetLanguage}. Do not include any explanations, transliterations, or additional text.`
-    : `You are a professional translation assistant.
+• Convey the **intended tone and meaning**, especially in informal or offensive language — do **not** translate literally.
+• Use natural equivalents in ${targetLanguage} that carry the **same emotional weight**.
+• Do NOT translate slang words literally.
+• Do not respond like a chatbot.
+• Return only the translated text.
+• Preserve structure like line breaks, paragraph breaks, or spacing **if they matter to the meaning.**.
 
-    Preserve any line breaks, paragraph breaks, or spacing **if they contribute to the structure or meaning** of the text (e.g., poetry, conversations, lists).
-
-    Detect the language of the following text and translate it to ${targetLanguage}.
-
-    ${text}
-
-    Only return the translated text in ${targetLanguage}. Do not include any explanations, transliterations, or additional text.`;
+Input:
+${text}`;
 
   try {
     const result = await geminiModelMain.generateContent(prompt);
