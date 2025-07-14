@@ -15,10 +15,9 @@ export async function generateTranslation(
   const prompt = sourceLanguage
     ? `You are a professional translation model with deep understanding of linguistic context.
 
-Translate the following text from ${sourceLanguage} to ${targetLanguage}, including regional dialects, slang, idioms, informal speech, and culturally specific insults or humor.
+Translate the following text from ${sourceLanguage} to standard ${targetLanguage}.
 
 • Convey the **intended tone and meaning**, especially in informal or offensive language — do **not** translate literally.
-• Use natural equivalents in ${targetLanguage} that carry the **same emotional weight**.
 • Do NOT translate slang words literally.
 • Do not respond like a chatbot.
 • Return only the translated text.
@@ -29,10 +28,9 @@ Input:
 ${text}`
     : `You are a professional translation model with deep understanding of linguistic context.
 
-Detect the language of the input and translate it to ${targetLanguage}, including regional dialects, slang, idioms, informal speech, and culturally specific insults or humor.
+Detect the language of the following input (including regional dialects, slang, informal speech, and culturally specific insults or humor) and translate it to standard ${targetLanguage}.
 
 • Convey the **intended tone and meaning**, especially in informal or offensive language — do **not** translate literally.
-• Use natural equivalents in ${targetLanguage} that carry the **same emotional weight**.
 • Do NOT translate slang words literally.
 • Do not respond like a chatbot.
 • Return only the translated text.
