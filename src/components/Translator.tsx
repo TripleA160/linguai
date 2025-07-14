@@ -23,6 +23,7 @@ type Props = {
     translatedText: string;
     sourceLanguage: string;
     targetLanguage: string;
+    createdAt: string;
   } | null;
   setSelectedTranslation: React.Dispatch<
     React.SetStateAction<{
@@ -31,6 +32,7 @@ type Props = {
       translatedText: string;
       sourceLanguage: string;
       targetLanguage: string;
+      createdAt: string;
     } | null>
   >;
 };
@@ -167,6 +169,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       translatedText: recent.translatedText,
       sourceLanguage: recent.sourceLanguage,
       targetLanguage: recent.targetLanguage,
+      createdAt: recent.createdAt.toDate().toLocaleString(),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [translationHistory, initialTranslationHistory]);

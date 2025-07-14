@@ -14,6 +14,7 @@ const Saved = ({
     translatedText: string;
     sourceLanguage: string;
     targetLanguage: string;
+    createdAt: string;
   }) => void;
   onDelete: (id: string) => void;
 }) => {
@@ -23,20 +24,25 @@ const Saved = ({
       <SidePanel
         label="Saved"
         icon={<SavedIcon />}
-        items={savedTranslations?.map((translation) => ({
-          id: translation.id,
-          icon: <SavedItemIcon />,
-          text: translation.translatedText,
-          onSelect: () =>
-            onSelect({
-              id: translation.id,
-              sourceText: translation.sourceText,
-              translatedText: translation.translatedText,
-              sourceLanguage: translation.sourceLanguage,
-              targetLanguage: translation.targetLanguage,
-            }),
-          onDelete: () => onDelete(translation.id),
-        }))}
+        items={savedTranslations?.map((translation) => {
+          const createdAt = translation.createdAt.toDate().toLocaleString();
+          return {
+            id: translation.id,
+            icon: <SavedItemIcon />,
+            text: translation.translatedText,
+            additionalText: createdAt,
+            onSelect: () =>
+              onSelect({
+                id: translation.id,
+                sourceText: translation.sourceText,
+                translatedText: translation.translatedText,
+                sourceLanguage: translation.sourceLanguage,
+                targetLanguage: translation.targetLanguage,
+                createdAt: createdAt,
+              }),
+            onDelete: () => onDelete(translation.id),
+          };
+        })}
       />
     </>
   );

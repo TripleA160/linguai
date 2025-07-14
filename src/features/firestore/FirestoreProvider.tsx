@@ -98,6 +98,7 @@ export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
     const updateHistory = async () => {
       const updatedHistory = await getTranslationsFromHistory(currentUser);
       setTranslationHistory(updatedHistory);
+      console.log(updatedHistory);
     };
     const updateSaved = async () => {
       const updatedSaved = await getTranslationsFromSaved(currentUser);

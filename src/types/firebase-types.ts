@@ -1,6 +1,7 @@
 import type { UserCredential } from "firebase/auth";
 import { auth } from "../config/firebase";
 import type { RefObject } from "react";
+import type { Timestamp } from "firebase/firestore/lite";
 
 export type User = typeof auth.currentUser;
 
@@ -69,6 +70,7 @@ export type TranslationHistoryItem = {
   translatedText: string;
   sourceLanguage: string;
   targetLanguage: string;
+  createdAt: Timestamp;
 };
 
 export type SavedTranslationsItem = {
@@ -77,4 +79,5 @@ export type SavedTranslationsItem = {
   translatedText: string;
   sourceLanguage: string;
   targetLanguage: string;
+  createdAt: Timestamp;
 };

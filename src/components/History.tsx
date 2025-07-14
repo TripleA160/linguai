@@ -14,6 +14,7 @@ const History = ({
     translatedText: string;
     sourceLanguage: string;
     targetLanguage: string;
+    createdAt: string;
   }) => void;
   onDelete: (id: string) => void;
 }) => {
@@ -23,20 +24,25 @@ const History = ({
       <SidePanel
         label="History"
         icon={<HistoryIcon />}
-        items={translationHistory?.map((translation) => ({
-          id: translation.id,
-          icon: <HistoryItemIcon />,
-          text: translation.translatedText,
-          onSelect: () =>
-            onSelect({
-              id: translation.id,
-              sourceText: translation.sourceText,
-              translatedText: translation.translatedText,
-              sourceLanguage: translation.sourceLanguage,
-              targetLanguage: translation.targetLanguage,
-            }),
-          onDelete: () => onDelete(translation.id),
-        }))}
+        items={translationHistory?.map((translation) => {
+          const createdAt = translation.createdAt.toDate().toLocaleString();
+          return {
+            id: translation.id,
+            icon: <HistoryItemIcon />,
+            text: translation.translatedText,
+            additionalText: createdAt,
+            onSelect: () =>
+              onSelect({
+                id: translation.id,
+                sourceText: translation.sourceText,
+                translatedText: translation.translatedText,
+                sourceLanguage: translation.sourceLanguage,
+                targetLanguage: translation.targetLanguage,
+                createdAt: createdAt,
+              }),
+            onDelete: () => onDelete(translation.id),
+          };
+        })}
       />
     </>
   );

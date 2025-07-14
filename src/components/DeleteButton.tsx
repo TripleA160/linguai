@@ -13,7 +13,8 @@ const DeleteButton = ({ onClick, ref }: Props) => {
     <button
       ref={ref}
       className="w-7 p-1 cursor-pointer bg-transparent text-secondary-200
-        dark:text-secondary-dark-200 transition-all duration-180 outline-none
+        dark:text-secondary-dark-200
+        [transition:color_200ms_cubic-bezier(.15,.55,.75,.85)] outline-none
         hover:text-red-600 focus-visible:text-red-600 active:text-red-700"
       onClick={onClick}
       onMouseEnter={() => {

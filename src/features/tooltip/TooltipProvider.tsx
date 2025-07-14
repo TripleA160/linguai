@@ -38,7 +38,7 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
         setPosition(currentMousePosition.current);
         setDirection({
           x:
-            currentMousePosition.current.x + 252 > window.innerWidth
+            currentMousePosition.current.x + 220 > window.innerWidth
               ? "left"
               : "right",
           y:
@@ -53,7 +53,7 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
       setPosition(currentMousePosition.current);
       setDirection({
         x:
-          currentMousePosition.current.x + 252 > window.innerWidth
+          currentMousePosition.current.x + 220 > window.innerWidth
             ? "left"
             : "right",
         y:
@@ -89,7 +89,7 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
           y: event.clientY,
         });
         setDirection({
-          x: event.clientX + 252 > window.innerWidth ? "left" : "right",
+          x: event.clientX + 220 > window.innerWidth ? "left" : "right",
           y: event.clientY + 44 > window.innerHeight ? "top" : "bottom",
         });
       }
@@ -114,6 +114,7 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       <div
+        dir="auto"
         style={{
           ...(direction.x === "left"
             ? { right: `${window.innerWidth - position.x + 6}px` }
@@ -124,7 +125,7 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
         }}
         className={`fixed z-1000 pointer-events-none text-primary-100 dark:text-primary-dark-100
           bg-background-100 dark:bg-background-dark-100 border border-border-100
-          dark:border-none rounded-md font-light max-w-60 max-h-8 truncate pr-2 pl-2
+          dark:border-none rounded-md font-light max-w-52 max-h-8 truncate pr-2 pl-2
           shadow-md transition-opacity ${isVisible ? "opacity-100" : "opacity-0"}`}
       >
         {currentText && currentText}

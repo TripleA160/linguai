@@ -11,6 +11,7 @@ const Home = () => {
     translatedText: string;
     sourceLanguage: string;
     targetLanguage: string;
+    createdAt: string;
   } | null>(null);
   const { deleteTranslationFromUserHistory, deleteTranslationFromUserSaved } =
     useFirestore();
