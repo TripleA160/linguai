@@ -36,7 +36,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      setError([formatFirebaseError(error)]);
+      setError(formatFirebaseError(error));
     }
   }
 

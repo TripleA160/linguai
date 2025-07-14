@@ -2,11 +2,16 @@ import { AIError } from "firebase/ai";
 import { FirebaseError } from "firebase/app";
 
 const authErrorMessages: Record<string, string> = {
-  "auth/email-already-in-use": "This email is already used.",
-  "auth/invalid-email": "This email is not valid, please check and try again.",
-  "auth/weak-password": "Password is too weak.",
-  "auth/user-not-found": "Wrong email or password, try again or signup.",
-  "auth/wrong-password": "Wrong email or password, try again or signup.",
+  "auth/email-already-in-use": "This email is already in use.",
+  "auth/invalid-email":
+    "This email address is not valid. Please check and try again.",
+  "auth/weak-password": "Your password is too weak.",
+  "auth/invalid-credential":
+    "Incorrect email or password. Try again or sign up.",
+  "auth/user-not-found": "Incorrect email or password. Try again or sign up.",
+  "auth/wrong-password": "Incorrect email or password. Try again or sign up.",
+  "auth/user-disabled": "This account has been disabled.",
+  "auth/too-many-requests": "Too many attempts. Please try again later.",
 };
 
 export const formatFirebaseError = (error: FirebaseError | unknown): string => {
