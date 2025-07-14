@@ -83,7 +83,11 @@ const Signup = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="form self-center w-full">
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="form self-center w-full"
+      >
         <h1 className="form-title">Sign Up</h1>
         {error &&
           (Array.isArray(error) && error.length > 1 ? (
