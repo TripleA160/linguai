@@ -1,6 +1,7 @@
 import type { Ref } from "react";
 import DeleteIcon from "../assets/delete-icon.svg?react";
 import { useTooltip } from "../features/tooltip/useTooltip";
+import { useLocalization } from "../features/localization/useLocalization";
 
 type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -8,6 +9,7 @@ type Props = {
 };
 
 const DeleteButton = ({ onClick, ref }: Props) => {
+  const { currentLocale } = useLocalization();
   const tooltip = useTooltip();
   return (
     <button
@@ -18,7 +20,7 @@ const DeleteButton = ({ onClick, ref }: Props) => {
         hover:text-red-600 focus-visible:text-red-600 active:text-red-700"
       onClick={onClick}
       onMouseEnter={() => {
-        tooltip.changeText("Delete");
+        tooltip.changeText(currentLocale.navigation.delete);
         tooltip.showTooltip(500);
       }}
       onMouseLeave={() => tooltip.hideTooltip()}

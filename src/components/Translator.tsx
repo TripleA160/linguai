@@ -11,10 +11,14 @@ import { formatAIError } from "../utils/firebase-utils";
 import SwitchButton from "./SwitchButton";
 import debounce from "lodash/debounce";
 import LanguageSelector from "./LanguageSelector";
-import { languages, type Language } from "../utils/language-utils";
+import {
+  translatorLanguages,
+  type TranslatorLanguage,
+} from "../utils/translator-utils";
 import SaveButton from "./SaveButton";
 import { useFirestore } from "../features/firestore/useFirestore";
 import { useAuth } from "../features/auth/useAuth";
+import { useLocalization } from "../features/localization/useLocalization";
 
 type Props = {
   selectedTranslation?: {
@@ -45,13 +49,18 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   const shouldUpdateTranslation = useRef<boolean>(true);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
 
-  const [sourceLanguage, setSourceLanguage] = useState<Language>(languages[1]);
-  const [targetLanguage, setTargetLanguage] = useState<Language>(languages[0]);
+  const [sourceLanguage, setSourceLanguage] = useState<TranslatorLanguage>(
+    translatorLanguages[1],
+  );
+  const [targetLanguage, setTargetLanguage] = useState<TranslatorLanguage>(
+    translatorLanguages[0],
+  );
   const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [isTranslationSaved, setIsTranslationSaved] = useState<boolean>(false);
   const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { currentLocale } = useLocalization();
   const { translate } = useGemini();
   const { currentUser } = useAuth();
 
@@ -87,12 +96,18 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           setTranslatedText(result);
         }
       } catch (error) {
-        setError(formatAIError(error));
+        setError(formatAIError(error, currentLocale));
       } finally {
         setLoading(false);
       }
     },
-    [sourceLanguage, targetLanguage, translate, setSelectedTranslation],
+    [
+      sourceLanguage,
+      targetLanguage,
+      translate,
+      setSelectedTranslation,
+      currentLocale,
+    ],
   );
 
   const updateTranslationRef = useRef(updateTranslation);
@@ -119,12 +134,12 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
     if (selectedTranslation) {
       shouldUpdateTranslation.current = false;
       console.log("Selected translation:", selectedTranslation);
-      const sourceLang = languages.find(
+      const sourceLang = translatorLanguages.find(
         (lang) =>
           lang.name === selectedTranslation.sourceLanguage ||
           lang.code === selectedTranslation.sourceLanguage,
       );
-      const targetLang = languages.find(
+      const targetLang = translatorLanguages.find(
         (lang) =>
           lang.name === selectedTranslation.targetLanguage ||
           lang.code === selectedTranslation.targetLanguage,
@@ -257,7 +272,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               onChange={handleInputChange}
               ref={translateInputRef}
               id="translate-input"
-              placeholder="Type here..."
+              placeholder={currentLocale.translator.placeholder}
               dir="auto"
               maxLength={6000}
               className="h-full w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 overflow-y-auto resize-none
@@ -271,7 +286,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
             <div className="flex gap-8 items-end">
               <LanguageSelector
                 onChange={setSourceLanguage}
-                languages={languages}
+                languages={translatorLanguages}
                 value={sourceLanguage}
                 label={"Source language"}
                 id="source-language-select"
@@ -279,7 +294,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               <SwitchButton onClick={handleSwitch} />
               <LanguageSelector
                 onChange={setTargetLanguage}
-                languages={languages}
+                languages={translatorLanguages}
                 value={targetLanguage}
                 label={"Target language"}
                 id="target-language-select"
@@ -308,7 +323,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
                   className="select-none text-secondary-200 dark:text-secondary-dark-200
                     animate-[pulse_1.2s_cubic-bezier(.2,.35,.8,.65)_infinite]"
                 >
-                  Translating...
+                  {currentLocale.translator.translating}
                 </div>
               ) : (
                 translatedText

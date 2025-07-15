@@ -1,6 +1,7 @@
 import HistoryIcon from "../assets/history-icon.svg?react";
 import HistoryItemIcon from "../assets/history-item-icon.svg?react";
 import { useFirestore } from "../features/firestore/useFirestore";
+import { useLocalization } from "../features/localization/useLocalization";
 import SidePanel from "./SidePanel";
 
 //TODO: Display date of each translation
@@ -18,11 +19,12 @@ const History = ({
   }) => void;
   onDelete: (id: string) => void;
 }) => {
+  const { currentLocale } = useLocalization();
   const { translationHistory } = useFirestore();
   return (
     <>
       <SidePanel
-        label="History"
+        label={currentLocale.navigation.history}
         icon={<HistoryIcon />}
         items={translationHistory?.map((translation) => {
           const createdAt = translation.createdAt.toDate().toLocaleString();

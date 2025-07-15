@@ -3,20 +3,20 @@ import type { ThemeContextData } from "../../types/theme-types";
 import { ThemeContext } from "./ThemeContext";
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [currentTheme, setCurrentTheme] = useState<"Light" | "Dark">("Light");
+  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
 
   const setLightTheme = (saveTheme: boolean = true) => {
     document.documentElement.classList.remove("dark");
-    setCurrentTheme("Light");
-    if (saveTheme) localStorage.setItem("theme", "Light");
+    setCurrentTheme("light");
+    if (saveTheme) localStorage.setItem("theme", "light");
   };
   const setDarkTheme = (saveTheme: boolean = true) => {
     document.documentElement.classList.add("dark");
-    setCurrentTheme("Dark");
-    if (saveTheme) localStorage.setItem("theme", "Dark");
+    setCurrentTheme("dark");
+    if (saveTheme) localStorage.setItem("theme", "dark");
   };
   const toggleTheme = () => {
-    if (currentTheme === "Light") setDarkTheme();
+    if (currentTheme === "light") setDarkTheme();
     else setLightTheme();
   };
 
@@ -35,7 +35,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    if (savedTheme === "Dark") {
+    if (savedTheme === "dark") {
       setDarkTheme();
     } else {
       setLightTheme();

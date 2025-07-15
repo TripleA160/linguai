@@ -4,11 +4,14 @@ import { useEffect, useRef } from "react";
 import AuthButton from "./AuthButton";
 import DropdownMenu from "./DropdownMenu";
 import AccountIcon from "../assets/account-icon.svg?react";
+import { useLocalization } from "../features/localization/useLocalization";
 
 const HeaderUserArea = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const accountButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { currentLocale } = useLocalization();
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -102,7 +105,7 @@ const HeaderUserArea = () => {
 
           <DropdownMenu ref={dropdownRef} className="min-w-40">
             <AuthButton
-              label="Logout"
+              label={currentLocale.auth.logout}
               onClick={handleLogoutClick}
               className="w-20"
             />
@@ -114,8 +117,14 @@ const HeaderUserArea = () => {
           className="relative flex items-center justify-end w-1/5"
         >
           <div className="flex items-center gap-2">
-            <AuthButton label="Login" onClick={handleLoginClick} />
-            <AuthButton label="Sign Up" onClick={handleSignUpClick} />
+            <AuthButton
+              label={currentLocale.auth.login}
+              onClick={handleLoginClick}
+            />
+            <AuthButton
+              label={currentLocale.auth.signUp}
+              onClick={handleSignUpClick}
+            />
           </div>
         </div>
       )}

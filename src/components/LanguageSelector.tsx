@@ -1,9 +1,9 @@
-import { type Language } from "../utils/language-utils";
+import { type TranslatorLanguage } from "../utils/translator-utils";
 
 type Props = {
-  value: Language;
-  onChange: (language: Language) => void;
-  languages: Language[];
+  value: TranslatorLanguage;
+  onChange: (language: TranslatorLanguage) => void;
+  languages: TranslatorLanguage[];
   label: string;
   id: string;
 };

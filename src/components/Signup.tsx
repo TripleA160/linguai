@@ -2,6 +2,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { formatFirebaseError } from "../utils/firebase-utils";
 import { useAuth } from "../features/auth/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useLocalization } from "../features/localization/useLocalization";
 
 const Signup = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
@@ -11,6 +12,8 @@ const Signup = () => {
 
   const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { currentLocale } = useLocalization();
 
   const { signup } = useAuth();
 
@@ -29,14 +32,17 @@ const Signup = () => {
 
     const inputError: string[] = [];
 
-    if (!nameRef.current.value) inputError.push("Please enter a name.");
+    if (!nameRef.current.value)
+      inputError.push(currentLocale.errors.form.nameMissing);
 
-    if (!emailRef.current.value) inputError.push("Please enter an email.");
+    if (!emailRef.current.value)
+      inputError.push(currentLocale.errors.form.emailMissing);
 
-    if (!passwordRef.current.value) inputError.push("Please enter a password.");
+    if (!passwordRef.current.value)
+      inputError.push(currentLocale.errors.form.passwordMissing);
 
     if (passwordRef.current.value && !passwordConfirmRef.current.value)
-      inputError.push("Please confirm your password.");
+      inputError.push(currentLocale.errors.form.passwordConfirmationMissing);
 
     if (inputError.length > 0) return setError(inputError);
 
@@ -44,30 +50,24 @@ const Signup = () => {
     const passwordError: string[] = [];
 
     if (password.length < 8)
-      passwordError.push("Password must contain at least 8 characters.");
+      passwordError.push(currentLocale.errors.form.passwordInvalidLength);
 
     if (!/^[A-Za-z0-9!@#$%^&*()_\-+=[\]{}|:;"'<>,.?/~`\\]+$/.test(password)) {
-      passwordError.push(
-        "Password can only use English letters, numbers, and common special characters.",
-      );
+      passwordError.push(currentLocale.errors.form.passwordInvalidCharacter);
     }
     if (!/^[A-Za-z]/.test(password)) {
-      passwordError.push("Password must start with a letter.");
+      passwordError.push(currentLocale.errors.form.passwardInvalidStart);
     }
 
     if (!/[a-z]/.test(password))
-      passwordError.push(
-        "Password must contain at least one lowercase character.",
-      );
+      passwordError.push(currentLocale.errors.form.passwordNoLowercase);
     if (!/[A-Z]/.test(password))
-      passwordError.push(
-        "Password must contain at least one uppercase character.",
-      );
+      passwordError.push(currentLocale.errors.form.passwordNoUppercase);
 
     if (passwordError.length > 0) return setError(passwordError);
 
     if (password !== passwordConfirmRef.current.value)
-      return setError("Passwords do not match.");
+      return setError(currentLocale.errors.form.passwordDoNotMatch);
 
     setLoading(true);
 
@@ -77,7 +77,7 @@ const Signup = () => {
       setLoading(false);
       navigate("/");
     } catch (error) {
-      setError(formatFirebaseError(error));
+      setError(formatFirebaseError(error, currentLocale));
     }
   }
 
@@ -88,19 +88,21 @@ const Signup = () => {
         noValidate
         className="form self-center w-full"
       >
-        <h1 className="form-title">Sign Up</h1>
+        <h1 className="form-title">{currentLocale.auth.signUp}</h1>
         {error &&
           (Array.isArray(error) && error.length > 1 ? (
-            <ul className="error">
+            <ul className="error" dir="auto">
               {error.map((e, i) => (
                 <li key={i}>{e}</li>
               ))}
             </ul>
           ) : (
-            <div className="error">{error}</div>
+            <div className="error" dir="auto">
+              {error}
+            </div>
           ))}
         <div className="form-field">
-          <label htmlFor="display-name">Name</label>
+          <label htmlFor="display-name">{currentLocale.auth.displayName}</label>
           <input
             ref={nameRef}
             type="text"
@@ -111,7 +113,7 @@ const Signup = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{currentLocale.auth.email}</label>
           <input
             ref={emailRef}
             type="email"
@@ -121,7 +123,7 @@ const Signup = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{currentLocale.auth.password}</label>
           <input
             ref={passwordRef}
             type="password"
@@ -131,7 +133,9 @@ const Signup = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="password-confirm">Confirm password</label>
+          <label htmlFor="password-confirm">
+            {currentLocale.auth.confirmPassword}
+          </label>
           <input
             ref={passwordConfirmRef}
             type="password"
@@ -141,7 +145,7 @@ const Signup = () => {
           />
         </div>
         <button disabled={loading} type="submit" className="form-button">
-          Sign Up
+          {currentLocale.auth.signUp}
         </button>
       </form>
     </>

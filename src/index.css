@@ -63,7 +63,7 @@
     @apply mb-2 w-full rounded-md border-1 border-red-300 p-2 text-sm text-red-400 selection:rounded-md selection:bg-red-100 selection:text-red-600 dark:text-red-300 dark:selection:bg-red-200 dark:selection:text-red-700;
   }
   .error li {
-    @apply relative pl-3 before:absolute before:left-0 before:content-['•'];
+    @apply relative before:absolute before:content-['•'] ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0;
   }
 }
 

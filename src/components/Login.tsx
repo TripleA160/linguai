@@ -2,6 +2,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { formatFirebaseError } from "../utils/firebase-utils";
 import { useAuth } from "../features/auth/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useLocalization } from "../features/localization/useLocalization";
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -9,6 +10,8 @@ const Login = () => {
 
   const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { currentLocale } = useLocalization();
 
   const { login } = useAuth();
 
@@ -21,9 +24,11 @@ const Login = () => {
 
     const inputError: string[] = [];
 
-    if (!emailRef.current.value) inputError.push("Please enter an email.");
+    if (!emailRef.current.value)
+      inputError.push(currentLocale.errors.form.emailMissing);
 
-    if (!passwordRef.current.value) inputError.push("Please enter a password.");
+    if (!passwordRef.current.value)
+      inputError.push(currentLocale.errors.form.passwordMissing);
 
     if (inputError.length > 0) return setError(inputError);
 
@@ -36,7 +41,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      setError(formatFirebaseError(error));
+      setError(formatFirebaseError(error, currentLocale));
     }
   }
 
@@ -47,19 +52,21 @@ const Login = () => {
         noValidate
         className="form self-center w-full"
       >
-        <h1 className="form-title">Login</h1>
+        <h1 className="form-title">{currentLocale.auth.login}</h1>
         {error &&
           (Array.isArray(error) && error.length > 1 ? (
-            <ul className="error">
+            <ul className="error" dir="auto">
               {error.map((e, i) => (
                 <li key={i}>{e}</li>
               ))}
             </ul>
           ) : (
-            <div className="error">{error}</div>
+            <div className="error" dir="auto">
+              {error}
+            </div>
           ))}
         <div className="form-field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{currentLocale.auth.email}</label>
           <input
             ref={emailRef}
             type="email"
@@ -69,7 +76,7 @@ const Login = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{currentLocale.auth.password}</label>
           <input
             ref={passwordRef}
             type="password"
@@ -79,7 +86,7 @@ const Login = () => {
           />
         </div>
         <button disabled={loading} type="submit" className="form-button">
-          Login
+          {currentLocale.auth.login}
         </button>
       </form>
     </>

@@ -3,11 +3,14 @@ import GearButton from "./GearButton";
 import DropdownMenu from "./DropdownMenu";
 import { useTheme } from "../features/theme/useTheme";
 import ToggleButton from "./ToggleButton";
+import { useLocalization } from "../features/localization/useLocalization";
 
 const HeaderSettingsArea = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const gearButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { currentLocale } = useLocalization();
   const { currentTheme, setLightTheme, setDarkTheme } = useTheme();
 
   const handleGearClick = () => {
@@ -51,13 +54,13 @@ const HeaderSettingsArea = () => {
 
         <DropdownMenu ref={dropdownRef} className="min-w-40">
           <div className="select-none w-full flex justify-between items-center">
-            <div>Theme:</div>
+            <div>{currentLocale.settings.theme}:</div>
             <ToggleButton
-              offLabel="Light"
-              onLabel="Dark"
+              offLabel={currentLocale.settings.light}
+              onLabel={currentLocale.settings.dark}
               onTurnOff={setLightTheme}
               onTurnOn={setDarkTheme}
-              check={currentTheme === "Dark"}
+              check={currentTheme === "dark"}
             />
           </div>
         </DropdownMenu>
