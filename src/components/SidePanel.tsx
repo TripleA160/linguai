@@ -39,7 +39,7 @@ const SidePanel = ({ label, icon, items }: Props) => {
     <>
       <div
         className={`flex flex-col shrink-0 items-center bg-background-100 select-none
-          dark:bg-background-dark-300 p-7 rounded-4xl transition-all duration-250
+          dark:bg-background-dark-300 p-7 rounded-4xl transition-[width] duration-250
           cursor-pointer box-content ${isCollapsed ? "w-6" : "w-1/6"}`}
         onClick={handleClick}
       >
@@ -61,7 +61,8 @@ const SidePanel = ({ label, icon, items }: Props) => {
           </div>
           <div
             className={`select-none text-lg text-primary-100 dark:text-primary-dark-100
-              ${isCollapsed ? "w-0 invisible" : "w-auto visible"}`}
+              transition-[max-width] duration-200
+              ${isCollapsed ? "max-w-0 invisible" : "max-w-16 visible"}`}
           >
             {label}
           </div>

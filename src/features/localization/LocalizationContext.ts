@@ -5,7 +5,8 @@ import type {
 } from "../../types/localization-types";
 
 export const LocalizationContext = createContext<LocalizationContextData>({
-  currentLanguage: "en",
+  supportedLanguages: { current: [] },
+  currentLanguage: { code: "en", name: "English", direction: "ltr" },
   currentLocale: {} as Locale,
   changeLanguage: () => Promise.resolve(),
 });

@@ -1,29 +1,37 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   type Locale,
   type Language,
   type LocalizationContextData,
+  type LanguageMeta,
 } from "../../types/localization-types";
 import { LocalizationContext } from "./LocalizationContext";
-import { loadLocale } from "./localization-utils";
+import { initialLocale, languagesMeta, loadLocale } from "./localization-utils";
 
 const LocalizatonProvider = ({ children }: { children: ReactNode }) => {
-  const [currentLanguage, setCurrentLanguage] = useState<Language>("en");
-  const [currentLocale, setCurrentLocale] = useState<Locale>({} as Locale);
+  const supportedLanguages = useRef<LanguageMeta[]>(languagesMeta);
+
+  const [currentLanguage, setCurrentLanguage] = useState<LanguageMeta>(
+    languagesMeta[0],
+  );
+  const [currentLocale, setCurrentLocale] = useState<Locale>(initialLocale);
   const [loading, setLoading] = useState(true);
 
   const changeLanguage = async (lang: Language) => {
-    setCurrentLanguage(lang);
-    setCurrentLocale(await loadLocale(lang));
-    localStorage.setItem("language", lang);
+    const language = supportedLanguages.current.find(
+      (language) => language.code === lang,
+    );
+    if (language) {
+      setCurrentLanguage(language);
+      setCurrentLocale(await loadLocale(lang));
+      localStorage.setItem("language", lang);
+    }
   };
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") as Language | null;
-
     const init = async () => {
-      const lang = savedLanguage || currentLanguage;
-      await changeLanguage(lang);
+      const savedLanguage = localStorage.getItem("language") as Language;
+      if (savedLanguage) await changeLanguage(savedLanguage);
       setLoading(false);
     };
 
@@ -33,6 +41,7 @@ const LocalizatonProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const contextData: LocalizationContextData = {
+    supportedLanguages,
     currentLanguage,
     currentLocale,
     changeLanguage,

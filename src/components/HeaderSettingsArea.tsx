@@ -4,6 +4,7 @@ import DropdownMenu from "./DropdownMenu";
 import { useTheme } from "../features/theme/useTheme";
 import ToggleButton from "./ToggleButton";
 import { useLocalization } from "../features/localization/useLocalization";
+import LanguageSelector from "./LanguageSelector";
 
 const HeaderSettingsArea = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -53,16 +54,15 @@ const HeaderSettingsArea = () => {
         <GearButton ref={gearButtonRef} onClick={handleGearClick} />
 
         <DropdownMenu ref={dropdownRef} className="min-w-40">
-          <div className="select-none w-full flex justify-between items-center">
-            <div>{currentLocale.settings.theme}:</div>
-            <ToggleButton
-              offLabel={currentLocale.settings.light}
-              onLabel={currentLocale.settings.dark}
-              onTurnOff={setLightTheme}
-              onTurnOn={setDarkTheme}
-              check={currentTheme === "dark"}
-            />
-          </div>
+          <LanguageSelector />
+          <ToggleButton
+            label={currentLocale.settings.theme}
+            offText={currentLocale.settings.light}
+            onText={currentLocale.settings.dark}
+            onTurnOff={setLightTheme}
+            onTurnOn={setDarkTheme}
+            check={currentTheme === "dark"}
+          />
         </DropdownMenu>
       </div>
     </>

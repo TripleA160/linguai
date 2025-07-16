@@ -1,39 +1,47 @@
-import { type TranslatorLanguage } from "../utils/translator-utils";
+import type { ChangeEvent } from "react";
+import { useLocalization } from "../features/localization/useLocalization";
 
 type Props = {
-  value: TranslatorLanguage;
-  onChange: (language: TranslatorLanguage) => void;
-  languages: TranslatorLanguage[];
-  label: string;
-  id: string;
+  label?: string;
 };
 
-const LanguageSelector = ({ value, onChange, languages, label, id }: Props) => {
+const LanguageSelector = ({ label }: Props) => {
+  const { supportedLanguages, changeLanguage, currentLocale, currentLanguage } =
+    useLocalization();
+
+  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selected = supportedLanguages.current.find(
+      (lang) => lang.code === e.target.value,
+    );
+    if (selected) {
+      changeLanguage(selected.code);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
+    <div
+      className={`flex items-center justify-center gap-2
+        ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
+    >
       <label
-        htmlFor={id}
-        className="text-sm text-secondary-200 dark:text-secondary-dark-200"
+        dir="auto"
+        htmlFor="language-select"
+        className="text-sm text-primary-100 dark:text-primary-dark-100"
       >
-        {label}
+        {label ? label : currentLocale.settings.language}:
       </label>
       <select
-        id={id}
-        value={value.code}
-        onChange={(e) => {
-          const selected = languages.find(
-            (lang) => lang.code === e.target.value,
-          );
-          if (selected) onChange(selected);
-        }}
+        id="language-select"
+        value={currentLanguage.code}
+        onChange={handleSelect}
         className="border transition-all duration-180 focus:drop-shadow-button-1 border-border-100
           dark:border-none rounded-md px-2 py-1 text-sm text-primary-200
           dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
           outline-none"
       >
-        {languages.map((language) => (
-          <option key={language.code} value={language.code}>
-            {language.name}
+        {supportedLanguages.current.map((lang) => (
+          <option key={lang.code} value={lang.code}>
+            {lang.name} {lang.englishName && `(${lang.englishName})`}
           </option>
         ))}
       </select>

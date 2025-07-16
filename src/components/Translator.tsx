@@ -10,7 +10,7 @@ import { useGemini } from "../features/gemini/useGemini";
 import { formatAIError } from "../utils/firebase-utils";
 import SwitchButton from "./SwitchButton";
 import debounce from "lodash/debounce";
-import LanguageSelector from "./LanguageSelector";
+import TranslatorLanguageSelector from "./TranslatorLanguageSelector";
 import {
   translatorLanguages,
   type TranslatorLanguage,
@@ -55,12 +55,13 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   const [targetLanguage, setTargetLanguage] = useState<TranslatorLanguage>(
     translatorLanguages[0],
   );
+  const [translateInput, setTranslateInput] = useState<string>("");
   const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [isTranslationSaved, setIsTranslationSaved] = useState<boolean>(false);
   const [error, setError] = useState<string | string[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { currentLocale } = useLocalization();
+  const { currentLocale, currentLanguage } = useLocalization();
   const { translate } = useGemini();
   const { currentUser } = useAuth();
 
@@ -206,7 +207,9 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    if (e.target.value.trim() === "") {
+    const newInput = e.target.value;
+    setTranslateInput(newInput);
+    if (newInput.trim() === "") {
       isCancelled.current = true;
       setTranslatedText("");
       setSelectedTranslation(null);
@@ -214,7 +217,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       return;
     }
     isCancelled.current = false;
-    updateTranslationWithDelay(e.target.value);
+    updateTranslationWithDelay(newInput);
   };
 
   const handleSwitch = () => {
@@ -273,7 +276,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               ref={translateInputRef}
               id="translate-input"
               placeholder={currentLocale.translator.placeholder}
-              dir="auto"
+              dir={translateInput ? "auto" : currentLanguage.direction}
               maxLength={6000}
               className="h-full w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 overflow-y-auto resize-none
                 outline-none text-primary-100 dark:text-primary-dark-100"
@@ -283,20 +286,23 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
             <div className="flex gap-4">
               {/* placeholder for left side buttons */}
             </div>
-            <div className="flex gap-8 items-end">
-              <LanguageSelector
+            <div
+              className={`flex gap-8 items-end
+                ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
+            >
+              <TranslatorLanguageSelector
                 onChange={setSourceLanguage}
                 languages={translatorLanguages}
                 value={sourceLanguage}
-                label={"Source language"}
+                label={currentLocale.translator.sourceLanguage}
                 id="source-language-select"
               />
               <SwitchButton onClick={handleSwitch} />
-              <LanguageSelector
+              <TranslatorLanguageSelector
                 onChange={setTargetLanguage}
                 languages={translatorLanguages}
                 value={targetLanguage}
-                label={"Target language"}
+                label={currentLocale.translator.targetLanguage}
                 id="target-language-select"
               />
             </div>

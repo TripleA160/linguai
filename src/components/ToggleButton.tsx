@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
+import { useLocalization } from "../features/localization/useLocalization";
 
 type Props = {
-  offLabel: string;
-  onLabel: string;
+  label?: string;
+  offText: string;
+  onText: string;
   onTurnOff: () => void;
   onTurnOn: () => void;
   check?: boolean;
 };
 
 const ToggleButton = ({
-  offLabel,
-  onLabel,
+  label,
+  offText,
+  onText,
   onTurnOff,
   onTurnOn,
   check,
 }: Props) => {
+  const { currentLanguage } = useLocalization();
   const [isOn, setIsOn] = useState<boolean>(false);
 
   const turnOff = () => {
@@ -39,7 +43,11 @@ const ToggleButton = ({
   }, []);
 
   return (
-    <>
+    <div
+      className={`select-none w-full flex justify-between items-center
+        ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
+    >
+      {label && <div dir="auto">{label}:</div>}
       <button
         onClick={toggle}
         className={`group cursor-pointer w-18 transition-all duration-180
@@ -51,7 +59,7 @@ const ToggleButton = ({
           dark:focus-visible:border-secondary-dark-200 active:border-secondary-300
           dark:active:border-secondary-dark-300`}
       >
-        <div className={"w-full"}>{isOn ? onLabel : offLabel}</div>
+        <div className={"w-full"}>{isOn ? onText : offText}</div>
         <div
           className={`w-5 h-5 absolute transition-all duration-180
             ${isOn ? "left-[calc(100%-1.5rem)]" : "left-1"} bg-secondary-100
@@ -61,7 +69,7 @@ const ToggleButton = ({
             dark:group-active:bg-secondary-dark-300 rounded-full`}
         ></div>
       </button>
-    </>
+    </div>
   );
 };
 

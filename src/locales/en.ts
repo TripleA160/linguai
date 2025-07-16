@@ -15,6 +15,7 @@ const en: Locale = {
     theme: "Theme",
     light: "Light",
     dark: "Dark",
+    language: "Language",
   },
   translator: {
     sourceLanguage: "Source language",

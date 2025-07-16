@@ -107,7 +107,7 @@ const HeaderUserArea = () => {
             <AuthButton
               label={currentLocale.auth.logout}
               onClick={handleLogoutClick}
-              className="w-20"
+              className="min-w-20"
             />
           </DropdownMenu>
         </div>

@@ -1,4 +1,13 @@
-export type Language = "en";
+import type { RefObject } from "react";
+
+export type Language = "en" | "ar";
+
+export type LanguageMeta = {
+  code: Language;
+  name: string;
+  englishName?: string;
+  direction: "ltr" | "rtl";
+};
 
 export type Locale = {
   auth: {
@@ -15,6 +24,7 @@ export type Locale = {
     theme: string;
     light: string;
     dark: string;
+    language: string;
   };
   translator: {
     sourceLanguage: string;
@@ -62,7 +72,8 @@ export type Locale = {
 };
 
 export type LocalizationContextData = {
-  currentLanguage: Language;
+  supportedLanguages: RefObject<LanguageMeta[]>;
+  currentLanguage: LanguageMeta;
   currentLocale: Locale;
   changeLanguage: (lang: Language) => Promise<void>;
 };
