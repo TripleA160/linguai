@@ -45,7 +45,7 @@ export type Locale = {
       passwordConfirmationMissing: string;
       passwordInvalidLength: string;
       passwordInvalidCharacter: string;
-      passwardInvalidStart: string;
+      passwordInvalidStart: string;
       passwordNoLowercase: string;
       passwordNoUppercase: string;
       passwordDoNotMatch: string;

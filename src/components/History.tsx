@@ -4,7 +4,6 @@ import { useFirestore } from "../features/firestore/useFirestore";
 import { useLocalization } from "../features/localization/useLocalization";
 import SidePanel from "./SidePanel";
 
-//TODO: Display date of each translation
 const History = ({
   onSelect,
   onDelete,

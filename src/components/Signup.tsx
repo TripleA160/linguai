@@ -56,7 +56,7 @@ const Signup = () => {
       passwordError.push(currentLocale.errors.form.passwordInvalidCharacter);
     }
     if (!/^[A-Za-z]/.test(password)) {
-      passwordError.push(currentLocale.errors.form.passwardInvalidStart);
+      passwordError.push(currentLocale.errors.form.passwordInvalidStart);
     }
 
     if (!/[a-z]/.test(password))
