@@ -37,7 +37,7 @@ const en: Locale = {
       passwordInvalidLength: "Password must contain at least 8 characters.",
       passwordInvalidCharacter:
         "Password can only use English letters, numbers, and common special characters.",
-      passwardInvalidStart: "Password must start with a letter.",
+      passwordInvalidStart: "Password must start with a letter.",
       passwordNoLowercase:
         "Password must contain at least one lowercase character.",
       passwordNoUppercase:

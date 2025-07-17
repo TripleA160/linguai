@@ -37,7 +37,7 @@ const ar: Locale = {
       passwordInvalidLength: "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.",
       passwordInvalidCharacter:
         "يمكن استخدام الأحرف الإنجليزية، الأرقام، والرموز الشائعة فقط في كلمة المرور.",
-      passwardInvalidStart: "يمكن أن تبدأ كلمة المرور بأحرف فقط.",
+      passwordInvalidStart: "يمكن أن تبدأ كلمة المرور بأحرف فقط.",
       passwordNoLowercase:
         "يجب أن تحتوي كلمة المرور على حرف إنجليزي صغير (a-z) واحد على الأقل.",
       passwordNoUppercase:
