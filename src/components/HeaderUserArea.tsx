@@ -82,6 +82,7 @@ const HeaderUserArea = () => {
                 dark:active:text-secondary-dark-300 group-focus-visible:text-secondary-200
                 dark:group-focus-visible:text-secondary-dark-200 group-active:text-secondary-300
                 dark:group-active:text-secondary-dark-300"
+              aria-label={"User menu"}
             >
               {currentUser.displayName}
             </button>
@@ -89,6 +90,7 @@ const HeaderUserArea = () => {
               className="cursor-pointer"
               ref={accountButtonRef}
               onClick={handleAccountClick}
+              aria-label={"User menu"}
             >
               <AccountIcon
                 className="cursor-pointer w-8 h-8 text-secondary-100 dark:text-secondary-dark-100

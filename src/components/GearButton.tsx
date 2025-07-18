@@ -2,11 +2,12 @@ import type { Ref } from "react";
 import SettingsIcon from "../assets/settings-icon.svg?react";
 
 type Props = {
+  accessibilityLabel?: string;
   onClick?: () => void;
   ref?: Ref<HTMLButtonElement>;
 };
 
-const GearButton = ({ onClick, ref }: Props) => {
+const GearButton = ({ accessibilityLabel, onClick, ref }: Props) => {
   return (
     <button
       ref={ref}
@@ -21,6 +22,7 @@ const GearButton = ({ onClick, ref }: Props) => {
         dark:focus:text-secondary-dark-200 active:text-secondary-300
         dark:active:text-secondary-dark-300 group-active:text-secondary-300
         dark:group-active:text-secondary-dark-300"
+      aria-label={accessibilityLabel ? accessibilityLabel : "Settings"}
     >
       <SettingsIcon className="w-full h-full" />
     </button>

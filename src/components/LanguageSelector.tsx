@@ -3,9 +3,10 @@ import { useLocalization } from "../features/localization/useLocalization";
 
 type Props = {
   label?: string;
+  accessibilityLabel?: string;
 };
 
-const LanguageSelector = ({ label }: Props) => {
+const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
   const { supportedLanguages, changeLanguage, currentLocale, currentLanguage } =
     useLocalization();
 
@@ -38,6 +39,9 @@ const LanguageSelector = ({ label }: Props) => {
           dark:border-none rounded-md px-2 py-1 text-sm text-primary-200
           dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
           outline-none"
+        aria-label={
+          accessibilityLabel ? accessibilityLabel : label || "Select language"
+        }
       >
         {supportedLanguages.current.map((lang) => (
           <option key={lang.code} value={lang.code}>

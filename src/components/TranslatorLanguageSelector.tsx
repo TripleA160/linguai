@@ -7,6 +7,7 @@ type Props = {
   languages: TranslatorLanguage[];
   id: string;
   label?: string;
+  accessibilityLabel?: string;
 };
 
 const TranslatorLanguageSelector = ({
@@ -15,6 +16,7 @@ const TranslatorLanguageSelector = ({
   languages,
   id,
   label,
+  accessibilityLabel,
 }: Props) => {
   const { currentLocale } = useLocalization();
 
@@ -40,6 +42,9 @@ const TranslatorLanguageSelector = ({
           dark:border-none rounded-md px-2 py-1 text-sm text-primary-200
           dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
           outline-none"
+        aria-label={
+          accessibilityLabel ? accessibilityLabel : label || "Select language"
+        }
       >
         {languages.map((language) => (
           <option key={language.code} value={language.code}>

@@ -2,13 +2,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* TODO: Adjust dark theme colors */
-
 @theme {
   --color-primary-100: hsl(215, 47%, 21%);
   --color-primary-200: hsl(215, 46%, 15%);
 
-  --color-secondary-100: hsl(215, 15%, 48%);
+  --color-secondary-100: hsl(215, 15%, 44%);
   --color-secondary-200: hsl(215, 20%, 38%);
   --color-secondary-300: hsl(215, 25%, 28%);
 

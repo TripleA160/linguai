@@ -2,12 +2,19 @@ import type { Ref } from "react";
 
 type Props = {
   label: string;
+  accessibilityLabel?: string;
   onClick?: () => void;
   ref?: Ref<HTMLButtonElement>;
   className?: string;
 };
 
-const AuthButton = ({ label, onClick, ref, className }: Props) => {
+const AuthButton = ({
+  label,
+  accessibilityLabel,
+  onClick,
+  ref,
+  className,
+}: Props) => {
   return (
     <button
       ref={ref}
@@ -21,6 +28,7 @@ const AuthButton = ({ label, onClick, ref, className }: Props) => {
         active:bg-secondary-300 dark:active:bg-secondary-dark-300 ` + className
       }
       onClick={onClick}
+      aria-label={accessibilityLabel ? accessibilityLabel : label}
     >
       {label}
     </button>

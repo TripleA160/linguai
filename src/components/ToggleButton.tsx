@@ -3,6 +3,7 @@ import { useLocalization } from "../features/localization/useLocalization";
 
 type Props = {
   label?: string;
+  accessibilityLabel?: string;
   offText: string;
   onText: string;
   onTurnOff: () => void;
@@ -12,6 +13,7 @@ type Props = {
 
 const ToggleButton = ({
   label,
+  accessibilityLabel,
   offText,
   onText,
   onTurnOff,
@@ -58,6 +60,7 @@ const ToggleButton = ({
           dark:hover:border-secondary-dark-200 focus-visible:border-secondary-200
           dark:focus-visible:border-secondary-dark-200 active:border-secondary-300
           dark:active:border-secondary-dark-300`}
+        aria-label={accessibilityLabel ? accessibilityLabel : label || "Toggle"}
       >
         <div className={"w-full"}>{isOn ? onText : offText}</div>
         <div

@@ -2,12 +2,13 @@ import SaveIcon from "../assets/save-icon.svg?react";
 import type { Ref } from "react";
 
 type Props = {
+  accessibilityLabel?: string;
   onClick?: () => void;
   ref?: Ref<HTMLButtonElement>;
   isSaved?: boolean;
 };
 
-const SaveButton = ({ onClick, ref, isSaved }: Props) => {
+const SaveButton = ({ accessibilityLabel, onClick, ref, isSaved }: Props) => {
   return (
     <>
       <button
@@ -16,6 +17,7 @@ const SaveButton = ({ onClick, ref, isSaved }: Props) => {
         className="group cursor-pointer w-6 h-6 text-secondary-100 transition-all duration-180
           outline-none hover:text-secondary-200 focus:text-secondary-200
           active:text-secondary-300"
+        aria-label={accessibilityLabel ? accessibilityLabel : "Save"}
       >
         <SaveIcon
           className={`transition-all duration-180 ${

@@ -2,11 +2,12 @@ import SwitchIcon from "../assets/switch-icon.svg?react";
 import type { Ref } from "react";
 
 type Props = {
+  accessibilityLabel?: string;
   onClick?: () => void;
   ref?: Ref<HTMLButtonElement>;
 };
 
-const SwitchButton = ({ onClick, ref }: Props) => {
+const SwitchButton = ({ accessibilityLabel, onClick, ref }: Props) => {
   return (
     <>
       <button
@@ -17,6 +18,9 @@ const SwitchButton = ({ onClick, ref }: Props) => {
           hover:text-secondary-200 dark:hover:text-secondary-dark-200
           focus-visible:text-secondary-200 dark:focus-visible:text-secondary-dark-200
           active:text-secondary-300 dark:active:text-secondary-dark-300"
+        aria-label={
+          accessibilityLabel ? accessibilityLabel : "Switch languages"
+        }
       >
         <SwitchIcon />
       </button>
