@@ -1,3 +1,5 @@
+//TODO: improve dropdown and add transition effects
+
 import type { ReactNode, Ref } from "react";
 
 type Props = {

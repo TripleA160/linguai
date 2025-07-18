@@ -4,10 +4,7 @@ import { useFirestore } from "../features/firestore/useFirestore";
 import { useLocalization } from "../features/localization/useLocalization";
 import SidePanel from "./SidePanel";
 
-const History = ({
-  onSelect,
-  onDelete,
-}: {
+type Props = {
   onSelect: (item: {
     id: string;
     sourceText: string;
@@ -17,7 +14,10 @@ const History = ({
     createdAt: string;
   }) => void;
   onDelete: (id: string) => void;
-}) => {
+  className?: string;
+};
+
+const History = ({ onSelect, onDelete, className }: Props) => {
   const { currentLocale } = useLocalization();
   const { translationHistory } = useFirestore();
   return (
@@ -25,6 +25,7 @@ const History = ({
       <SidePanel
         label={currentLocale.navigation.history}
         icon={<HistoryIcon />}
+        className={className}
         items={translationHistory?.map((translation) => {
           const createdAt = translation.createdAt.toDate().toLocaleString();
           return {

@@ -1,3 +1,5 @@
+//TODO: Add a button to open account settings
+
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth";
 import { useEffect, useRef } from "react";

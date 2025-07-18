@@ -8,7 +8,7 @@ import {
 import { LocalizationContext } from "./LocalizationContext";
 import { initialLocale, languagesMeta, loadLocale } from "./localization-utils";
 
-const LocalizatonProvider = ({ children }: { children: ReactNode }) => {
+const LocalizationProvider = ({ children }: { children: ReactNode }) => {
   const supportedLanguages = useRef<LanguageMeta[]>(languagesMeta);
 
   const [currentLanguage, setCurrentLanguage] = useState<LanguageMeta>(
@@ -56,4 +56,4 @@ const LocalizatonProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default LocalizatonProvider;
+export default LocalizationProvider;

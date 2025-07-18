@@ -14,9 +14,10 @@ type Props = {
     onSelect?: () => void;
     onDelete?: () => void;
   }[];
+  className?: string;
 };
 
-const SidePanel = ({ label, icon, items }: Props) => {
+const SidePanel = ({ label, icon, items, className }: Props) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -38,9 +39,12 @@ const SidePanel = ({ label, icon, items }: Props) => {
   return (
     <>
       <div
-        className={`flex flex-col shrink-0 items-center bg-background-100 select-none
-          dark:bg-background-dark-300 p-7 rounded-4xl transition-[width] duration-250
-          cursor-pointer box-content ${isCollapsed ? "w-6" : "w-1/6"}`}
+        className={
+          `flex flex-col shrink-0 items-center bg-background-100 select-none
+          dark:bg-background-dark-300 p-7 rounded-4xl transition-[width,_max-width]
+          duration-250 cursor-pointer box-content ${isCollapsed ? "w-6" : "w-1/6"} ` +
+          className
+        }
         onClick={handleClick}
       >
         <div
