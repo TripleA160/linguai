@@ -24,6 +24,7 @@ const LocalizationProvider = ({ children }: { children: ReactNode }) => {
     if (language) {
       setCurrentLanguage(language);
       setCurrentLocale(await loadLocale(lang));
+      document.documentElement.lang = lang;
       localStorage.setItem("language", lang);
     }
   };
@@ -36,8 +37,6 @@ const LocalizationProvider = ({ children }: { children: ReactNode }) => {
     };
 
     init();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const contextData: LocalizationContextData = {
