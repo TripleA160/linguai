@@ -15,6 +15,26 @@ const app = initializeApp({
 export const auth = getAuth(app);
 
 export const geminiAi = getAI(app, { backend: new GoogleAIBackend() });
+export const geminiModels = {
+  gemini25Flash: {
+    name: "Gemini 2.5 Flash",
+    model: getGenerativeModel(geminiAi, {
+      model: "gemini-2.5-flash",
+    }),
+  },
+  gemini20Flash: {
+    name: "Gemini 2.0 Flash",
+    model: getGenerativeModel(geminiAi, {
+      model: "gemini-2.0-flash",
+    }),
+  },
+  gemini20Lite: {
+    name: "Gemini 2.0 Flash Lite",
+    model: getGenerativeModel(geminiAi, {
+      model: "gemini-2.0-flash-lite",
+    }),
+  },
+};
 export const geminiModelMain = getGenerativeModel(geminiAi, {
   model: "gemini-2.0-flash",
 });

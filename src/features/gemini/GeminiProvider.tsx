@@ -43,17 +43,22 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
 
       if (isCancelledRef && isCancelledRef.current) return null;
 
-      setCurrentResponse(result);
-      setCurrentPrompt(text);
-      if (currentUser) {
-        await addTranslationToUserHistory({
-          sourceText: text,
-          translatedText: result,
-          sourceLanguage: sourceLanguage,
-          targetLanguage: targetLanguage,
-        });
+      if (typeof result === "string") {
+        setCurrentResponse(result);
+        setCurrentPrompt(text);
+        if (currentUser) {
+          await addTranslationToUserHistory({
+            sourceText: text,
+            translatedText: result,
+            sourceLanguage: sourceLanguage,
+            targetLanguage: targetLanguage,
+          });
+        }
+        console.log(
+          `${sourceLanguage}: ${text}`,
+          `${targetLanguage}: ${result}`,
+        );
       }
-      console.log(`${sourceLanguage}: ${text}`, `${targetLanguage}: ${result}`);
       return result;
     },
     [currentUser, lastRequestTime, addTranslationToUserHistory],
