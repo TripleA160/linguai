@@ -21,6 +21,10 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
       sourceLanguage: string,
       isCancelledRef?: RefObject<boolean>,
     ) => {
+      const prompt = text.trim();
+      if (!prompt) return null;
+      if (prompt === currentPrompt) return currentResponse;
+
       const currentTime = Date.now();
       const timeDifference = currentTime - lastRequestTime;
 
@@ -36,7 +40,7 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
       if (isCancelledRef && isCancelledRef.current) return null;
 
       const result = await generateTranslation(
-        text,
+        prompt,
         targetLanguage,
         sourceLanguage,
       );
@@ -45,23 +49,27 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
 
       if (typeof result === "string") {
         setCurrentResponse(result);
-        setCurrentPrompt(text);
+        setCurrentPrompt(prompt);
         if (currentUser) {
           await addTranslationToUserHistory({
-            sourceText: text,
+            sourceText: prompt,
             translatedText: result,
             sourceLanguage: sourceLanguage,
             targetLanguage: targetLanguage,
           });
         }
-        console.log(
-          `${sourceLanguage}: ${text}`,
-          `${targetLanguage}: ${result}`,
-        );
+        console.log(`${sourceLanguage}:`, prompt);
+        console.log(`${targetLanguage}:`, result);
       }
       return result;
     },
-    [currentUser, lastRequestTime, addTranslationToUserHistory],
+    [
+      currentUser,
+      lastRequestTime,
+      addTranslationToUserHistory,
+      currentPrompt,
+      currentResponse,
+    ],
   );
 
   const contextData: GeminiContextData = {
