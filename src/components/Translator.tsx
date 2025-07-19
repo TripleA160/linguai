@@ -299,7 +299,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               text-primary-100 dark:text-primary-dark-100"
           />
         </div>
-        <div className="flex mt-4 mb-4 pl-5 pr-5 items-end justify-between gap-8 w-full">
+        <div className="flex mt-4 mb-4 pl-5 pr-5 items-start justify-between gap-8 w-full">
           <div
             className={`text-sm
               ${translateInput.length <= 4000 ? "text-secondary-200 dark:text-secondary-dark-200" : "text-red-400 dark:text-red-300 "}`}
@@ -328,8 +328,8 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               id="target-language-select"
             />
           </div>
-          <div className="flex gap-4 items-center">
-            <CopyButton textToCopy={translateInput} />
+          <div className="flex gap-4 items-end h-full">
+            <CopyButton textToCopy={translatedText} />
             <SaveButton
               ref={saveButtonRef}
               isSaved={isTranslationSaved}

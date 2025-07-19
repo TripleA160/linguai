@@ -5,7 +5,7 @@ import { useLocalization } from "../features/localization/useLocalization";
 import { useTooltip } from "../features/tooltip/useTooltip";
 
 type Props = {
-  textToCopy: string;
+  textToCopy: string | null;
   accessibilityLabel?: string;
   onClick?: () => void;
   ref?: Ref<HTMLButtonElement>;
@@ -22,13 +22,16 @@ const CopyButton = ({
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = (e: MouseEvent<HTMLButtonElement>) => {
-    navigator.clipboard.writeText(textToCopy);
-    setIsCopied(true);
-    tooltip.changeText(currentLocale.translator.copied);
-    setTimeout(() => {
-      setIsCopied(false);
-      tooltip.changeText(currentLocale.translator.copy);
-    }, 1000);
+    if (textToCopy) {
+      navigator.clipboard.writeText(textToCopy);
+      setIsCopied(true);
+      tooltip.changeText(currentLocale.translator.copied);
+      setTimeout(() => {
+        setIsCopied(false);
+        tooltip.changeText(currentLocale.translator.copy);
+      }, 1000);
+    }
+
     e.currentTarget.blur();
 
     if (onClick) onClick();
