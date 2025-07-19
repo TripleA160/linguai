@@ -39,8 +39,11 @@ const TranslatorLanguageSelector = ({
           if (selected) onChange(selected);
         }}
         className="border transition-all duration-180 focus:drop-shadow-button-1 border-border-100
-          dark:border-none rounded-md px-2 py-1 text-sm text-primary-200
-          dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
+          dark:border-border-200 hover:border-secondary-dark-100
+          dark:hover:border-secondary-100 focus-visible:border-secondary-dark-100
+          dark:focus-visible:border-secondary-100 active:border-secondary-dark-200
+          dark:active:border-secondary-200 text-primary-200 dark:text-primary-dark-200
+          bg-background-200 dark:bg-background-dark-200 rounded-md px-2 py-1 text-sm
           outline-none"
         aria-label={
           accessibilityLabel ? accessibilityLabel : label || "Select language"

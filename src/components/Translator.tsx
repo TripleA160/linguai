@@ -266,7 +266,11 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col w-full h-full pl-3.5 pr-3.5 pt-1 pb-1 overflow-y-auto">
+      <div
+        className="flex flex-col w-full h-full pl-3.5 pr-3.5 pt-1 pb-1 scrollbar-thin
+          scrollbar-track-transparent scrollbar-thumb-secondary-dark-300
+          dark:scrollbar-thumb-secondary-dark-200 overflow-y-auto"
+      >
         {error &&
           (Array.isArray(error) && error.length > 1 ? (
             <ul className="error mb-2">
@@ -279,9 +283,9 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           ))}
         <div
           className="group border h-48 w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 shrink-0 resize-none
-            transition-all duration-300 border-border-100 dark:border-none bg-background-100
-            dark:bg-background-dark-100 rounded-3xl shadow-subtle outline-none
-            focus-within:shadow-text-box"
+            transition-all duration-300 border-border-100 dark:border-transparent
+            bg-background-100 dark:bg-background-dark-100 rounded-3xl shadow-subtle
+            outline-none focus-within:shadow-text-box"
         >
           <textarea
             onChange={handleInputChange}
@@ -290,7 +294,9 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
             placeholder={currentLocale.translator.placeholder}
             dir={translateInput ? "auto" : currentLanguage.direction}
             className="h-full w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 overflow-y-auto resize-none
-              outline-none text-primary-100 dark:text-primary-dark-100"
+              outline-none scrollbar-thin scrollbar-track-transparent
+              scrollbar-thumb-secondary-dark-300 dark:scrollbar-thumb-secondary-dark-200
+              text-primary-100 dark:text-primary-dark-100"
           />
         </div>
         <div className="flex mt-4 mb-4 pl-5 pr-5 items-end justify-between gap-8 w-full">
@@ -333,10 +339,10 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           ref={translateOutputRef}
           id="translate-output"
           dir="auto"
-          className="relative border flex-1 border-border-100 dark:border-none bg-background-200
-            text-primary-200 dark:text-primary-dark-200 dark:bg-background-dark-200 w-full
-            pl-5 pr-5 pt-3 pb-3 resize-none transition-all duration-300 rounded-3xl
-            shadow-subtle whitespace-pre-line"
+          className="relative border flex-1 border-border-100 dark:border-transparent
+            bg-background-200 text-primary-200 dark:text-primary-dark-200
+            dark:bg-background-dark-200 w-full pl-5 pr-5 pt-3 pb-3 resize-none
+            transition-all duration-300 rounded-3xl shadow-subtle whitespace-pre-line"
         >
           <div>
             {loading ? (

@@ -35,10 +35,13 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
         id="language-select"
         value={currentLanguage.code}
         onChange={handleSelect}
-        className="border transition-all duration-180 focus:drop-shadow-button-1 border-border-100
-          dark:border-none rounded-md px-2 py-1 text-sm text-primary-200
+        className="border transition-all duration-180 focus:drop-shadow-button-1
+          border-secondary-100 dark:border-secondary-dark-100 hover:border-secondary-200
+          dark:hover:border-secondary-dark-200 focus-visible:border-secondary-200
+          dark:focus-visible:border-secondary-dark-200 active:border-secondary-300
+          dark:active:border-secondary-dark-300 text-primary-200
           dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
-          outline-none"
+          shadow-2xl rounded-lg px-2 py-1 text-sm outline-none"
         aria-label={
           accessibilityLabel ? accessibilityLabel : label || "Select language"
         }
