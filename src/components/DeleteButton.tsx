@@ -19,11 +19,21 @@ const DeleteButton = ({ accessibilityLabel, onClick, ref }: Props) => {
         dark:text-secondary-dark-200
         [transition:color_200ms_cubic-bezier(.15,.55,.75,.85)] outline-none
         hover:text-red-600 focus-visible:text-red-600 active:text-red-700"
-      aria-label={accessibilityLabel ? accessibilityLabel : "Delete"}
-      onClick={onClick}
+      aria-label={
+        accessibilityLabel
+          ? accessibilityLabel
+          : currentLocale.navigation.delete
+      }
+      onClick={(e) => {
+        if (onClick) onClick(e);
+        tooltip.hideTooltip();
+      }}
       onMouseEnter={() => {
-        tooltip.changeText(currentLocale.navigation.delete);
-        tooltip.showTooltip(500);
+        tooltip.showTooltip(
+          400,
+          "sm",
+          accessibilityLabel || currentLocale.navigation.delete,
+        );
       }}
       onMouseLeave={() => tooltip.hideTooltip()}
     >

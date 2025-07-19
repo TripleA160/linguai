@@ -315,6 +315,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               languages={translatorLanguages}
               value={sourceLanguage}
               label={currentLocale.translator.sourceLanguage}
+              accessibilityLabel={currentLocale.translator.selectSourceLanguage}
               id="source-language-select"
             />
             <SwitchButton onClick={handleSwitch} />
@@ -323,6 +324,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               languages={translatorLanguages}
               value={targetLanguage}
               label={currentLocale.translator.targetLanguage}
+              accessibilityLabel={currentLocale.translator.selectTargetLanguage}
               id="target-language-select"
             />
           </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocalization } from "../features/localization/useLocalization";
+import { useTooltip } from "../features/tooltip/useTooltip";
 
 type Props = {
   label?: string;
@@ -21,16 +22,19 @@ const ToggleButton = ({
   check,
 }: Props) => {
   const { currentLanguage } = useLocalization();
+  const tooltip = useTooltip();
   const [isOn, setIsOn] = useState<boolean>(false);
 
   const turnOff = () => {
     onTurnOff?.();
     setIsOn(false);
+    tooltip.hideTooltip();
   };
 
   const turnOn = () => {
     onTurnOn?.();
     setIsOn(true);
+    tooltip.hideTooltip();
   };
 
   const toggle = () => {
@@ -61,6 +65,10 @@ const ToggleButton = ({
           dark:focus-visible:border-secondary-dark-200 active:border-secondary-300
           dark:active:border-secondary-dark-300`}
         aria-label={accessibilityLabel ? accessibilityLabel : label || "Toggle"}
+        onMouseEnter={() => {
+          tooltip.showTooltip(400, "sm", accessibilityLabel || "Toggle");
+        }}
+        onMouseLeave={() => tooltip.hideTooltip()}
       >
         <div className={"w-full"}>{isOn ? onText : offText}</div>
         <div

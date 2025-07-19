@@ -55,8 +55,7 @@ const SidePanel = ({ label, icon, items, className }: Props) => {
             className="w-7 shrink-0 text-secondary-100"
             onMouseEnter={() => {
               if (isCollapsed) {
-                tooltip.changeText(label);
-                tooltip.showTooltip();
+                tooltip.showTooltip(400, "md", label);
               }
             }}
             onMouseLeave={() => tooltip.hideTooltip()}
@@ -81,8 +80,7 @@ const SidePanel = ({ label, icon, items, className }: Props) => {
               key={item.id || item.text + random()}
               onMouseEnter={() => {
                 if (isCollapsed) {
-                  tooltip.changeText(item.text);
-                  tooltip.showTooltip();
+                  tooltip.showTooltip(0, "md", item.text);
                 }
               }}
               onMouseLeave={() => tooltip.hideTooltip()}

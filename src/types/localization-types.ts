@@ -20,19 +20,27 @@ export type Locale = {
     displayName: string;
   };
   settings: {
-    settings: string;
     theme: string;
     light: string;
     dark: string;
+    toggleTheme: string;
     language: string;
+    selectLanguage: string;
   };
   translator: {
-    sourceLanguage: string;
-    targetLanguage: string;
     placeholder: string;
     translating: string;
+    sourceLanguage: string;
+    targetLanguage: string;
+    save: string;
+    copy: string;
+    switch: string;
+    selectSourceLanguage: string;
+    selectTargetLanguage: string;
   };
   navigation: {
+    appSettings: string;
+    userSettings: string;
     history: string;
     saved: string;
     delete: string;

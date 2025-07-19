@@ -7,6 +7,7 @@ import AuthButton from "./AuthButton";
 import DropdownMenu from "./DropdownMenu";
 import AccountIcon from "../assets/account-icon.svg?react";
 import { useLocalization } from "../features/localization/useLocalization";
+import { useTooltip } from "../features/tooltip/useTooltip";
 
 const HeaderUserArea = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -14,10 +15,11 @@ const HeaderUserArea = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { currentLocale } = useLocalization();
+  const tooltip = useTooltip();
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleAccountClick = () => {
+  const handleUserClick = () => {
     const isHidden = dropdownRef.current?.classList.contains("hidden");
 
     accountButtonRef.current?.focus();
@@ -30,6 +32,8 @@ const HeaderUserArea = () => {
       dropdownRef.current?.classList.add("hidden");
       accountButtonRef.current?.blur();
     }
+
+    tooltip.hideTooltip();
   };
 
   const handleSignUpClick = () => {
@@ -70,9 +74,19 @@ const HeaderUserArea = () => {
           ref={containerRef}
           className="relative flex items-center justify-end"
         >
-          <div className="flex group items-center gap-2">
+          <div
+            className="flex group items-center gap-2"
+            onMouseEnter={() => {
+              tooltip.showTooltip(
+                400,
+                "md",
+                currentLocale.navigation.userSettings,
+              );
+            }}
+            onMouseLeave={() => tooltip.hideTooltip()}
+          >
             <button
-              onClick={handleAccountClick}
+              onClick={handleUserClick}
               className="text-sm select-none cursor-pointer transition-all duration-180
                 text-secondary-100 dark:text-secondary-dark-100 h-full flex items-center
                 justify-center group-hover:text-secondary-200
@@ -82,15 +96,15 @@ const HeaderUserArea = () => {
                 dark:active:text-secondary-dark-300 group-focus-visible:text-secondary-200
                 dark:group-focus-visible:text-secondary-dark-200 group-active:text-secondary-300
                 dark:group-active:text-secondary-dark-300"
-              aria-label={"User menu"}
+              aria-label={currentLocale.navigation.userSettings}
             >
               {currentUser.displayName}
             </button>
             <button
               className="cursor-pointer"
               ref={accountButtonRef}
-              onClick={handleAccountClick}
-              aria-label={"User menu"}
+              onClick={handleUserClick}
+              aria-label={currentLocale.navigation.userSettings}
             >
               <AccountIcon
                 className="cursor-pointer w-8 h-8 text-secondary-100 dark:text-secondary-dark-100

@@ -1,4 +1,5 @@
 import { useLocalization } from "../features/localization/useLocalization";
+import { useTooltip } from "../features/tooltip/useTooltip";
 import { type TranslatorLanguage } from "../utils/translator-utils";
 
 type Props = {
@@ -19,6 +20,7 @@ const TranslatorLanguageSelector = ({
   accessibilityLabel,
 }: Props) => {
   const { currentLocale } = useLocalization();
+  const tooltip = useTooltip();
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -26,8 +28,18 @@ const TranslatorLanguageSelector = ({
         dir="auto"
         htmlFor={id}
         className="text-sm text-secondary-200 dark:text-secondary-dark-200"
+        onMouseEnter={() => {
+          tooltip.showTooltip(
+            400,
+            "sm",
+            accessibilityLabel
+              ? accessibilityLabel
+              : label || currentLocale.settings.selectLanguage,
+          );
+        }}
+        onMouseLeave={() => tooltip.hideTooltip()}
       >
-        {label ? label : currentLocale.settings.language}:
+        {label ? label : currentLocale.settings.selectLanguage}:
       </label>
       <select
         id={id}
@@ -36,7 +48,11 @@ const TranslatorLanguageSelector = ({
           const selected = languages.find(
             (lang) => lang.code === e.target.value,
           );
-          if (selected) onChange(selected);
+          if (selected) {
+            onChange(selected);
+            e.currentTarget.blur();
+          }
+          tooltip.hideTooltip();
         }}
         className="border transition-all duration-180 focus:drop-shadow-button-1 border-border-100
           dark:border-border-200 hover:border-secondary-dark-100
@@ -46,8 +62,20 @@ const TranslatorLanguageSelector = ({
           bg-background-200 dark:bg-background-dark-200 rounded-md px-2 py-1 text-sm
           outline-none"
         aria-label={
-          accessibilityLabel ? accessibilityLabel : label || "Select language"
+          accessibilityLabel
+            ? accessibilityLabel
+            : label || currentLocale.settings.selectLanguage
         }
+        onMouseEnter={() => {
+          tooltip.showTooltip(
+            400,
+            "sm",
+            accessibilityLabel
+              ? accessibilityLabel
+              : label || currentLocale.settings.selectLanguage,
+          );
+        }}
+        onMouseLeave={() => tooltip.hideTooltip()}
       >
         {languages.map((language) => (
           <option key={language.code} value={language.code}>

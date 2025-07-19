@@ -1,5 +1,6 @@
 import type { ChangeEvent } from "react";
 import { useLocalization } from "../features/localization/useLocalization";
+import { useTooltip } from "../features/tooltip/useTooltip";
 
 type Props = {
   label?: string;
@@ -10,6 +11,8 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
   const { supportedLanguages, changeLanguage, currentLocale, currentLanguage } =
     useLocalization();
 
+  const tooltip = useTooltip();
+
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     const selected = supportedLanguages.current.find(
       (lang) => lang.code === e.target.value,
@@ -17,6 +20,9 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
     if (selected) {
       changeLanguage(selected.code);
     }
+
+    e.currentTarget.blur();
+    tooltip.hideTooltip();
   };
 
   return (
@@ -43,8 +49,18 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
           dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
           shadow-2xl rounded-lg px-2 py-1 text-sm outline-none"
         aria-label={
-          accessibilityLabel ? accessibilityLabel : label || "Select language"
+          accessibilityLabel
+            ? accessibilityLabel
+            : label || currentLocale.settings.selectLanguage
         }
+        onMouseEnter={() => {
+          tooltip.showTooltip(
+            400,
+            "sm",
+            accessibilityLabel || currentLocale.settings.selectLanguage,
+          );
+        }}
+        onMouseLeave={() => tooltip.hideTooltip()}
       >
         {supportedLanguages.current.map((lang) => (
           <option key={lang.code} value={lang.code}>
