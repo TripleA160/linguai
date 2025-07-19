@@ -18,6 +18,7 @@ import {
   translatorLanguages,
   type TranslatorLanguage,
 } from "../utils/translator-utils";
+import CopyButton from "./CopyButton";
 import SaveButton from "./SaveButton";
 import { useFirestore } from "../features/firestore/useFirestore";
 import { useAuth } from "../features/auth/useAuth";
@@ -82,6 +83,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       if (!shouldUpdateTranslation.current || !text || text.trim() === "") {
         setSelectedTranslation(null);
         setTranslatedText("");
+        setError(null);
         setLoading(false);
         return;
       }
@@ -152,6 +154,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       if (targetLang) setTargetLanguage(targetLang);
       if (translateInputRef.current)
         translateInputRef.current.value = selectedTranslation.sourceText;
+      setTranslateInput(selectedTranslation.sourceText);
       setTranslatedText(selectedTranslation.translatedText);
       if (savedTranslations) {
         const savedVariant = savedTranslations.find(
@@ -196,7 +199,11 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   useEffect(() => {
     if (!currentUser) {
       if (translateInputRef.current) translateInputRef.current.value = "";
+      setTranslateInput("");
       if (translatedText) setTranslatedText(null);
+      setSelectedTranslation(null);
+      setIsTranslationSaved(false);
+      setError(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
@@ -210,12 +217,18 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    const newInput = e.target.value;
+    const newInput = e.target.value.trim();
     setTranslateInput(newInput);
-    if (newInput.trim() === "") {
+    if (newInput === "") {
       isCancelled.current = true;
       setTranslatedText("");
       setSelectedTranslation(null);
+      setError(null);
+      setLoading(false);
+      return;
+    } else if (newInput.length > 4000) {
+      isCancelled.current = true;
+      setError(null);
       setLoading(false);
       return;
     }
@@ -276,14 +289,16 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
             id="translate-input"
             placeholder={currentLocale.translator.placeholder}
             dir={translateInput ? "auto" : currentLanguage.direction}
-            maxLength={6000}
             className="h-full w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 overflow-y-auto resize-none
               outline-none text-primary-100 dark:text-primary-dark-100"
           />
         </div>
         <div className="flex mt-4 mb-4 pl-5 pr-5 items-end justify-between gap-8 w-full">
-          <div className="flex gap-4">
-            {/* placeholder for left side buttons */}
+          <div
+            className={`text-sm
+              ${translateInput.length <= 4000 ? "text-secondary-200 dark:text-secondary-dark-200" : "text-red-400 dark:text-red-300 "}`}
+          >
+            {translateInput.length} / 4000
           </div>
           <div
             className={`flex gap-8 items-end
@@ -305,7 +320,8 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               id="target-language-select"
             />
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
+            <CopyButton textToCopy={translateInput} />
             <SaveButton
               ref={saveButtonRef}
               isSaved={isTranslationSaved}
