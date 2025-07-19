@@ -66,23 +66,29 @@ const Login = () => {
             </div>
           ))}
         <div className="form-field">
-          <label htmlFor="email">{currentLocale.auth.email}</label>
+          <label htmlFor="email" dir="auto" className="w-full">
+            {currentLocale.auth.email}
+          </label>
           <input
             ref={emailRef}
             type="email"
             id="email"
             name="email"
             className="form-input"
+            dir="auto"
           />
         </div>
         <div className="form-field">
-          <label htmlFor="password">{currentLocale.auth.password}</label>
+          <label htmlFor="password" dir="auto" className="w-full">
+            {currentLocale.auth.password}
+          </label>
           <input
             ref={passwordRef}
             type="password"
             id="password"
             name="password"
             className="form-input"
+            dir="auto"
           />
         </div>
         <button disabled={loading} type="submit" className="form-button">
