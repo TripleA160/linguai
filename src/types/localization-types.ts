@@ -33,7 +33,9 @@ export type Locale = {
     sourceLanguage: string;
     targetLanguage: string;
     save: string;
+    saved: string;
     copy: string;
+    copied: string;
     switch: string;
     selectSourceLanguage: string;
     selectTargetLanguage: string;

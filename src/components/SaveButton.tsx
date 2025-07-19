@@ -34,7 +34,9 @@ const SaveButton = ({ accessibilityLabel, onClick, ref, isSaved }: Props) => {
           tooltip.showTooltip(
             400,
             "sm",
-            accessibilityLabel || currentLocale.translator.save,
+            isSaved
+              ? currentLocale.translator.saved
+              : currentLocale.translator.save,
           );
         }}
         onMouseLeave={() => tooltip.hideTooltip()}

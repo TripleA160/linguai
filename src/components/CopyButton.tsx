@@ -24,14 +24,14 @@ const CopyButton = ({
   const handleCopy = (e: MouseEvent<HTMLButtonElement>) => {
     navigator.clipboard.writeText(textToCopy);
     setIsCopied(true);
+    tooltip.changeText(currentLocale.translator.copied);
     setTimeout(() => {
       setIsCopied(false);
+      tooltip.changeText(currentLocale.translator.copy);
     }, 1000);
     e.currentTarget.blur();
 
     if (onClick) onClick();
-
-    tooltip.hideTooltip();
   };
 
   return (
@@ -54,7 +54,9 @@ const CopyButton = ({
           tooltip.showTooltip(
             400,
             "sm",
-            accessibilityLabel || currentLocale.translator.copy,
+            isCopied
+              ? currentLocale.translator.copied
+              : currentLocale.translator.copy,
           );
         }}
         onMouseLeave={() => tooltip.hideTooltip()}
