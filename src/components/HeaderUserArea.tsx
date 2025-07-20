@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth";
 import { useEffect, useRef } from "react";
 import AuthButton from "./AuthButton";
-import DropdownMenu from "./DropdownMenu";
 import AccountIcon from "../assets/account-icon.svg?react";
 import { useLocalization } from "../features/localization/useLocalization";
 import { useTooltip } from "../features/tooltip/useTooltip";
+import LogoutIcon from "../assets/logout-icon.svg?react";
 
 const HeaderUserArea = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -72,15 +72,22 @@ const HeaderUserArea = () => {
       {currentUser ? (
         <div
           ref={containerRef}
-          className="relative flex items-center justify-end"
+          className="relative flex items-center justify-end gap-3"
         >
+          <AuthButton
+            label={currentLocale.auth.logout}
+            onClick={handleLogoutClick}
+            isCollapsible={true}
+            collapseLabel={<LogoutIcon className="w-4.5" />}
+            className="h-8! rounded-2xl"
+          ></AuthButton>
           <div
             className="flex group items-center gap-2"
             onMouseEnter={() => {
               tooltip.showTooltip(
                 400,
                 "md",
-                currentLocale.navigation.userSettings,
+                currentLocale.navigation.accountSettings,
               );
             }}
             onMouseLeave={() => tooltip.hideTooltip()}
@@ -96,7 +103,7 @@ const HeaderUserArea = () => {
                 dark:active:text-secondary-dark-300 group-focus-visible:text-secondary-200
                 dark:group-focus-visible:text-secondary-dark-200 group-active:text-secondary-300
                 dark:group-active:text-secondary-dark-300"
-              aria-label={currentLocale.navigation.userSettings}
+              aria-label={currentLocale.navigation.accountSettings}
             >
               {currentUser.displayName}
             </button>
@@ -104,7 +111,7 @@ const HeaderUserArea = () => {
               className="cursor-pointer"
               ref={accountButtonRef}
               onClick={handleUserClick}
-              aria-label={currentLocale.navigation.userSettings}
+              aria-label={currentLocale.navigation.accountSettings}
             >
               <AccountIcon
                 className="cursor-pointer w-8 h-8 text-secondary-100 dark:text-secondary-dark-100
@@ -120,14 +127,6 @@ const HeaderUserArea = () => {
               />
             </button>
           </div>
-
-          <DropdownMenu ref={dropdownRef} className="min-w-40">
-            <AuthButton
-              label={currentLocale.auth.logout}
-              onClick={handleLogoutClick}
-              className="min-w-20"
-            />
-          </DropdownMenu>
         </div>
       ) : (
         <div

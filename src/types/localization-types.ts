@@ -42,7 +42,7 @@ export type Locale = {
   };
   navigation: {
     appSettings: string;
-    userSettings: string;
+    accountSettings: string;
     history: string;
     saved: string;
     delete: string;

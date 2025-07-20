@@ -33,7 +33,7 @@ const ar: Locale = {
   },
   navigation: {
     appSettings: "إعدادات التطبيق",
-    userSettings: "إعدادات المستخدم",
+    accountSettings: "إعدادات الحساب",
     history: "السجل",
     saved: "المحفوظات",
     delete: "حذف",

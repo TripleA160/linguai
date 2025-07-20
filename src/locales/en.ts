@@ -33,7 +33,7 @@ const en: Locale = {
   },
   navigation: {
     appSettings: "App settings",
-    userSettings: "User settings",
+    accountSettings: "Account settings",
     history: "History",
     saved: "Saved",
     delete: "Delete",

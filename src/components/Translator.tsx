@@ -1,6 +1,3 @@
-//TODO: Add copy button
-//TODO: Add character count
-
 import {
   useCallback,
   useEffect,
