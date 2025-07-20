@@ -11,6 +11,8 @@ const ar: Locale = {
     displayName: "الاسم",
   },
   settings: {
+    auto: "تلقائي",
+    toggleAuto: "المظهر التلقائي",
     theme: "المظهر",
     light: "فاتح",
     dark: "داكن",

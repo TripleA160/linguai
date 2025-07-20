@@ -11,6 +11,8 @@ const en: Locale = {
     displayName: "Name",
   },
   settings: {
+    auto: "Auto",
+    toggleAuto: "Automatic theme",
     theme: "Theme",
     light: "Light",
     dark: "Dark",

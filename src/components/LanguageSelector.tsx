@@ -27,7 +27,7 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
 
   return (
     <div
-      className={`flex items-center justify-center gap-2
+      className={`flex items-center justify-between w-full
         ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
     >
       <label
@@ -47,7 +47,7 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
           dark:focus-visible:border-secondary-dark-200 active:border-secondary-300
           dark:active:border-secondary-dark-300 text-primary-200
           dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
-          shadow-2xl rounded-lg px-2 py-1 text-sm outline-none"
+          shadow-2xl rounded-lg px-2 py-1 text-sm outline-none w-3/5"
         aria-label={
           accessibilityLabel
             ? accessibilityLabel

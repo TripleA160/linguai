@@ -20,6 +20,8 @@ export type Locale = {
     displayName: string;
   };
   settings: {
+    auto: string;
+    toggleAuto: string;
     theme: string;
     light: string;
     dark: string;

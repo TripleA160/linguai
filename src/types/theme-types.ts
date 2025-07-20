@@ -1,5 +1,6 @@
 export type ThemeContextData = {
-  currentTheme: "light" | "dark";
+  currentTheme: "auto" | "light" | "dark";
+  setAutoTheme: () => void;
   setLightTheme: () => void;
   setDarkTheme: () => void;
   toggleTheme: () => void;

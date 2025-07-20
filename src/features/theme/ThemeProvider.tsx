@@ -3,47 +3,71 @@ import type { ThemeContextData } from "../../types/theme-types";
 import { ThemeContext } from "./ThemeContext";
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
+  const [currentTheme, setCurrentTheme] = useState<"auto" | "light" | "dark">(
+    "auto",
+  );
 
-  const setLightTheme = (saveTheme: boolean = true) => {
+  const setAutoTheme = (saveTheme: boolean = true) => {
+    setCurrentTheme("auto");
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      setDarkTheme(false, true);
+    } else {
+      setLightTheme(false, true);
+    }
+    if (saveTheme) localStorage.setItem("theme", "auto");
+  };
+  const setLightTheme = (
+    saveTheme: boolean = true,
+    isAuto: boolean = false,
+  ) => {
     document.documentElement.classList.remove("dark");
-    setCurrentTheme("light");
+    if (!isAuto) setCurrentTheme("light");
     if (saveTheme) localStorage.setItem("theme", "light");
   };
-  const setDarkTheme = (saveTheme: boolean = true) => {
+  const setDarkTheme = (saveTheme: boolean = true, isAuto: boolean = false) => {
     document.documentElement.classList.add("dark");
-    setCurrentTheme("dark");
+    if (!isAuto) setCurrentTheme("dark");
     if (saveTheme) localStorage.setItem("theme", "dark");
   };
-  const toggleTheme = () => {
-    if (currentTheme === "light") setDarkTheme();
-    else setLightTheme();
+
+  const toggleTheme = (saveTheme: boolean = true, isAuto: boolean = false) => {
+    if (currentTheme === "light") setDarkTheme(saveTheme, isAuto);
+    else setLightTheme(saveTheme, isAuto);
   };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
 
     if (!savedTheme) {
-      if (
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      ) {
-        setDarkTheme(false);
-      } else {
-        setLightTheme(false);
-      }
+      setAutoTheme();
       return;
     }
 
-    if (savedTheme === "dark") {
-      setDarkTheme();
-    } else {
-      setLightTheme();
+    switch (savedTheme) {
+      case "auto":
+        setAutoTheme();
+        break;
+      case "dark":
+        setDarkTheme();
+        break;
+      case "light":
+        setLightTheme();
+        break;
+
+      default:
+        setAutoTheme();
+        break;
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const contextData: ThemeContextData = {
     currentTheme,
+    setAutoTheme,
     setLightTheme,
     setDarkTheme,
     toggleTheme,

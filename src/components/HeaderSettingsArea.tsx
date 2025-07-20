@@ -1,11 +1,10 @@
 import { useEffect, useRef } from "react";
 import SettingsIcon from "../assets/settings-icon.svg?react";
 import DropdownMenu from "./DropdownMenu";
-import { useTheme } from "../features/theme/useTheme";
-import ToggleButton from "./ToggleButton";
 import { useLocalization } from "../features/localization/useLocalization";
 import LanguageSelector from "./LanguageSelector";
 import { useTooltip } from "../features/tooltip/useTooltip";
+import ThemeSettings from "./ThemeSettings";
 
 const HeaderSettingsArea = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -14,7 +13,6 @@ const HeaderSettingsArea = () => {
 
   const { currentLocale } = useLocalization();
   const tooltip = useTooltip();
-  const { currentTheme, setLightTheme, setDarkTheme } = useTheme();
 
   const handleGearClick = () => {
     const isHidden = dropdownRef.current?.classList.contains("hidden");
@@ -83,15 +81,7 @@ const HeaderSettingsArea = () => {
 
         <DropdownMenu ref={dropdownRef} className="min-w-40">
           <LanguageSelector />
-          <ToggleButton
-            label={currentLocale.settings.theme}
-            accessibilityLabel={currentLocale.settings.toggleTheme}
-            offText={currentLocale.settings.light}
-            onText={currentLocale.settings.dark}
-            onTurnOff={setLightTheme}
-            onTurnOn={setDarkTheme}
-            check={currentTheme === "dark"}
-          />
+          <ThemeSettings />
         </DropdownMenu>
       </div>
     </>
