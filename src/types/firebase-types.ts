@@ -1,12 +1,9 @@
-import type { UserCredential } from "firebase/auth";
-import { auth } from "../config/firebase";
+import type { UserCredential, User } from "firebase/auth";
 import type { RefObject } from "react";
 import type { Timestamp } from "firebase/firestore/lite";
 
-export type User = typeof auth.currentUser;
-
 export type AuthContextData = {
-  currentUser: User;
+  currentUser: User | null;
   signup: (
     email: string,
     password: string,

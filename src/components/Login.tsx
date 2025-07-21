@@ -50,9 +50,11 @@ const Login = () => {
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="form self-center w-full"
+        className="flex max-w-lg min-w-xs flex-1 flex-col items-center gap-4 p-6 self-center w-full"
       >
-        <h1 className="form-title">{currentLocale.auth.login}</h1>
+        <h1 className="mb-6 text-3xl select-none">
+          {currentLocale.auth.login}
+        </h1>
         {error &&
           (Array.isArray(error) && error.length > 1 ? (
             <ul className="error" dir="auto">
@@ -65,7 +67,7 @@ const Login = () => {
               {error}
             </div>
           ))}
-        <div className="form-field">
+        <div className="flex w-full flex-col items-start gap-2">
           <label htmlFor="email" dir="auto" className="w-full">
             {currentLocale.auth.email}
           </label>
@@ -74,11 +76,14 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
-            className="form-input"
+            className="border-border-100 focus:outline-primary-200 dark:focus:outline-primary-dark-200
+              focus:border-primary-200 dark:focus:border-primary-dark-200 h-11 w-full
+              rounded-md border-2 p-2 outline-1 outline-transparent transition-colors
+              duration-250"
             dir="auto"
           />
         </div>
-        <div className="form-field">
+        <div className="flex w-full flex-col items-start gap-2">
           <label htmlFor="password" dir="auto" className="w-full">
             {currentLocale.auth.password}
           </label>
@@ -87,11 +92,24 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
-            className="form-input"
+            className="border-border-100 focus:outline-primary-200 dark:focus:outline-primary-dark-200
+              focus:border-primary-200 dark:focus:border-primary-dark-200 h-11 w-full
+              rounded-md border-2 p-2 outline-1 outline-transparent transition-colors
+              duration-250"
             dir="auto"
           />
         </div>
-        <button disabled={loading} type="submit" className="form-button">
+        <button
+          disabled={loading}
+          type="submit"
+          className="focus:outline-primary-200 focus:shadow-button
+            dark:focus:outline-primary-dark-200 bg-secondary-100 dark:bg-secondary-dark-100
+            hover:bg-secondary-200 dark:hover:bg-secondary-dark-200
+            focus-visible:bg-secondary-200 dark:focus-visible:bg-secondary-dark-200
+            active:bg-secondary-300 dark:active:bg-secondary-dark-300 mt-4 h-11 w-full
+            cursor-pointer rounded-md text-white outline-1 outline-transparent
+            transition-all duration-180 dark:text-black"
+        >
           {currentLocale.auth.login}
         </button>
       </form>

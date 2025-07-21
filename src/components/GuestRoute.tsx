@@ -2,10 +2,10 @@ import { type ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth";
 
-const PrivateRoute = ({ children }: { children: ReactNode }) => {
+const GuestRoute = ({ children }: { children: ReactNode }) => {
   const { currentUser } = useAuth();
 
-  return currentUser ? children : <Navigate to="/login" replace />;
+  return currentUser ? <Navigate to="/" replace /> : children;
 };
 
-export default PrivateRoute;
+export default GuestRoute;

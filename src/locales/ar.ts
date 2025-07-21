@@ -9,6 +9,9 @@ const ar: Locale = {
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
     displayName: "الاسم",
+    profileInfo: "الملف الشخصي",
+    security: "الأمان",
+    apply: "تطبيق",
   },
   settings: {
     auto: "تلقائي",
@@ -70,6 +73,8 @@ const ar: Locale = {
       "auth/user-disabled": "تم تعطيل هذا الحساب.",
       "auth/too-many-requests":
         "تم إجراء عدد كبير من المحاولات. يرجى المحاولة لاحقًا.",
+      "auth/operation-not-allowed":
+        "يرجى تأكيد الحساب أولا. تحقق من الرابط المرسل إلى بريدك الإلكتروني",
       unexpected: "حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى.",
     },
     ai: {

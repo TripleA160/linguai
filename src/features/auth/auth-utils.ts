@@ -1,5 +1,4 @@
-import { updateEmail, updateProfile } from "firebase/auth";
-import type { User } from "../../types/firebase-types";
+import { type User, updateEmail, updateProfile } from "firebase/auth";
 
 export async function updateUserInAuth(
   user: User,

@@ -1,18 +1,20 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { auth } from "../../config/firebase";
 import { AuthContext } from "./AuthContext";
-import type { User, AuthContextData } from "../../types/firebase-types";
+import type { AuthContextData } from "../../types/firebase-types";
 import { updateUserInAuth } from "./auth-utils";
 import { updateUserInDB } from "../firestore/firestore-utils";
 import {
+  type User,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  reload,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState<User>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   async function signup(email: string, password: string, displayName?: string) {
@@ -64,12 +66,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     data: { email?: string; displayName?: string },
     user?: User,
   ) {
-    if (user) {
-      await updateUserInAuth(user, data);
-      await updateUserInDB(user, data);
-    } else {
-      await updateUserInAuth(currentUser, data);
-      await updateUserInDB(currentUser, data);
+    const targetUser = user || auth.currentUser;
+
+    if (targetUser) {
+      await updateUserInAuth(targetUser, data);
+      await updateUserInDB(targetUser, data);
+
+      if (auth.currentUser) {
+        await reload(auth.currentUser);
+        setCurrentUser({ ...auth.currentUser });
+      }
     }
   }
 

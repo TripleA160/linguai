@@ -46,7 +46,7 @@ const AuthButton = ({
           <span
             className="overflow-hidden opacity-0 max-w-0 min-w-0 group-hover:opacity-100
               translate-x-1.5 group-hover:max-w-28 group-hover:min-w-12 group-hover:pr-1.5
-              transition-all duration-200 leading-snug"
+              transition-all duration-250 leading-snug"
           >
             {label}
           </span>

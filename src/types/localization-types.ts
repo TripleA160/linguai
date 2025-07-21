@@ -18,6 +18,9 @@ export type Locale = {
     password: string;
     confirmPassword: string;
     displayName: string;
+    profileInfo: string;
+    security: string;
+    apply: string;
   };
   settings: {
     auto: string;
@@ -71,6 +74,7 @@ export type Locale = {
       "auth/wrong-password": string;
       "auth/user-disabled": string;
       "auth/too-many-requests": string;
+      "auth/operation-not-allowed": string;
       unexpected: string;
     };
     ai: {

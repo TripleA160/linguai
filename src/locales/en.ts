@@ -9,6 +9,9 @@ const en: Locale = {
     password: "Password",
     confirmPassword: "Confirm Password",
     displayName: "Name",
+    profileInfo: "Profile Info",
+    security: "Security",
+    apply: "Apply",
   },
   settings: {
     auto: "Auto",
@@ -69,6 +72,8 @@ const en: Locale = {
         "Incorrect email or password. Try again or sign up.",
       "auth/user-disabled": "This account has been disabled.",
       "auth/too-many-requests": "Too many attempts. Please try again later.",
+      "auth/operation-not-allowed":
+        "Please verify the account. Check the verification link sent your email.",
       unexpected: "An unexpected error occurred, please try again.",
     },
     ai: {

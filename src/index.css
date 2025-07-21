@@ -44,20 +44,8 @@
 }
 
 @layer components {
-  .form {
-    @apply bg-background-100 dark:bg-background-dark-300 flex max-w-lg min-w-xs flex-1 flex-col items-center gap-4 rounded-4xl p-6;
-  }
-  .form-title {
-    @apply mb-6 text-3xl select-none;
-  }
-  .form-input {
-    @apply border-border-100 focus:outline-primary-200 dark:focus:outline-primary-dark-200 focus:border-primary-200 dark:focus:border-primary-dark-200 h-11 w-full rounded-md border-2 p-2 outline-1 outline-transparent transition-colors duration-250;
-  }
-  .form-field {
-    @apply flex w-full flex-col items-start gap-2;
-  }
-  .form-button {
-    @apply focus:outline-primary-200 focus:shadow-button dark:focus:outline-primary-dark-200 bg-secondary-100 dark:bg-secondary-dark-100 hover:bg-secondary-200 dark:hover:bg-secondary-dark-200 focus-visible:bg-secondary-200 dark:focus-visible:bg-secondary-dark-200 active:bg-secondary-300 dark:active:bg-secondary-dark-300 mt-4 h-11 w-full cursor-pointer rounded-md text-white outline-1 outline-transparent transition-all duration-180 dark:text-black;
+  .warning {
+    @apply mb-2 w-full rounded-md border-1 border-gray-300 p-2 text-sm text-gray-400 selection:rounded-md selection:bg-gray-100 selection:text-gray-600 dark:text-gray-300 dark:selection:bg-gray-200 dark:selection:text-gray-700;
   }
   .error {
     @apply mb-2 w-full rounded-md border-1 border-red-300 p-2 text-sm text-red-400 selection:rounded-md selection:bg-red-100 selection:text-red-600 dark:text-red-300 dark:selection:bg-red-200 dark:selection:text-red-700;

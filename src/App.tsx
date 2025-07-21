@@ -14,6 +14,9 @@ import Translator from "./components/Translator";
 import MainPanel from "./components/MainPanel";
 import Saved from "./components/Saved";
 import History from "./components/History";
+import PrivateRoute from "./components/PrivateRoute";
+import Account from "./components/Account";
+import GuestRoute from "./components/GuestRoute";
 
 function App() {
   const [selectedTranslation, setSelectedTranslation] = useState<{
@@ -62,7 +65,15 @@ function App() {
                           onDelete={deleteFromHistory}
                         />
                       )}
-                      <MainPanel className={isHome ? "w-full" : "w-1/2"}>
+                      <MainPanel
+                        className={
+                          isHome
+                            ? "w-full"
+                            : location.pathname === "/account"
+                              ? "w-2/3"
+                              : "w-1/2"
+                        }
+                      >
                         <Routes>
                           <Route
                             path="/"
@@ -73,8 +84,30 @@ function App() {
                               />
                             }
                           />
-                          <Route path="/signup" element={<Signup />} />
-                          <Route path="/login" element={<Login />} />
+                          <Route
+                            path="/signup"
+                            element={
+                              <GuestRoute>
+                                <Signup />
+                              </GuestRoute>
+                            }
+                          />
+                          <Route
+                            path="/login"
+                            element={
+                              <GuestRoute>
+                                <Login />
+                              </GuestRoute>
+                            }
+                          />
+                          <Route
+                            path="/account"
+                            element={
+                              <PrivateRoute>
+                                <Account />
+                              </PrivateRoute>
+                            }
+                          />
                         </Routes>
                       </MainPanel>
                       {isHome && (

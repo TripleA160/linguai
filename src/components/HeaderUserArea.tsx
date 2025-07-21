@@ -1,5 +1,3 @@
-//TODO: Add a button to open account settings
-
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/useAuth";
 import { useEffect, useRef } from "react";
@@ -36,6 +34,9 @@ const HeaderUserArea = () => {
     tooltip.hideTooltip();
   };
 
+  const handleAccountClick = () => {
+    navigate("/account");
+  };
   const handleSignUpClick = () => {
     navigate("/signup");
   };
@@ -82,7 +83,8 @@ const HeaderUserArea = () => {
             className="h-8! rounded-2xl"
           ></AuthButton>
           <div
-            className="flex group items-center gap-2"
+            onClick={handleAccountClick}
+            className="flex group items-center gap-2 cursor-pointer"
             onMouseEnter={() => {
               tooltip.showTooltip(
                 400,
