@@ -1,8 +1,8 @@
 import { useRef, useState, type FormEvent } from "react";
 import { formatFirebaseError } from "../utils/firebase-utils";
 import { useAuth } from "../features/auth/useAuth";
-import { useNavigate } from "react-router-dom";
 import { useLocalization } from "../features/localization/useLocalization";
+import { useAlert } from "../features/alert/useAlert";
 
 const Signup = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
@@ -14,10 +14,9 @@ const Signup = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { currentLocale } = useLocalization();
+  const alert = useAlert();
 
   const { signup } = useAuth();
-
-  const navigate = useNavigate();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -75,7 +74,7 @@ const Signup = () => {
       await signup(emailRef.current.value, password, nameRef.current.value);
       setError(null);
       setLoading(false);
-      navigate("/");
+      alert.showAlert("info", 4000, currentLocale.auth.verificationSent);
     } catch (error) {
       setError(formatFirebaseError(error, currentLocale));
     }

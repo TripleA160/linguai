@@ -12,6 +12,8 @@ const en: Locale = {
     profileInfo: "Profile Info",
     security: "Security",
     apply: "Apply",
+    verificationSent:
+      "A verification link has been sent to your email. Please check your inbox.",
   },
   settings: {
     auto: "Auto",
@@ -73,7 +75,7 @@ const en: Locale = {
       "auth/user-disabled": "This account has been disabled.",
       "auth/too-many-requests": "Too many attempts. Please try again later.",
       "auth/operation-not-allowed":
-        "Please verify the account. Check the verification link sent your email.",
+        "Please verify the account. Check the verification link sent to your email.",
       unexpected: "An unexpected error occurred, please try again.",
     },
     ai: {

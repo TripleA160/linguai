@@ -4,7 +4,6 @@ import type {
   FirestoreContextData,
   SavedTranslationsItem,
   TranslationHistoryItem,
-  User,
 } from "../../types/firebase-types";
 import { FirestoreContext } from "./FirestoreContext";
 import {
@@ -16,6 +15,7 @@ import {
   getTranslationsFromSaved,
   updateUserInDB,
 } from "./firestore-utils";
+import type { User } from "firebase/auth";
 
 export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
   const { currentUser } = useAuth();
@@ -41,7 +41,7 @@ export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
   ) {
     if (user) {
       return updateUserInDB(user, data);
-    } else {
+    } else if (currentUser) {
       return updateUserInDB(currentUser, data);
     }
   }
@@ -74,6 +74,8 @@ export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function deleteTranslationFromUserHistory(translationID: string) {
+    if (!currentUser) return;
+
     await deleteTranslationFromHistory(currentUser, translationID);
 
     const updatedHistory = await getTranslationsFromHistory(currentUser);
@@ -82,6 +84,8 @@ export const FirestoreProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function deleteTranslationFromUserSaved(translationID: string) {
+    if (!currentUser) return;
+
     await deleteTranslationFromSaved(currentUser, translationID);
 
     const updatedSaved = await getTranslationsFromSaved(currentUser);

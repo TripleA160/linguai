@@ -13,8 +13,8 @@ import {
 import type {
   SavedTranslationsItem,
   TranslationHistoryItem,
-  User,
 } from "../../types/firebase-types";
+import type { User } from "firebase/auth";
 
 export async function updateUserInDB(
   user: User,

@@ -12,6 +12,8 @@ const ar: Locale = {
     profileInfo: "الملف الشخصي",
     security: "الأمان",
     apply: "تطبيق",
+    verificationSent:
+      "تم إرسال رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.",
   },
   settings: {
     auto: "تلقائي",

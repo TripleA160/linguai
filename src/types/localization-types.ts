@@ -21,6 +21,7 @@ export type Locale = {
     profileInfo: string;
     security: string;
     apply: string;
+    verificationSent: string;
   };
   settings: {
     auto: string;

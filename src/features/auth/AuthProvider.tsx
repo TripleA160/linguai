@@ -9,8 +9,10 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   reload,
+  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -24,6 +26,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       password,
     );
     if (userCredential.user) {
+      sendEmailVerification(userCredential.user);
       setCurrentUser(userCredential.user);
       if (displayName) {
         await updateUserInAuth(userCredential.user, { email, displayName });
@@ -54,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   async function logout() {
-    await auth.signOut();
+    await signOut(auth);
     setCurrentUser(null);
   }
 

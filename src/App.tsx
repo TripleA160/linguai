@@ -17,6 +17,7 @@ import History from "./components/History";
 import PrivateRoute from "./components/PrivateRoute";
 import Account from "./components/Account";
 import GuestRoute from "./components/GuestRoute";
+import AlertProvider from "./features/alert/AlertProvider";
 
 function App() {
   const [selectedTranslation, setSelectedTranslation] = useState<{
@@ -52,72 +53,76 @@ function App() {
             <FirestoreProvider>
               <GeminiProvider>
                 <TooltipProvider>
-                  <div
-                    id="app"
-                    className="h-screen p-6 m-auto flex flex-col bg-background-300 dark:bg-background-dark-400
-                      text-primary-200 dark:text-primary-dark-200 transition-colors duration-300"
-                  >
-                    <Header />
-                    <div className="flex flex-1 gap-3 justify-center overflow-hidden">
-                      {isHome && (
-                        <History
-                          onSelect={setSelectedTranslation}
-                          onDelete={deleteFromHistory}
-                        />
-                      )}
-                      <MainPanel
-                        className={
-                          isHome
-                            ? "w-full"
-                            : location.pathname === "/account"
-                              ? "w-2/3"
-                              : "w-1/2"
-                        }
-                      >
-                        <Routes>
-                          <Route
-                            path="/"
-                            element={
-                              <Translator
-                                selectedTranslation={selectedTranslation}
-                                setSelectedTranslation={setSelectedTranslation}
-                              />
-                            }
+                  <AlertProvider>
+                    <div
+                      id="app"
+                      className="h-screen p-6 m-auto flex flex-col bg-background-300 dark:bg-background-dark-400
+                        text-primary-200 dark:text-primary-dark-200 transition-colors duration-300"
+                    >
+                      <Header />
+                      <div className="flex flex-1 gap-3 justify-center overflow-hidden">
+                        {isHome && (
+                          <History
+                            onSelect={setSelectedTranslation}
+                            onDelete={deleteFromHistory}
                           />
-                          <Route
-                            path="/signup"
-                            element={
-                              <GuestRoute>
-                                <Signup />
-                              </GuestRoute>
-                            }
+                        )}
+                        <MainPanel
+                          className={
+                            isHome
+                              ? "w-full"
+                              : location.pathname === "/account"
+                                ? "w-2/3"
+                                : "w-1/2"
+                          }
+                        >
+                          <Routes>
+                            <Route
+                              path="/"
+                              element={
+                                <Translator
+                                  selectedTranslation={selectedTranslation}
+                                  setSelectedTranslation={
+                                    setSelectedTranslation
+                                  }
+                                />
+                              }
+                            />
+                            <Route
+                              path="/signup"
+                              element={
+                                <GuestRoute>
+                                  <Signup />
+                                </GuestRoute>
+                              }
+                            />
+                            <Route
+                              path="/login"
+                              element={
+                                <GuestRoute>
+                                  <Login />
+                                </GuestRoute>
+                              }
+                            />
+                            <Route
+                              path="/account"
+                              element={
+                                <PrivateRoute>
+                                  <Account />
+                                </PrivateRoute>
+                              }
+                            />
+                          </Routes>
+                        </MainPanel>
+                        {isHome && (
+                          <Saved
+                            onSelect={setSelectedTranslation}
+                            onDelete={deleteFromSaved}
                           />
-                          <Route
-                            path="/login"
-                            element={
-                              <GuestRoute>
-                                <Login />
-                              </GuestRoute>
-                            }
-                          />
-                          <Route
-                            path="/account"
-                            element={
-                              <PrivateRoute>
-                                <Account />
-                              </PrivateRoute>
-                            }
-                          />
-                        </Routes>
-                      </MainPanel>
-                      {isHome && (
-                        <Saved
-                          onSelect={setSelectedTranslation}
-                          onDelete={deleteFromSaved}
-                        />
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  </AlertProvider>
                 </TooltipProvider>
               </GeminiProvider>
             </FirestoreProvider>
