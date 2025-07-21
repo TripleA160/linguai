@@ -72,7 +72,7 @@ function App() {
                             isHome
                               ? "w-full"
                               : location.pathname === "/account"
-                                ? "w-2/3"
+                                ? "w-3/5"
                                 : "w-1/2"
                           }
                         >
