@@ -8,14 +8,18 @@ import {
 import { useLocalization } from "../features/localization/useLocalization";
 import { useAuth } from "../features/auth/useAuth";
 import { formatFirebaseError } from "../utils/firebase-utils";
+import { useAlert } from "../features/alert/useAlert";
+import { FirebaseError } from "firebase/app";
 
 const Account = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
+  const emailPasswordRef = useRef<HTMLInputElement | null>(null);
 
-  const { currentLocale } = useLocalization();
+  const alert = useAlert();
+  const { currentLocale, currentLanguage } = useLocalization();
 
-  const { updateProfile, currentUser } = useAuth();
+  const { updateProfile, login, currentUser } = useAuth();
 
   const [hasNameChanged, setHasNameChanged] = useState<boolean>(false);
   const [hasEmailChanged, setHasEmailChanged] = useState<boolean>(false);
@@ -52,16 +56,28 @@ const Account = () => {
     if (
       currentUser &&
       emailRef.current &&
+      emailPasswordRef.current &&
       emailRef.current.value &&
       emailRef.current.value.trim() != currentUser.email?.trim()
     ) {
       try {
-        await updateProfile({ email: emailRef.current.value.trim() });
+        await updateProfile(
+          { email: emailRef.current.value.trim() },
+          emailPasswordRef.current.value,
+        );
+        if (currentUser.email)
+          await login(currentUser.email, emailPasswordRef.current.value);
+        alert.showAlert(
+          "info",
+          4000,
+          currentLocale.auth.newEmailVerificationSent,
+        );
+
         setIsEmailUpdated(true);
         setHasEmailChanged(false);
         setTimeout(() => setIsEmailUpdated(false), 2500);
       } catch (error) {
-        err.push(formatFirebaseError(error, currentLocale));
+        if (error instanceof FirebaseError) err.push(error.message);
       }
     }
 
@@ -69,6 +85,7 @@ const Account = () => {
 
     if (err.length === 1) setProfileError(err[0]);
     else if (err.length > 0) setProfileError(err);
+    else setProfileError(null);
   }
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -173,6 +190,33 @@ const Account = () => {
                 [transition:color_250ms_ease-in-out_0s,outline-color_250ms_ease-in-out_0s,border-color_250ms_ease-in-out_0s,background-color_500ms_cubic-bezier(.17,.67,.83,.67)_0s]`}
               dir="auto"
             />
+          </div>
+          <div
+            className={`flex w-full items-center gap-2 -mt-4
+              ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}
+              ${hasEmailChanged ? " visible" : " invisible"}`}
+          >
+            <input
+              ref={emailPasswordRef}
+              disabled={!hasEmailChanged}
+              type="password"
+              id="email-password"
+              name="email-password"
+              className={` ${hasEmailChanged ? "max-h-9 p-2" : "max-h-0 p-0"} ml-2 border-2 border-t-0
+                outline-transparent focus:outline-primary-200
+                dark:focus:outline-primary-dark-200 focus:border-primary-200
+                dark:focus:border-primary-dark-200 border-border-100 w-full rounded-md
+                rounded-t-none outline-1
+                [transition:color_250ms_ease-in-out_0s,outline-color_250ms_ease-in-out_0s,border-color_250ms_ease-in-out_0s,max-height_200ms_ease-out_0s]`}
+              dir="auto"
+            />
+            <label
+              htmlFor="email-password"
+              dir="auto"
+              className={`whitespace-nowrap ${hasEmailChanged ? "max-h-9" : "max-h-0"}`}
+            >
+              {currentLocale.auth.password}
+            </label>
           </div>
           <button
             disabled={loading || !(hasNameChanged || hasEmailChanged)}

@@ -17,7 +17,7 @@ export type AuthContextData = {
       email?: string;
       displayName?: string;
     },
-    user?: User,
+    password?: string,
   ) => Promise<void>;
 };
 

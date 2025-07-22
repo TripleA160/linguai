@@ -22,6 +22,7 @@ export type Locale = {
     security: string;
     apply: string;
     verificationSent: string;
+    newEmailVerificationSent: string;
   };
   settings: {
     auto: string;
@@ -76,6 +77,7 @@ export type Locale = {
       "auth/user-disabled": string;
       "auth/too-many-requests": string;
       "auth/operation-not-allowed": string;
+      "auth/email-change-need-password": string;
       unexpected: string;
     };
     ai: {

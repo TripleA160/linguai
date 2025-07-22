@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (userCredential.user) {
       sendEmailVerification(userCredential.user);
       if (displayName) {
-        await updateUserInAuth(userCredential.user, { email, displayName });
+        await updateUserInAuth(userCredential.user, { displayName });
         await reload(userCredential.user);
         await updateUserInDB(userCredential.user, { email, displayName }, true);
       } else {
@@ -68,18 +68,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   async function updateProfile(
     data: { email?: string; displayName?: string },
-    user?: User,
+    password?: string,
   ) {
-    const targetUser = user || auth.currentUser;
-
-    if (targetUser) {
-      await updateUserInAuth(targetUser, data);
-      await updateUserInDB(targetUser, data);
-
-      if (auth.currentUser) {
-        await reload(auth.currentUser);
-        setCurrentUser({ ...auth.currentUser });
+    if (auth.currentUser) {
+      if (data.email) {
+        await updateUserInAuth(auth.currentUser, data, password);
+        await updateUserInDB(auth.currentUser, data);
+      } else {
+        await updateUserInAuth(auth.currentUser, {
+          displayName: data.displayName,
+        });
+        await updateUserInDB(auth.currentUser, {
+          displayName: data.displayName,
+        });
       }
+      await reload(auth.currentUser);
+      setCurrentUser({ ...auth.currentUser });
     }
   }
 
