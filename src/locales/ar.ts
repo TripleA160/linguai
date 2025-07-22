@@ -8,10 +8,14 @@ const ar: Locale = {
     email: "الإيميل",
     password: "كلمة المرور",
     confirmPassword: "تأكيد كلمة المرور",
+    currentPassword: "كلمة المرور الحالية",
+    newPassword: "كلمة المرور الجديدة",
+    passwordChangeSuccess: "تم تغيير كلمة المرور بنجاح.",
     displayName: "الاسم",
     profileInfo: "الملف الشخصي",
     security: "الأمان",
     apply: "تطبيق",
+    change: "تغيير",
     verificationSent:
       "تم إرسال رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد.",
     newEmailVerificationSent:
@@ -62,6 +66,8 @@ const ar: Locale = {
       passwordNoUppercase:
         "يجب أن تحتوي كلمة المرور على حرف إنجليزي كبير (A-Z) واحد على الأقل.",
       passwordDoNotMatch: "كلمتا المرور غير متطابقتين.",
+      currentPasswordMissing: "يرجى إدخال كلمة المرور الحالية.",
+      newPasswordMissing: "يرجى إدخال كلمة المرور الجديدة.",
     },
     auth: {
       "auth/email-already-in-use": "هذا البريد الإلكتروني مستخدم بالفعل.",

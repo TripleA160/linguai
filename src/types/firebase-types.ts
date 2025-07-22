@@ -12,6 +12,10 @@ export type AuthContextData = {
   login: (email: string, password: string) => Promise<UserCredential | null>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  changePassword: (
+    currentPassword: string,
+    newPassword: string,
+  ) => Promise<void>;
   updateProfile: (
     data: {
       email?: string;

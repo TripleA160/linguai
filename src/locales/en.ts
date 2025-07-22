@@ -8,10 +8,14 @@ const en: Locale = {
     email: "Email",
     password: "Password",
     confirmPassword: "Confirm Password",
+    currentPassword: "Current password",
+    newPassword: "New password",
+    passwordChangeSuccess: "Your password has been changed successfully.",
     displayName: "Name",
     profileInfo: "Profile Info",
     security: "Security",
     apply: "Apply",
+    change: "Change",
     verificationSent:
       "A verification link has been sent to your email. Please check your inbox.",
     newEmailVerificationSent:
@@ -62,6 +66,8 @@ const en: Locale = {
       passwordNoUppercase:
         "Password must contain at least one uppercase character.",
       passwordDoNotMatch: "Passwords do not match.",
+      currentPasswordMissing: "Please enter your current password.",
+      newPasswordMissing: "Please enter the new password.",
     },
     auth: {
       "auth/email-already-in-use": "This email is already in use.",

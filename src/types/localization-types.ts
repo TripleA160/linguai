@@ -17,10 +17,14 @@ export type Locale = {
     email: string;
     password: string;
     confirmPassword: string;
+    currentPassword: string;
+    newPassword: string;
+    passwordChangeSuccess: string;
     displayName: string;
     profileInfo: string;
     security: string;
     apply: string;
+    change: string;
     verificationSent: string;
     newEmailVerificationSent: string;
   };
@@ -66,6 +70,8 @@ export type Locale = {
       passwordNoLowercase: string;
       passwordNoUppercase: string;
       passwordDoNotMatch: string;
+      currentPasswordMissing: string;
+      newPasswordMissing: string;
     };
     auth: {
       "auth/email-already-in-use": string;

@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { auth } from "../../config/firebase";
 import { AuthContext } from "./AuthContext";
 import type { AuthContextData } from "../../types/firebase-types";
-import { updateUserInAuth } from "./auth-utils";
+import { updateUserInAuth, updateUserPassword } from "./auth-utils";
 import { updateUserInDB } from "../firestore/firestore-utils";
 import {
   type User,
@@ -66,6 +66,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await sendPasswordResetEmail(auth, email);
   }
 
+  async function changePassword(currentPassword: string, newPassword: string) {
+    if (!currentUser) return;
+
+    await updateUserPassword(currentUser, currentPassword, newPassword);
+  }
+
   async function updateProfile(
     data: { email?: string; displayName?: string },
     password?: string,
@@ -107,6 +113,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     login,
     logout,
     resetPassword,
+    changePassword,
     updateProfile,
   };
 
