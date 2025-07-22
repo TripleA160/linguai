@@ -27,9 +27,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
     if (userCredential.user) {
       sendEmailVerification(userCredential.user);
-      setCurrentUser(userCredential.user);
       if (displayName) {
         await updateUserInAuth(userCredential.user, { email, displayName });
+        await reload(userCredential.user);
         await updateUserInDB(userCredential.user, { email, displayName }, true);
       } else {
         await updateUserInDB(
@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           true,
         );
       }
+      setCurrentUser({ ...userCredential.user });
     }
     return userCredential;
   }
@@ -51,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       password,
     );
     if (userCredential.user) {
-      setCurrentUser(userCredential.user);
+      setCurrentUser({ ...userCredential.user });
     }
     return userCredential;
   }
