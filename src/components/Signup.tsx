@@ -74,9 +74,9 @@ const Signup = () => {
       await signup(emailRef.current.value, password, nameRef.current.value);
       setError(null);
       setLoading(false);
-      alert.showAlert("info", 4000, currentLocale.auth.verificationSent);
+      alert.showAlert("info", 5000, currentLocale.auth.verificationSent);
     } catch (error) {
-      setError(formatFirebaseError(error, currentLocale));
+      setError(formatFirebaseError(error, "signup", currentLocale));
     }
   }
 

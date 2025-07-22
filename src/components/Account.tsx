@@ -56,7 +56,7 @@ const Account = () => {
         setHasNameChanged(false);
         setTimeout(() => setIsNameUpdated(false), 2500);
       } catch (error) {
-        err.push(formatFirebaseError(error, currentLocale));
+        err.push(formatFirebaseError(error, "profile", currentLocale));
       }
     }
     if (
@@ -83,7 +83,7 @@ const Account = () => {
         setHasEmailChanged(false);
         setTimeout(() => setIsEmailUpdated(false), 2500);
       } catch (error) {
-        err.push(formatFirebaseError(error, currentLocale));
+        err.push(formatFirebaseError(error, "profile", currentLocale));
       }
     }
 
@@ -167,7 +167,9 @@ const Account = () => {
       passwordConfirmRef.current.value = "";
       setTimeout(() => setIsPasswordUpdated(false), 2500);
     } catch (error) {
-      passwordError.push(formatFirebaseError(error, currentLocale));
+      passwordError.push(
+        formatFirebaseError(error, "passwordChange", currentLocale),
+      );
     }
 
     setLoading(false);
@@ -216,7 +218,7 @@ const Account = () => {
       <h1 className="mb-6 text-3xl select-none">Account Settings</h1>
       {!currentUser?.emailVerified && (
         <div className="warning" dir="auto">
-          {currentLocale.errors.auth["auth/operation-not-allowed"]}
+          {currentLocale.errors.auth.profile["auth/operation-not-allowed"]}
         </div>
       )}
       <h2

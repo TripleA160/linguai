@@ -70,22 +70,44 @@ const en: Locale = {
       newPasswordMissing: "Please enter the new password.",
     },
     auth: {
-      "auth/email-already-in-use": "This email is already in use.",
-      "auth/invalid-email":
-        "This email address is not valid. Please check and try again.",
-      "auth/weak-password": "Your password is too weak.",
-      "auth/invalid-credential":
-        "Incorrect email or password. Try again or sign up.",
-      "auth/user-not-found":
-        "Incorrect email or password. Try again or sign up.",
-      "auth/wrong-password":
-        "Incorrect email or password. Try again or sign up.",
-      "auth/user-disabled": "This account has been disabled.",
-      "auth/too-many-requests": "Too many attempts. Please try again later.",
-      "auth/operation-not-allowed":
-        "Please verify the account. Check the verification link sent to your email.",
-      "auth/email-change-need-password":
-        "Please re-enter your password to change your email address.",
+      signup: {
+        "auth/email-already-in-use": "This email is already in use.",
+        "auth/invalid-email":
+          "This email address is not valid. Please check and try again.",
+        "auth/weak-password": "Password is too weak.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+      },
+      login: {
+        "auth/invalid-email":
+          "This email address is not valid. Please check and try again.",
+        "auth/invalid-credential":
+          "Incorrect email or password. Try again or sign up.",
+        "auth/user-not-found":
+          "Incorrect email or password. Try again or sign up.",
+        "auth/wrong-password":
+          "Incorrect email or password. Try again or sign up.",
+        "auth/user-disabled": "This account has been disabled.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+      },
+      profile: {
+        "auth/invalid-email":
+          "This email address is not valid. Please check and try again.",
+        "auth/invalid-credential":
+          "Incorrect password. Please check and try again.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+        "auth/operation-not-allowed":
+          "Please verify the account. Check the verification link sent to your email.",
+        "auth/email-change-need-password":
+          "Please re-enter your password to change your email address.",
+      },
+      passwordChange: {
+        "auth/weak-password": "Password is too weak.",
+        "auth/invalid-credential":
+          "Current password is not correct. Please check and try again.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+        "auth/operation-not-allowed":
+          "Please verify the account. Check the verification link sent to your email.",
+      },
       unexpected: "An unexpected error occurred, please try again.",
     },
     ai: {

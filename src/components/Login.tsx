@@ -41,7 +41,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       setLoading(false);
-      setError(formatFirebaseError(error, currentLocale));
+      setError(formatFirebaseError(error, "login", currentLocale));
     }
   }
 

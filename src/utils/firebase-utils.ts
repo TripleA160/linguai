@@ -4,11 +4,13 @@ import type { Locale } from "../types/localization-types";
 
 export const formatFirebaseError = (
   error: FirebaseError | unknown,
+  type: keyof Locale["errors"]["auth"],
   locale: Locale,
 ): string => {
   if (error instanceof FirebaseError) {
+    const authLocale = locale.errors.auth[type];
     return (
-      locale.errors.auth[error.code as keyof typeof locale.errors.auth] ||
+      authLocale[error.code as keyof typeof authLocale] ||
       locale.errors.auth.unexpected
     );
   }

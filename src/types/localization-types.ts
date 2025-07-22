@@ -74,16 +74,33 @@ export type Locale = {
       newPasswordMissing: string;
     };
     auth: {
-      "auth/email-already-in-use": string;
-      "auth/invalid-email": string;
-      "auth/weak-password": string;
-      "auth/invalid-credential": string;
-      "auth/user-not-found": string;
-      "auth/wrong-password": string;
-      "auth/user-disabled": string;
-      "auth/too-many-requests": string;
-      "auth/operation-not-allowed": string;
-      "auth/email-change-need-password": string;
+      signup: {
+        "auth/email-already-in-use": string;
+        "auth/invalid-email": string;
+        "auth/weak-password": string;
+        "auth/too-many-requests": string;
+      };
+      login: {
+        "auth/invalid-email": string;
+        "auth/invalid-credential": string;
+        "auth/user-not-found": string;
+        "auth/wrong-password": string;
+        "auth/user-disabled": string;
+        "auth/too-many-requests": string;
+      };
+      profile: {
+        "auth/invalid-email": string;
+        "auth/invalid-credential": string;
+        "auth/too-many-requests": string;
+        "auth/operation-not-allowed": string;
+        "auth/email-change-need-password": string;
+      };
+      passwordChange: {
+        "auth/weak-password": string;
+        "auth/invalid-credential": string;
+        "auth/too-many-requests": string;
+        "auth/operation-not-allowed": string;
+      };
       unexpected: string;
     };
     ai: {
