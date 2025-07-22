@@ -4,11 +4,9 @@ import { AlertContext } from "./AlertContext";
 const AlertProvider = ({ children }: { children: ReactNode }) => {
   const [alertType, setAlertType] = useState<
     "info" | "success" | "warning" | "error"
-  >("info");
+  >("success");
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [currentText, setCurrentText] = useState<string | null>(
-    "Test Test Test Test Test Test Test Test Test",
-  );
+  const [currentText, setCurrentText] = useState<string | null>(null);
 
   const hideTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isVisibleRef = useRef<boolean>(false);
@@ -70,11 +68,10 @@ const AlertProvider = ({ children }: { children: ReactNode }) => {
       <div
         dir="auto"
         className={`fixed z-1000 select-none
-          ${alertType === "info" ? "bg-gray-100/20 text-gray-800 dark:text-gray-200" : alertType === "success" ? "bg-green-300/30 dark:bg-green-400/30 text-green-700 dark:text-green-200" : alertType === "warning" ? "bg-yellow-800/25 text-yellow-200" : "bg-red-200/25 text-red-600 dark:text-red-500"}
-          backdrop-blur-xs border-none rounded-md font-medium text-lg w-auto left-1/2
-          -translate-x-1/2 truncate p-1.5 text-shadow-md/22 shadow-md
-          transition-[opacity,_top] duration-350
-          ${isVisible ? "opacity-100 top-4" : "opacity-0 -top-4"}`}
+          ${alertType === "info" ? "bg-gray-400/15 dark:bg-gray-700/15 text-gray-900 dark:text-gray-200" : alertType === "success" ? "bg-green-300/20 dark:bg-green-700/20 text-green-800 dark:text-green-200" : alertType === "warning" ? "bg-yellow-200/15 dark:bg-yellow-700/25 text-yellow-600 dark:text-yellow-200" : "bg-red-200/20 dark:bg-red-800/10 text-red-600 dark:text-red-200"}
+          backdrop-blur-xs border-none rounded-md text-lg w-auto left-1/2 -translate-x-1/2
+          truncate p-1.5 text-shadow-md/22 shadow-md transition-[opacity,_top]
+          duration-350 ${isVisible ? "opacity-100 top-12" : "opacity-0 top-0"}`}
       >
         {currentText && currentText}
       </div>
