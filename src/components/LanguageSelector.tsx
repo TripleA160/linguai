@@ -5,9 +5,14 @@ import { useTooltip } from "../features/tooltip/useTooltip";
 type Props = {
   label?: string;
   accessibilityLabel?: string;
+  selectWidth?: string;
 };
 
-const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
+const LanguageSelector = ({
+  label,
+  accessibilityLabel,
+  selectWidth,
+}: Props) => {
   const { supportedLanguages, changeLanguage, currentLocale, currentLanguage } =
     useLocalization();
 
@@ -27,13 +32,13 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
 
   return (
     <div
-      className={`flex items-center justify-between w-full
+      className={`no-hamburger-follow flex items-center justify-between w-full text-sm
         ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
     >
       <label
         dir="auto"
         htmlFor="language-select"
-        className="text-sm text-primary-100 dark:text-primary-dark-100"
+        className="select-none text-primary-100 dark:text-primary-dark-100"
       >
         {label ? label : currentLocale.settings.language}:
       </label>
@@ -41,13 +46,14 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
         id="language-select"
         value={currentLanguage.code}
         onChange={handleSelect}
-        className="border transition-all duration-180 focus:drop-shadow-button-1
-          border-secondary-100 dark:border-secondary-dark-100 hover:border-secondary-200
-          dark:hover:border-secondary-dark-200 focus-visible:border-secondary-200
-          dark:focus-visible:border-secondary-dark-200 active:border-secondary-300
-          dark:active:border-secondary-dark-300 text-primary-200
-          dark:text-primary-dark-200 bg-background-200 dark:bg-background-dark-200
-          shadow-2xl rounded-lg px-2 py-1 text-sm outline-none w-3/5"
+        style={{ width: selectWidth ? selectWidth : "60%" }}
+        className="no-hamburger-follow border transition-all duration-180
+          focus:drop-shadow-button-1 border-secondary-100 dark:border-secondary-dark-100
+          hover:border-secondary-200 dark:hover:border-secondary-dark-200
+          focus-visible:border-secondary-200 dark:focus-visible:border-secondary-dark-200
+          active:border-secondary-300 dark:active:border-secondary-dark-300
+          text-primary-200 dark:text-primary-dark-200 bg-background-200
+          dark:bg-background-dark-200 shadow-2xl rounded-lg px-2 py-1 outline-none"
         aria-label={
           accessibilityLabel
             ? accessibilityLabel
@@ -64,7 +70,7 @@ const LanguageSelector = ({ label, accessibilityLabel }: Props) => {
       >
         {supportedLanguages.current.map((lang) => (
           <option key={lang.code} value={lang.code}>
-            {lang.name} {lang.englishName && `(${lang.englishName})`}
+            {lang.localName ? `${lang.localName} (${lang.name})` : lang.name}
           </option>
         ))}
       </select>
