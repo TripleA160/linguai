@@ -22,8 +22,8 @@ export const languagesMeta: LanguageMeta[] = [
   },
   {
     code: "ar",
-    name: "العربية",
-    englishName: "Arabic",
+    name: "Arabic",
+    localName: "العربية",
     direction: "rtl",
   },
 ];

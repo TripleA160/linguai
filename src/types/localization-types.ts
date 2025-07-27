@@ -5,7 +5,7 @@ export type Language = "en" | "ar";
 export type LanguageMeta = {
   code: Language;
   name: string;
-  englishName?: string;
+  localName?: string;
   direction: "ltr" | "rtl";
 };
 
@@ -50,10 +50,12 @@ export type Locale = {
     switch: string;
     selectSourceLanguage: string;
     selectTargetLanguage: string;
+    detectLanguage: string;
   };
   navigation: {
     appSettings: string;
     accountSettings: string;
+    openMenu: string;
     history: string;
     saved: string;
     delete: string;
