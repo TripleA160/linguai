@@ -11,6 +11,12 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
 
   const [currentPrompt, setCurrentPrompt] = useState<string | null>(null);
   const [currentResponse, setCurrentResponse] = useState<string | null>(null);
+  const [currentSourceLanguage, setCurrentSourceLanguage] = useState<
+    string | null
+  >(null);
+  const [currentTargetLanguage, setCurrentTargetLanguage] = useState<
+    string | null
+  >(null);
   const [lastRequestTime, setLastRequestTime] = useState<number>(0);
   const [isRateLimited, setIsRateLimited] = useState<boolean>(false);
 
@@ -23,7 +29,12 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
     ) => {
       const prompt = text.trim();
       if (!prompt) return null;
-      if (prompt === currentPrompt) return currentResponse;
+      if (
+        prompt === currentPrompt &&
+        sourceLanguage === currentSourceLanguage &&
+        targetLanguage === currentTargetLanguage
+      )
+        return currentResponse;
 
       const currentTime = Date.now();
       const timeDifference = currentTime - lastRequestTime;
@@ -48,6 +59,8 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
       if (isCancelledRef && isCancelledRef.current) return null;
 
       if (typeof result === "string") {
+        setCurrentSourceLanguage(sourceLanguage);
+        setCurrentTargetLanguage(targetLanguage);
         setCurrentResponse(result);
         setCurrentPrompt(prompt);
         if (currentUser) {
