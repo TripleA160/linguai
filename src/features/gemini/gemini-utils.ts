@@ -11,7 +11,7 @@ export function useGemini() {
 export async function generateTranslation(
   text: string,
   targetLanguage: string = "English",
-  sourceLanguage?: string,
+  sourceLanguage?: string | null,
 ) {
   const input = text.trim();
 

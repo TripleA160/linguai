@@ -18,7 +18,7 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
     async (
       text: string,
       targetLanguage: string = "English",
-      sourceLanguage: string,
+      sourceLanguage: string | null,
       isCancelledRef?: RefObject<boolean>,
     ) => {
       const prompt = text.trim();
@@ -54,7 +54,7 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
           await addTranslationToUserHistory({
             sourceText: prompt,
             translatedText: result,
-            sourceLanguage: sourceLanguage,
+            sourceLanguage: sourceLanguage ? sourceLanguage : "Detect language",
             targetLanguage: targetLanguage,
           });
         }

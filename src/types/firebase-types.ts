@@ -59,7 +59,7 @@ export type GeminiContextData = {
   translate: (
     text: string,
     targetLanguage: string,
-    sourceLanguage: string,
+    sourceLanguage: string | null,
     isCancelledRef?: RefObject<boolean>,
   ) => Promise<string | null>;
   isRateLimited: boolean;
