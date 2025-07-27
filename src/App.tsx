@@ -41,7 +41,7 @@ function App() {
   return (
     <div
       id="app"
-      className="h-full p-6 m-auto flex flex-col bg-background-300 dark:bg-background-dark-400
+      className="h-screen p-6 m-auto flex flex-col bg-background-300 dark:bg-background-dark-400
         text-primary-200 dark:text-primary-dark-200 transition-colors duration-300"
     >
       <Header />
