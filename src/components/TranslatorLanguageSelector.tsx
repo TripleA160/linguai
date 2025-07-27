@@ -1,8 +1,14 @@
+//TODO: Add prefered or recent language feature
+
 import { useLocalization } from "../features/localization/useLocalization";
 import { useTooltip } from "../features/tooltip/useTooltip";
-import { type TranslatorLanguage } from "../utils/translator-utils";
+import {
+  translatorDetectLanguage,
+  type TranslatorLanguage,
+} from "../utils/translator-utils";
 
 type Props = {
+  type?: "from" | "to";
   value: TranslatorLanguage;
   onChange: (lang: TranslatorLanguage) => void;
   languages: TranslatorLanguage[];
@@ -12,6 +18,7 @@ type Props = {
 };
 
 const TranslatorLanguageSelector = ({
+  type = "from",
   value,
   onChange,
   languages,
@@ -45,9 +52,10 @@ const TranslatorLanguageSelector = ({
         id={id}
         value={value.code}
         onChange={(e) => {
-          const selected = languages.find(
-            (lang) => lang.code === e.target.value,
-          );
+          const selected =
+            e.target.value === "detect"
+              ? translatorDetectLanguage
+              : languages.find((lang) => lang.code === e.target.value);
           if (selected) {
             onChange(selected);
             e.currentTarget.blur();
@@ -77,11 +85,18 @@ const TranslatorLanguageSelector = ({
         }}
         onMouseLeave={() => tooltip.hideTooltip()}
       >
-        {languages.map((language) => (
-          <option key={language.code} value={language.code}>
-            {language.name}
+        {type === "from" && (
+          <option key={"detect"} value={"detect"}>
+            {currentLocale.translator.detectLanguage}
           </option>
-        ))}
+        )}
+        {languages
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.localName ? `${lang.name} | ${lang.localName}` : lang.name}
+            </option>
+          ))}
       </select>
     </div>
   );

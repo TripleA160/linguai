@@ -12,6 +12,7 @@ import SwitchButton from "./SwitchButton";
 import debounce from "lodash/debounce";
 import TranslatorLanguageSelector from "./TranslatorLanguageSelector";
 import {
+  translatorDetectLanguage,
   translatorLanguages,
   type TranslatorLanguage,
 } from "../utils/translator-utils";
@@ -51,7 +52,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   const saveButtonRef = useRef<HTMLButtonElement>(null);
 
   const [sourceLanguage, setSourceLanguage] = useState<TranslatorLanguage>(
-    translatorLanguages[1],
+    translatorDetectLanguage,
   );
   const [targetLanguage, setTargetLanguage] = useState<TranslatorLanguage>(
     translatorLanguages[0],
@@ -88,10 +89,12 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       setLoading(true);
 
       try {
+        const source =
+          sourceLanguage.code === "detect" ? null : sourceLanguage.name;
         const result = await translate(
           text,
           targetLanguage.name,
-          sourceLanguage.name,
+          source,
           isCancelled,
         );
         if (result) {
@@ -298,7 +301,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
         </div>
         <div className="flex mt-4 mb-4 pl-5 pr-5 items-start justify-between gap-8 w-full">
           <div
-            className={`text-sm
+            className={`select-none text-sm
               ${translateInput.length <= 4000 ? "text-secondary-200 dark:text-secondary-dark-200" : "text-red-400 dark:text-red-300 "}`}
           >
             {translateInput.length} / 4000
@@ -308,6 +311,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
           >
             <TranslatorLanguageSelector
+              type="from"
               onChange={setSourceLanguage}
               languages={translatorLanguages}
               value={sourceLanguage}
@@ -317,6 +321,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
             />
             <SwitchButton onClick={handleSwitch} />
             <TranslatorLanguageSelector
+              type="to"
               onChange={setTargetLanguage}
               languages={translatorLanguages}
               value={targetLanguage}

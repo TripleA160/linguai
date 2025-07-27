@@ -43,10 +43,12 @@ const ar: Locale = {
     switch: "تبديل",
     selectSourceLanguage: "اختر لغة الكتابة",
     selectTargetLanguage: "اختر لغة الترجمة",
+    detectLanguage: "التعرف على اللغة",
   },
   navigation: {
     appSettings: "إعدادات التطبيق",
     accountSettings: "إعدادات الحساب",
+    openMenu: "فتح القائمة",
     history: "السجل",
     saved: "المحفوظات",
     delete: "حذف",
