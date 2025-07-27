@@ -209,6 +209,23 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   }, [currentUser]);
 
   useEffect(() => {
+    const savedSource = localStorage.getItem("sourceLanguage");
+    const savedTarget = localStorage.getItem("targetLanguage");
+
+    if (savedSource) {
+      const language =
+        savedSource === "detect"
+          ? translatorDetectLanguage
+          : translatorLanguages.find((lang) => lang.code === savedSource);
+      if (language) setSourceLanguage(language);
+    }
+    if (savedTarget) {
+      const language = translatorLanguages.find(
+        (lang) => lang.code === savedTarget,
+      );
+      if (language) setTargetLanguage(language);
+    }
+
     return () => {
       updateTranslationWithDelay.cancel();
     };
@@ -311,7 +328,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
           >
             <TranslatorLanguageSelector
-              type="from"
+              type="source"
               onChange={setSourceLanguage}
               languages={translatorLanguages}
               value={sourceLanguage}
@@ -321,7 +338,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
             />
             <SwitchButton onClick={handleSwitch} />
             <TranslatorLanguageSelector
-              type="to"
+              type="target"
               onChange={setTargetLanguage}
               languages={translatorLanguages}
               value={targetLanguage}

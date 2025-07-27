@@ -1,5 +1,4 @@
-//TODO: Add prefered or recent language feature
-
+import { type ChangeEvent } from "react";
 import { useLocalization } from "../features/localization/useLocalization";
 import { useTooltip } from "../features/tooltip/useTooltip";
 import {
@@ -8,7 +7,7 @@ import {
 } from "../utils/translator-utils";
 
 type Props = {
-  type?: "from" | "to";
+  type?: "source" | "target";
   value: TranslatorLanguage;
   onChange: (lang: TranslatorLanguage) => void;
   languages: TranslatorLanguage[];
@@ -18,7 +17,7 @@ type Props = {
 };
 
 const TranslatorLanguageSelector = ({
-  type = "from",
+  type = "source",
   value,
   onChange,
   languages,
@@ -28,6 +27,21 @@ const TranslatorLanguageSelector = ({
 }: Props) => {
   const { currentLocale } = useLocalization();
   const tooltip = useTooltip();
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selected =
+      e.target.value === "detect"
+        ? translatorDetectLanguage
+        : languages.find((lang) => lang.code === e.target.value);
+    if (selected) {
+      onChange(selected);
+      if (type === "source")
+        localStorage.setItem("sourceLanguage", selected.code);
+      else localStorage.setItem("targetLanguage", selected.code);
+      e.currentTarget.blur();
+    }
+    tooltip.hideTooltip();
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-2">
@@ -51,17 +65,7 @@ const TranslatorLanguageSelector = ({
       <select
         id={id}
         value={value.code}
-        onChange={(e) => {
-          const selected =
-            e.target.value === "detect"
-              ? translatorDetectLanguage
-              : languages.find((lang) => lang.code === e.target.value);
-          if (selected) {
-            onChange(selected);
-            e.currentTarget.blur();
-          }
-          tooltip.hideTooltip();
-        }}
+        onChange={handleChange}
         className="border transition-all duration-180 focus:drop-shadow-button-1 border-border-100
           dark:border-border-200 hover:border-secondary-dark-100
           dark:hover:border-secondary-100 focus-visible:border-secondary-dark-100
@@ -85,7 +89,7 @@ const TranslatorLanguageSelector = ({
         }}
         onMouseLeave={() => tooltip.hideTooltip()}
       >
-        {type === "from" && (
+        {type === "source" && (
           <option key={"detect"} value={"detect"}>
             {currentLocale.translator.detectLanguage}
           </option>
