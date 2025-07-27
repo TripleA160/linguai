@@ -1,13 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import { AuthProvider } from "./features/auth/AuthProvider";
-import { GeminiProvider } from "./features/gemini/GeminiProvider";
-import ThemeProvider from "./features/theme/ThemeProvider";
-import { FirestoreProvider } from "./features/firestore/FirestoreProvider";
 import Header from "./components/Header";
-import TooltipProvider from "./features/tooltip/TooltipProvider";
-import LocalizationProvider from "./features/localization/LocalizationProvider";
 import { useState } from "react";
 import { useFirestore } from "./features/firestore/useFirestore";
 import Translator from "./components/Translator";
@@ -17,7 +11,6 @@ import History from "./components/History";
 import PrivateRoute from "./components/PrivateRoute";
 import Account from "./components/Account";
 import GuestRoute from "./components/GuestRoute";
-import AlertProvider from "./features/alert/AlertProvider";
 
 function App() {
   const [selectedTranslation, setSelectedTranslation] = useState<{
@@ -46,90 +39,69 @@ function App() {
   const isHome = location.pathname === "/";
 
   return (
-    <>
-      <LocalizationProvider>
-        <ThemeProvider>
-          <AuthProvider>
-            <FirestoreProvider>
-              <GeminiProvider>
-                <TooltipProvider>
-                  <AlertProvider>
-                    <div
-                      id="app"
-                      className="h-screen p-6 m-auto flex flex-col bg-background-300 dark:bg-background-dark-400
-                        text-primary-200 dark:text-primary-dark-200 transition-colors duration-300"
-                    >
-                      <Header />
-                      <div className="flex flex-1 gap-3 justify-center overflow-hidden">
-                        {isHome && (
-                          <History
-                            onSelect={setSelectedTranslation}
-                            onDelete={deleteFromHistory}
-                          />
-                        )}
-                        <MainPanel
-                          className={
-                            isHome
-                              ? "w-full"
-                              : location.pathname === "/account"
-                                ? "w-3/5"
-                                : "w-1/2"
-                          }
-                        >
-                          <Routes>
-                            <Route
-                              path="/"
-                              element={
-                                <Translator
-                                  selectedTranslation={selectedTranslation}
-                                  setSelectedTranslation={
-                                    setSelectedTranslation
-                                  }
-                                />
-                              }
-                            />
-                            <Route
-                              path="/signup"
-                              element={
-                                <GuestRoute>
-                                  <Signup />
-                                </GuestRoute>
-                              }
-                            />
-                            <Route
-                              path="/login"
-                              element={
-                                <GuestRoute>
-                                  <Login />
-                                </GuestRoute>
-                              }
-                            />
-                            <Route
-                              path="/account"
-                              element={
-                                <PrivateRoute>
-                                  <Account />
-                                </PrivateRoute>
-                              }
-                            />
-                          </Routes>
-                        </MainPanel>
-                        {isHome && (
-                          <Saved
-                            onSelect={setSelectedTranslation}
-                            onDelete={deleteFromSaved}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </AlertProvider>
-                </TooltipProvider>
-              </GeminiProvider>
-            </FirestoreProvider>
-          </AuthProvider>
-        </ThemeProvider>
-      </LocalizationProvider>
-    </>
+    <div
+      id="app"
+      className="h-full p-6 m-auto flex flex-col bg-background-300 dark:bg-background-dark-400
+        text-primary-200 dark:text-primary-dark-200 transition-colors duration-300"
+    >
+      <Header />
+      <div className="flex flex-1 gap-3 justify-center overflow-hidden">
+        {isHome && (
+          <History
+            onSelect={setSelectedTranslation}
+            onDelete={deleteFromHistory}
+          />
+        )}
+        <MainPanel
+          className={
+            isHome
+              ? "w-full"
+              : location.pathname === "/account"
+                ? "w-3/5"
+                : "w-1/2"
+          }
+        >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Translator
+                  selectedTranslation={selectedTranslation}
+                  setSelectedTranslation={setSelectedTranslation}
+                />
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <GuestRoute>
+                  <Signup />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <GuestRoute>
+                  <Login />
+                </GuestRoute>
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <PrivateRoute>
+                  <Account />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </MainPanel>
+        {isHome && (
+          <Saved onSelect={setSelectedTranslation} onDelete={deleteFromSaved} />
+        )}
+      </div>
+    </div>
   );
 }
 

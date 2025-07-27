@@ -71,7 +71,7 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
             targetLanguage: targetLanguage,
           });
         }
-        console.log(`${sourceLanguage}:`, prompt);
+        console.log(`${sourceLanguage ? sourceLanguage : "Detected"}:`, prompt);
         console.log(`${targetLanguage}:`, result);
       }
       return result;
@@ -82,6 +82,8 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
       addTranslationToUserHistory,
       currentPrompt,
       currentResponse,
+      currentSourceLanguage,
+      currentTargetLanguage,
     ],
   );
 
