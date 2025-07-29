@@ -89,12 +89,10 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
       setLoading(true);
 
       try {
-        const source =
-          sourceLanguage.code === "detect" ? null : sourceLanguage.name;
         const result = await translate(
           text,
-          targetLanguage.name,
-          source,
+          targetLanguage,
+          sourceLanguage,
           isCancelled,
         );
         if (result) {
@@ -140,15 +138,14 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
     if (selectedTranslation) {
       shouldUpdateTranslation.current = false;
       console.log("Selected translation:", selectedTranslation);
-      const sourceLang = translatorLanguages.find(
-        (lang) =>
-          lang.name === selectedTranslation.sourceLanguage ||
-          lang.code === selectedTranslation.sourceLanguage,
-      );
+      const sourceLang =
+        translatorDetectLanguage.code === selectedTranslation.sourceLanguage
+          ? translatorDetectLanguage
+          : translatorLanguages.find(
+              (lang) => lang.code === selectedTranslation.sourceLanguage,
+            );
       const targetLang = translatorLanguages.find(
-        (lang) =>
-          lang.name === selectedTranslation.targetLanguage ||
-          lang.code === selectedTranslation.targetLanguage,
+        (lang) => lang.code === selectedTranslation.targetLanguage,
       );
       if (sourceLang) setSourceLanguage(sourceLang);
       if (targetLang) setTargetLanguage(targetLang);

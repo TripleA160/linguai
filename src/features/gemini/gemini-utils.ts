@@ -15,8 +15,11 @@ export async function generateTranslation(
 ) {
   const input = text.trim();
 
-  const prompt = sourceLanguage
-    ? `You are a professional translation model with deep understanding of linguistic context.
+  const prompt =
+    sourceLanguage &&
+    sourceLanguage !== "detect" &&
+    sourceLanguage !== "Detect language"
+      ? `You are a professional translation model with deep understanding of linguistic context.
 
 Translate the following text from ${sourceLanguage} to standard ${targetLanguage}.
 
@@ -29,7 +32,7 @@ Translate the following text from ${sourceLanguage} to standard ${targetLanguage
 
 Input:
 ${input}`
-    : `You are a professional translation model with deep understanding of linguistic context.
+      : `You are a professional translation model with deep understanding of linguistic context.
 
 Detect the language of the following input (including regional dialects, slang, informal speech, and culturally specific insults or humor) and translate it to standard ${targetLanguage}.
 

@@ -4,6 +4,10 @@ import type { GeminiContextData } from "../../types/firebase-types";
 import { generateTranslation } from "./gemini-utils";
 import { useFirestore } from "../firestore/useFirestore";
 import { useAuth } from "../auth/useAuth";
+import {
+  translatorDetectLanguage,
+  type TranslatorLanguage,
+} from "../../utils/translator-utils";
 
 export const GeminiProvider = ({ children }: { children: ReactNode }) => {
   const { addTranslationToUserHistory } = useFirestore();
@@ -23,16 +27,20 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
   const translate = useCallback(
     async (
       text: string,
-      targetLanguage: string = "English",
-      sourceLanguage: string | null,
+      targetLanguage: TranslatorLanguage = {
+        code: "en",
+        name: "English",
+        direction: "ltr",
+      },
+      sourceLanguage: TranslatorLanguage = translatorDetectLanguage,
       isCancelledRef?: RefObject<boolean>,
     ) => {
       const prompt = text.trim();
       if (!prompt) return null;
       if (
         prompt === currentPrompt &&
-        sourceLanguage === currentSourceLanguage &&
-        targetLanguage === currentTargetLanguage
+        sourceLanguage.code === currentSourceLanguage &&
+        targetLanguage.code === currentTargetLanguage
       )
         return currentResponse;
 
@@ -52,23 +60,23 @@ export const GeminiProvider = ({ children }: { children: ReactNode }) => {
 
       const result = await generateTranslation(
         prompt,
-        targetLanguage,
-        sourceLanguage,
+        targetLanguage.name,
+        sourceLanguage.name,
       );
 
       if (isCancelledRef && isCancelledRef.current) return null;
 
       if (typeof result === "string") {
-        setCurrentSourceLanguage(sourceLanguage);
-        setCurrentTargetLanguage(targetLanguage);
+        setCurrentSourceLanguage(sourceLanguage.code);
+        setCurrentTargetLanguage(targetLanguage.code);
         setCurrentResponse(result);
         setCurrentPrompt(prompt);
         if (currentUser) {
           await addTranslationToUserHistory({
             sourceText: prompt,
             translatedText: result,
-            sourceLanguage: sourceLanguage ? sourceLanguage : "Detect language",
-            targetLanguage: targetLanguage,
+            sourceLanguage: sourceLanguage.code,
+            targetLanguage: targetLanguage.code,
           });
         }
         console.log(`${sourceLanguage ? sourceLanguage : "Detected"}:`, prompt);

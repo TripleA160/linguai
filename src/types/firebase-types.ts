@@ -1,6 +1,7 @@
 import type { UserCredential, User } from "firebase/auth";
 import type { RefObject } from "react";
 import type { Timestamp } from "firebase/firestore/lite";
+import type { TranslatorLanguage } from "../utils/translator-utils";
 
 export type AuthContextData = {
   currentUser: User | null;
@@ -58,8 +59,8 @@ export type GeminiContextData = {
   currentResponse: string | null;
   translate: (
     text: string,
-    targetLanguage: string,
-    sourceLanguage: string | null,
+    targetLanguage: TranslatorLanguage,
+    sourceLanguage: TranslatorLanguage,
     isCancelledRef?: RefObject<boolean>,
   ) => Promise<string | null>;
   isRateLimited: boolean;
