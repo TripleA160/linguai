@@ -58,6 +58,8 @@ export type Locale = {
     openMenu: string;
     history: string;
     saved: string;
+    noHistoryAccess: string;
+    noSavedAccess: string;
     delete: string;
   };
   errors: {

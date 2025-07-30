@@ -44,11 +44,11 @@ const TranslatorLanguageSelector = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
+    <div className="w-full md:w-auto flex flex-col items-center justify-center gap-2">
       <label
         dir="auto"
         htmlFor={id}
-        className="text-sm text-secondary-200 dark:text-secondary-dark-200"
+        className="hidden md:block text-sm text-secondary-200 dark:text-secondary-dark-200"
         onMouseEnter={() => {
           tooltip.showTooltip(
             400,
@@ -66,13 +66,13 @@ const TranslatorLanguageSelector = ({
         id={id}
         value={value.code}
         onChange={handleChange}
-        className="border transition-all duration-180 focus:drop-shadow-button-1 border-border-100
-          dark:border-border-200 hover:border-secondary-dark-100
+        className="max-w-full border transition-all duration-180 focus:drop-shadow-button-1
+          border-border-100 dark:border-border-200 hover:border-secondary-dark-100
           dark:hover:border-secondary-100 focus-visible:border-secondary-dark-100
           dark:focus-visible:border-secondary-100 active:border-secondary-dark-200
           dark:active:border-secondary-200 text-primary-200 dark:text-primary-dark-200
           bg-background-200 dark:bg-background-dark-200 rounded-md px-2 py-1 text-sm
-          outline-none"
+          text-center outline-none"
         aria-label={
           accessibilityLabel
             ? accessibilityLabel

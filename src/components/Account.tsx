@@ -211,7 +211,7 @@ const Account = () => {
 
   return (
     <div
-      className="w-full flex flex-col items-center p-6 gap-4 scrollbar-thin
+      className="w-full flex flex-col items-center p-5 md:p-6 gap-4 scrollbar-thin
         scrollbar-track-transparent scrollbar-thumb-secondary-dark-300
         dark:scrollbar-thumb-secondary-dark-200 overflow-auto"
     >
@@ -230,7 +230,7 @@ const Account = () => {
       <form
         onSubmit={handleProfileSubmit}
         noValidate
-        className="flex flex-1 flex-col items-center gap-4 mb-8 self-center w-3/5"
+        className="flex flex-1 flex-col items-center gap-4 mb-8 self-center w-full md:w-3/5"
       >
         {profileError &&
           (Array.isArray(profileError) && profileError.length > 1 ? (
@@ -343,7 +343,7 @@ const Account = () => {
       <form
         onSubmit={handlePasswordSubmit}
         noValidate
-        className="flex flex-1 flex-col items-center gap-4 self-center w-3/5"
+        className="flex flex-1 flex-col items-center gap-4 self-center w-full md:w-3/5"
       >
         {securityError &&
           (Array.isArray(securityError) && securityError.length > 1 ? (

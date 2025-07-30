@@ -2,17 +2,18 @@ import { useLocalization } from "../features/localization/useLocalization";
 import AutoThemeButton from "./AutoThemeButton";
 import ThemeToggle from "./ThemeToggle";
 
-const ThemeSettings = () => {
+const ThemeSettings = ({ toggleWidth }: { toggleWidth?: string }) => {
   const { currentLocale, currentLanguage } = useLocalization();
 
   return (
     <div
-      className={`select-none w-full flex justify-between items-center
+      className={`select-none w-full flex justify-between items-center text-sm
         ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
     >
       <div dir="auto">{currentLocale.settings.theme}:</div>
       <div
-        className={`flex w-3/5 gap-2
+        style={{ width: toggleWidth ? toggleWidth : "60%" }}
+        className={`flex gap-2
           ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
       >
         <ThemeToggle />

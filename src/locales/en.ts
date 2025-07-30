@@ -51,6 +51,10 @@ const en: Locale = {
     openMenu: "Open menu",
     history: "History",
     saved: "Saved",
+    noHistoryAccess:
+      "No translation history yet. Sign up or log in to keep track of your translations.",
+    noSavedAccess:
+      "No saved translations  yet. Sign up or log in to save your translations.",
     delete: "Delete",
   },
   errors: {

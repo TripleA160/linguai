@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { TooltipContext } from "./TooltipContext";
 
+const isTouchDevice =
+  typeof window !== "undefined" &&
+  ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
 const TooltipProvider = ({ children }: { children: ReactNode }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [currentText, setCurrentText] = useState<string | null>(null);
@@ -37,7 +41,7 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
     size: "sm" | "md" | "lg" = "md",
     text?: string,
   ) => {
-    if (isVisible) return;
+    if (isTouchDevice || isVisible) return;
 
     const show = () => {
       if (text) setCurrentText(text);
@@ -66,6 +70,8 @@ const TooltipProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    if (isTouchDevice) return;
+
     const updatePosition = () => {
       if (!isVisible || !tooltipRef.current) return;
 

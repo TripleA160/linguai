@@ -29,7 +29,8 @@ const AuthButton = ({
         dark:bg-secondary-dark-100 text-white dark:text-black transition-all
         duration-180 hover:bg-secondary-200 dark:hover:bg-secondary-dark-200
         focus-visible:bg-secondary-200 dark:focus-visible:bg-secondary-dark-200
-        active:bg-secondary-300 dark:active:bg-secondary-dark-300 ` + className
+        active:bg-secondary-300 dark:active:bg-secondary-dark-300 no-hamburger-follow ` +
+        className
       }
       onClick={onClick}
       aria-label={
@@ -41,18 +42,23 @@ const AuthButton = ({
       }
     >
       {isCollapsible ? (
-        <span className="flex items-center justify-center">
-          <span className="block">{collapseLabel || label}</span>
+        <span className="select-none flex items-center justify-center">
+          <span className="block no-hamburger-follow">
+            {collapseLabel || label}
+          </span>
           <span
-            className="overflow-hidden opacity-0 max-w-0 min-w-0 group-hover:opacity-100
-              translate-x-1.5 group-hover:max-w-28 group-hover:min-w-12 group-hover:pr-1.5
-              transition-all duration-250 leading-snug"
+            className="no-hamburger-follow overflow-hidden opacity-0 max-w-0 min-w-0
+              group-hover:opacity-100 translate-x-1.5 group-hover:max-w-28
+              group-hover:min-w-12 group-hover:pr-1.5 transition-all duration-250 leading-snug"
           >
             {label}
           </span>
         </span>
       ) : (
-        <span className="flex items-center justify-center min-w-24">
+        <span
+          className="select-none flex items-center justify-center min-w-22 md:min-w-24
+            no-hamburger-follow"
+        >
           {label}
         </span>
       )}

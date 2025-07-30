@@ -6,7 +6,7 @@ import LanguageSelector from "./LanguageSelector";
 import { useTooltip } from "../features/tooltip/useTooltip";
 import ThemeSettings from "./ThemeSettings";
 
-const HeaderSettingsArea = () => {
+const HeaderSettingsArea = ({ className }: { className?: string }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const gearButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ const HeaderSettingsArea = () => {
     <>
       <div
         ref={containerRef}
-        className="relative flex items-center justify-start"
+        className={"relative flex items-center justify-start " + className}
       >
         <button
           ref={gearButtonRef}
@@ -76,7 +76,7 @@ const HeaderSettingsArea = () => {
           }}
           onMouseLeave={() => tooltip.hideTooltip()}
         >
-          <SettingsIcon className="w-full h-full" />
+          <SettingsIcon className="w-7 md:w-8" />
         </button>
 
         <DropdownMenu ref={dropdownRef} className="min-w-40">

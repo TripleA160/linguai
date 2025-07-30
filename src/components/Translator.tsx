@@ -296,10 +296,10 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
             <div className="error mb-2">{error}</div>
           ))}
         <div
-          className="group border h-48 w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 shrink-0 resize-none
-            transition-all duration-300 border-border-100 dark:border-transparent
-            bg-background-100 dark:bg-background-dark-100 rounded-3xl shadow-subtle
-            outline-none focus-within:shadow-text-box"
+          className="group border h-24 md:h-45 w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 shrink-0
+            resize-none transition-all duration-300 border-border-100
+            dark:border-transparent bg-background-100 dark:bg-background-dark-100
+            rounded-[1.375rem] shadow-subtle outline-none focus-within:shadow-text-box"
         >
           <textarea
             onChange={handleInputChange}
@@ -313,16 +313,20 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               text-primary-100 dark:text-primary-dark-100"
           />
         </div>
-        <div className="flex mt-4 mb-4 pl-5 pr-5 items-start justify-between gap-8 w-full">
+        <div
+          className="flex flex-col md:flex-row mt-3 mb-3 md:mt-4 md:mb-4 pl-5 pr-5 items-start
+            justify-between gap-4 md:gap-8 w-full"
+        >
           <div
             className={`select-none text-sm
-              ${translateInput.length <= 4000 ? "text-secondary-200 dark:text-secondary-dark-200" : "text-red-400 dark:text-red-300 "}`}
+              ${translateInput.length <= 4000 ? "text-secondary-200 dark:text-secondary-dark-200" : "text-red-400 dark:text-red-300"}
+              whitespace-nowrap`}
           >
             {translateInput.length} / 4000
           </div>
           <div
-            className={`flex gap-8 items-end
-              ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
+            className={`w-full md:w-auto flex gap-3 md:gap-8 flex-col items-center md:items-end
+              ${currentLanguage.direction === "ltr" ? "md:flex-row" : "md:flex-row-reverse"}`}
           >
             <TranslatorLanguageSelector
               type="source"
@@ -344,8 +348,8 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
               id="target-language-select"
             />
           </div>
-          <div className="flex gap-4 items-end h-full">
-            <CopyButton textToCopy={translatedText} />
+          <div className="flex gap-4 justify-end md:items-end w-full md:w-auto md:h-full">
+            <CopyButton text={translatedText} />
             <SaveButton
               ref={saveButtonRef}
               isSaved={isTranslationSaved}
@@ -360,7 +364,7 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
           className="relative border flex-1 border-border-100 dark:border-transparent
             bg-background-200 text-primary-200 dark:text-primary-dark-200
             dark:bg-background-dark-200 w-full pl-5 pr-5 pt-3 pb-3 resize-none
-            transition-all duration-300 rounded-3xl shadow-subtle whitespace-pre-line"
+            transition-all duration-300 rounded-[1.375rem] shadow-subtle whitespace-pre-line"
         >
           <div>
             {loading ? (
