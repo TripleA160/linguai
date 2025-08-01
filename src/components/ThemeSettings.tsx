@@ -10,7 +10,9 @@ const ThemeSettings = ({ toggleWidth }: { toggleWidth?: string }) => {
       className={`select-none w-full flex justify-between items-center text-sm
         ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
     >
-      <div dir="auto">{currentLocale.settings.theme}:</div>
+      <div dir="auto" className="text-primary-100 dark:text-primary-dark-100">
+        {currentLocale.settings.theme}:
+      </div>
       <div
         style={{ width: toggleWidth ? toggleWidth : "60%" }}
         className={`flex gap-2

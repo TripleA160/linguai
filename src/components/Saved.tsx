@@ -58,7 +58,12 @@ const Saved = ({
           })}
         />
       ) : (
-        <div className="flex flex-col items-center gap-2 w-full overflow-y-auto overflow-x-hidden">
+        <div
+          className={
+            "flex flex-col items-center gap-2 w-full overflow-y-auto overflow-x-hidden " +
+            className
+          }
+        >
           {savedTranslations?.map((translation) => {
             const createdAt = translation.createdAt.toDate().toLocaleString();
             return (

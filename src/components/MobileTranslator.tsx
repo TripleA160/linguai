@@ -86,43 +86,43 @@ const MobileTranslator = ({
         ></span>
       </div>
       <div className="w-full flex flex-1 overflow-auto">
-        {tabs[currentIndex] === "History" ? (
-          currentUser ? (
-            <History
-              onSelect={setSelectedTranslation}
-              onDelete={onHistoryDelete}
-              type="tab"
-            />
-          ) : (
-            <div
-              dir="auto"
-              className="opacity-65 text-primary-200 dark:text-primary-dark-200 w-full max-h-32
-                overflow-hidden select-text"
-            >
-              {currentLocale.navigation.noHistoryAccess}
-            </div>
-          )
-        ) : tabs[currentIndex] === "Translator" ? (
-          <Translator
-            selectedTranslation={selectedTranslation}
-            setSelectedTranslation={setSelectedTranslation}
+        {currentUser ? (
+          <History
+            onSelect={setSelectedTranslation}
+            onDelete={onHistoryDelete}
+            type="tab"
+            className={`${tabs[currentIndex] === "History" ? "flex" : "hidden"}`}
           />
-        ) : tabs[currentIndex] === "Saved" ? (
-          currentUser ? (
-            <Saved
-              onSelect={setSelectedTranslation}
-              onDelete={onSavedDelete}
-              type="tab"
-            />
-          ) : (
-            <div
-              dir="auto"
-              className="opacity-65 text-primary-200 dark:text-primary-dark-200 w-full"
-            >
-              {currentLocale.navigation.noSavedAccess}
-            </div>
-          )
-        ) : null}
+        ) : (
+          <div
+            dir="auto"
+            className={`text-primary-200 dark:text-primary-dark-200 w-full max-h-32 overflow-hidden
+              select-text ${tabs[currentIndex] === "History" ? "flex" : "hidden"}`}
+          >
+            {currentLocale.navigation.noHistoryAccess}
+          </div>
+        )}
+        <Translator
+          selectedTranslation={selectedTranslation}
+          setSelectedTranslation={setSelectedTranslation}
+          className={`${tabs[currentIndex] === "Translator" ? "flex" : "hidden"}`}
+        />
+        {currentUser ? (
+          <Saved
+            onSelect={setSelectedTranslation}
+            onDelete={onSavedDelete}
+            type="tab"
+            className={`${tabs[currentIndex] === "Saved" ? "flex" : "hidden"}`}
+          />
+        ) : (
+          <div
+            dir="auto"
+            className={`text-primary-200 dark:text-primary-dark-200 w-full max-h-32 overflow-hidden
+              select-text ${tabs[currentIndex] === "Saved" ? "flex" : "hidden"}`}
+          >
+            {currentLocale.navigation.noSavedAccess}
+          </div>
+        )}
       </div>
     </div>
   );

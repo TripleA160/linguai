@@ -41,9 +41,14 @@ type Props = {
       createdAt: string;
     } | null>
   >;
+  className?: string;
 };
 
-const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
+const Translator = ({
+  selectedTranslation,
+  setSelectedTranslation,
+  className,
+}: Props) => {
   const translateInputRef = useRef<HTMLTextAreaElement>(null);
   const translateOutputRef = useRef<HTMLDivElement>(null);
   const delay = useRef<number>(750);
@@ -281,9 +286,11 @@ const Translator = ({ selectedTranslation, setSelectedTranslation }: Props) => {
   return (
     <>
       <div
-        className="flex flex-col w-full h-full pl-3.5 pr-3.5 pt-1 pb-1 scrollbar-thin
+        className={
+          `flex flex-col w-full h-full pl-3.5 pr-3.5 pt-1 pb-1 scrollbar-thin
           scrollbar-track-transparent scrollbar-thumb-secondary-dark-300
-          dark:scrollbar-thumb-secondary-dark-200 overflow-y-auto"
+          dark:scrollbar-thumb-secondary-dark-200 overflow-y-auto ` + className
+        }
       >
         {error &&
           (Array.isArray(error) && error.length > 1 ? (

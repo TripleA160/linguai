@@ -117,6 +117,8 @@ const ThemeToggle = ({ onTurnOff, onTurnOn }: Props) => {
       toggle.removeEventListener("touchmove", handleTouchMove);
       toggle.removeEventListener("touchend", handleTouchEnd);
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
