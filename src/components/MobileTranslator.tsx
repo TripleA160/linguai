@@ -84,6 +84,7 @@ const MobileTranslator = ({
         <History
           onSelect={setSelectedTranslation}
           onDelete={onHistoryDelete}
+          afterSelect={() => setCurrentIndex(1)}
           type="tab"
           className={`${tabs[currentIndex] === "History" ? "flex" : "hidden"}`}
         />
@@ -95,6 +96,7 @@ const MobileTranslator = ({
         <Saved
           onSelect={setSelectedTranslation}
           onDelete={onSavedDelete}
+          afterSelect={() => setCurrentIndex(1)}
           type="tab"
           className={`${tabs[currentIndex] === "Saved" ? "flex" : "hidden"}`}
         />

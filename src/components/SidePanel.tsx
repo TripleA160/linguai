@@ -108,12 +108,15 @@ const SidePanel = ({
                   className={`group flex items-center w-full gap-1.5 bg-background-200
                     dark:bg-background-dark-200 rounded-t-md cursor-pointer hover:bg-background-300
                     dark:hover:bg-background-dark-100 group-hover:bg-background-300
-                    dark:group-hover:bg-background-dark-100
+                    dark:group-hover:bg-background-dark-100 active:bg-background-300
+                    dark:active:bg-background-dark-100 group-active:bg-background-300
+                    dark:group-active:bg-background-dark-100
                     [transition:colors_125ms_cubic-bezier(.1,.55,.75,.85)]`}
                 >
                   <div
                     className="w-6 shrink-0 text-secondary-100 opacity-70 hover:opacity-100
-                      group-hover:opacity-100 [transition:opacity_125ms_cubic-bezier(.1,.55,.75,.85)]"
+                      group-hover:opacity-100 active:opacity-100 group-active:opacity-100
+                      [transition:opacity_125ms_cubic-bezier(.1,.55,.75,.85)]"
                   >
                     {item.icon}
                   </div>
@@ -152,7 +155,9 @@ const SidePanel = ({
                       text-secondary-100 dark:text-secondary-dark-200 hover:text-secondary-300
                       dark:hover:text-secondary-dark-100 rounded-b-md inset-shadow-[0_3px_3px_#000]/10
                       dark:inset-shadow-[0_3px_3px_#000]/10 group-hover:text-secondary-300
-                      dark:group-hover:text-secondary-dark-100
+                      dark:group-hover:text-secondary-dark-100 active:text-secondary-300
+                      dark:active:text-secondary-dark-100 group-active:text-secondary-300
+                      dark:group-active:text-secondary-dark-100
                       [transition:color_125ms_cubic-bezier(.1,.55,.75,.85)_0s,_opacity_125ms_cubic-bezier(.1,.55,.75,.85)_0s,_max-height_250ms_cubic-bezier(0.4,0,0.2,1)_25ms]
                       overflow-hidden select-text w-full text-center
                       ${isCollapsed ? "opacity-0 max-h-0" : "opacity-85 max-h-5 hover:opacity-95 group-hover:opacity-95"}`}
