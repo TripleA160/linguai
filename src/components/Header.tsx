@@ -19,8 +19,8 @@ const Header = () => {
         >
           <Logo className="select-none w-6 md:w-10 text-primary-200 dark:text-primary-dark-200" />
           <div
-            className="select-none font-bold md:text-xl bg-clip-text text-transparent bg-gradient-to-r
-              from-primary-200 to-primary-100 dark:from-primary-dark-200
+            className="select-none font-bold md:text-[1.25rem] bg-clip-text text-transparent
+              bg-gradient-to-r from-primary-200 to-primary-100 dark:from-primary-dark-200
               dark:to-primary-dark-100"
           >
             AI Translate

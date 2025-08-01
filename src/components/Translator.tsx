@@ -317,7 +317,7 @@ const Translator = ({
             className="h-full w-full pl-2.5 pr-2.5 pt-1.5 pb-1.5 overflow-y-auto resize-none
               outline-none scrollbar-thin scrollbar-track-transparent
               scrollbar-thumb-secondary-dark-300 dark:scrollbar-thumb-secondary-dark-200
-              text-primary-100 dark:text-primary-dark-100"
+              text-primary-100 dark:text-primary-dark-100 text-base"
           />
         </div>
         <div
@@ -371,7 +371,8 @@ const Translator = ({
           className="relative border flex-1 border-border-100 dark:border-transparent
             bg-background-200 text-primary-200 dark:text-primary-dark-200
             dark:bg-background-dark-200 w-full pl-5 pr-5 pt-3 pb-3 resize-none
-            transition-all duration-300 rounded-[1.375rem] shadow-subtle whitespace-pre-line"
+            transition-all duration-300 rounded-[1.375rem] shadow-subtle whitespace-pre-line
+            text-base"
         >
           <div>
             {loading ? (

@@ -30,6 +30,9 @@ const ar: Locale = {
     toggleTheme: "تبديل المظهر",
     language: "اللغة",
     selectLanguage: "اختيار اللغة",
+    textSize: "حجم الخط",
+    textSizeReduce: "تقليل حجم الخط",
+    textSizeIncrease: "زيادة حجم الخط",
   },
   translator: {
     placeholder: "اكتب هنا...",

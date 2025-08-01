@@ -53,7 +53,7 @@ const Login = () => {
         className="flex max-w-lg min-w-2xs flex-1 flex-col items-center gap-4 p-5 md:p-6
           self-center w-full"
       >
-        <h1 className="mb-6 text-3xl select-none">
+        <h1 className="mb-6 text-3xl text-center select-none">
           {currentLocale.auth.login}
         </h1>
         {error &&
@@ -68,7 +68,7 @@ const Login = () => {
               {error}
             </div>
           ))}
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-2 text-base">
           <label htmlFor="email" dir="auto" className="w-full">
             {currentLocale.auth.email}
           </label>
@@ -84,7 +84,7 @@ const Login = () => {
             dir="auto"
           />
         </div>
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-2 text-base">
           <label htmlFor="password" dir="auto" className="w-full">
             {currentLocale.auth.password}
           </label>
@@ -108,7 +108,7 @@ const Login = () => {
             hover:bg-secondary-200 dark:hover:bg-secondary-dark-200
             focus-visible:bg-secondary-200 dark:focus-visible:bg-secondary-dark-200
             active:bg-secondary-300 dark:active:bg-secondary-dark-300 mt-4 h-11 w-full
-            cursor-pointer rounded-xl text-white outline-1 outline-transparent
+            cursor-pointer rounded-xl text-base text-white outline-1 outline-transparent
             transition-all duration-180 dark:text-black"
         >
           {currentLocale.auth.login}

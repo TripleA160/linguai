@@ -215,7 +215,9 @@ const Account = () => {
         scrollbar-track-transparent scrollbar-thumb-secondary-dark-300
         dark:scrollbar-thumb-secondary-dark-200 overflow-auto"
     >
-      <h1 className="mb-6 text-3xl select-none">Account Settings</h1>
+      <h1 className="mb-6 text-3xl text-center select-none">
+        {currentLocale.navigation.accountSettings}
+      </h1>
       {!currentUser?.emailVerified && (
         <div className="warning" dir="auto">
           {currentLocale.errors.auth.profile["auth/operation-not-allowed"]}
@@ -244,7 +246,7 @@ const Account = () => {
               {profileError}
             </div>
           ))}
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-2 text-base">
           <label htmlFor="display-name" dir="auto" className="w-full">
             {currentLocale.auth.displayName} {hasNameChanged && "*"}
           </label>
@@ -266,7 +268,7 @@ const Account = () => {
             dir="auto"
           />
         </div>
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-2 text-base">
           <label htmlFor="email" dir="auto" className="w-full">
             {currentLocale.auth.email} {hasEmailChanged && "*"}
           </label>
@@ -289,7 +291,7 @@ const Account = () => {
           />
         </div>
         <div
-          className={`flex w-full items-center gap-2 -mt-4
+          className={`flex w-full items-center gap-2 -mt-4 text-base
             ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}
             ${hasEmailChanged ? " visible" : " invisible"}`}
         >
@@ -357,7 +359,7 @@ const Account = () => {
               {securityError}
             </div>
           ))}
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-2 text-base">
           <label htmlFor="current-password" dir="auto" className="w-full">
             {currentLocale.auth.currentPassword}
           </label>
@@ -379,7 +381,7 @@ const Account = () => {
             dir="auto"
           />
         </div>
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-2 text-base">
           <label htmlFor="new-password" dir="auto" className="w-full">
             {currentLocale.auth.newPassword}
           </label>
@@ -401,7 +403,7 @@ const Account = () => {
             dir="auto"
           />
         </div>
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-start gap-2 text-base">
           <label htmlFor="confirm-password" dir="auto" className="w-full">
             {currentLocale.auth.confirmPassword}
           </label>
@@ -435,7 +437,7 @@ const Account = () => {
                 dark:active:bg-secondary-dark-300`
               : "opacity-45 cursor-default"
             } bg-secondary-100 dark:bg-secondary-dark-100 mt-4 h-11 w-full rounded-md
-            text-white outline-1 outline-transparent transition-all duration-180
+            text-base text-white outline-1 outline-transparent transition-all duration-180
             dark:text-black`}
         >
           {currentLocale.auth.change}

@@ -43,9 +43,9 @@ const AutoThemeButton = ({ onTurnOff, onTurnOn }: Props) => {
   return (
     <button
       onClick={toggle}
-      className={`no-hamburger-follow group cursor-pointer w-12 transition-all duration-180
-        ${isOn ? "opacity-100" : "opacity-45"} flex relative flex-1 h-7 items-center
-        justify-center text-primary-100 dark:text-primary-dark-100 border
+      className={`no-hamburger-follow group cursor-pointer select-none w-12 transition-all
+        duration-180 ${isOn ? "opacity-100" : "opacity-45"} flex relative flex-1 h-7
+        items-center justify-center text-primary-100 dark:text-primary-dark-100 border
         border-secondary-100 bg-background-100 dark:bg-background-dark-400
         dark:border-secondary-dark-100 rounded-full outline-none
         hover:border-secondary-200 dark:hover:border-secondary-dark-200

@@ -166,7 +166,7 @@ const SidePanel = ({
         ) : (
           !isCollapsed && (
             <div
-              className="opacity-65 text-primary-200 dark:text-primary-dark-200 w-full max-h-32
+              className="opacity-65 text-base text-primary-200 dark:text-primary-dark-200 w-full max-h-32
                 overflow-hidden select-text"
             >
               {notAccessText}

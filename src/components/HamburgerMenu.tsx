@@ -6,6 +6,7 @@ import { useLocalization } from "../features/localization/useLocalization";
 import LanguageSelector from "./LanguageSelector";
 import ThemeSettings from "./ThemeSettings";
 import HamburgerUserArea from "./HamburgerUserArea";
+import TextSizeSettings from "./TextSizeSettings";
 
 const HamburgerMenu = ({
   isOpen,
@@ -166,6 +167,7 @@ const HamburgerMenu = ({
             <div className="flex flex-col items-center gap-4 w-full">
               <LanguageSelector selectWidth="50%" />
               <ThemeSettings toggleWidth="50%" />
+              <TextSizeSettings controlsWidth="50%" />
             </div>
             {currentUser && (
               <div className="w-full">

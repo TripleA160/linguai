@@ -37,6 +37,9 @@ export type Locale = {
     toggleTheme: string;
     language: string;
     selectLanguage: string;
+    textSize: string;
+    textSizeReduce: string;
+    textSizeIncrease: string;
   };
   translator: {
     placeholder: string;

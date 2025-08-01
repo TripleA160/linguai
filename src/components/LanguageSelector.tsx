@@ -38,7 +38,7 @@ const LanguageSelector = ({
       <label
         dir="auto"
         htmlFor="language-select"
-        className="select-none text-primary-100 dark:text-primary-dark-100"
+        className="text-primary-100 dark:text-primary-dark-100"
       >
         {label ? label : currentLocale.settings.language}:
       </label>
@@ -46,6 +46,7 @@ const LanguageSelector = ({
         id="language-select"
         value={currentLanguage.code}
         onChange={handleSelect}
+        onClick={tooltip.hideTooltip}
         style={{ width: selectWidth ? selectWidth : "60%" }}
         className="no-hamburger-follow border transition-all duration-180
           focus:drop-shadow-button-1 border-secondary-100 dark:border-secondary-dark-100

@@ -5,6 +5,7 @@ import { useLocalization } from "../features/localization/useLocalization";
 import LanguageSelector from "./LanguageSelector";
 import { useTooltip } from "../features/tooltip/useTooltip";
 import ThemeSettings from "./ThemeSettings";
+import TextSizeSettings from "./TextSizeSettings";
 
 const HeaderSettingsArea = ({ className }: { className?: string }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -82,6 +83,7 @@ const HeaderSettingsArea = ({ className }: { className?: string }) => {
         <DropdownMenu ref={dropdownRef} className="min-w-40">
           <LanguageSelector />
           <ThemeSettings />
+          <TextSizeSettings />
         </DropdownMenu>
       </div>
     </>

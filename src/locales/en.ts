@@ -30,6 +30,9 @@ const en: Locale = {
     toggleTheme: "Toggle theme",
     language: "Language",
     selectLanguage: "Select language",
+    textSize: "Text size",
+    textSizeReduce: "Reduce text size",
+    textSizeIncrease: "Increase text size",
   },
   translator: {
     placeholder: "Type here...",

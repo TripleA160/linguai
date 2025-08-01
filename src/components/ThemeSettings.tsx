@@ -7,7 +7,7 @@ const ThemeSettings = ({ toggleWidth }: { toggleWidth?: string }) => {
 
   return (
     <div
-      className={`select-none w-full flex justify-between items-center text-sm
+      className={`w-full flex justify-between items-center text-sm
         ${currentLanguage.direction === "ltr" ? "flex-row" : "flex-row-reverse"}`}
     >
       <div dir="auto" className="text-primary-100 dark:text-primary-dark-100">

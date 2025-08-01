@@ -5,6 +5,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+
   --color-primary-100: hsl(215, 47%, 21%);
   --color-primary-200: hsl(215, 46%, 15%);
 

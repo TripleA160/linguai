@@ -10,23 +10,26 @@ import { FirestoreProvider } from "./features/firestore/FirestoreProvider.tsx";
 import { GeminiProvider } from "./features/gemini/GeminiProvider.tsx";
 import TooltipProvider from "./features/tooltip/TooltipProvider.tsx";
 import AlertProvider from "./features/alert/AlertProvider.tsx";
+import TextSizeProvider from "./features/text-size/TextSizeProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <LocalizationProvider>
         <ThemeProvider>
-          <AuthProvider>
-            <FirestoreProvider>
-              <GeminiProvider>
-                <TooltipProvider>
-                  <AlertProvider>
-                    <App />
-                  </AlertProvider>
-                </TooltipProvider>
-              </GeminiProvider>
-            </FirestoreProvider>
-          </AuthProvider>
+          <TextSizeProvider>
+            <AuthProvider>
+              <FirestoreProvider>
+                <GeminiProvider>
+                  <TooltipProvider>
+                    <AlertProvider>
+                      <App />
+                    </AlertProvider>
+                  </TooltipProvider>
+                </GeminiProvider>
+              </FirestoreProvider>
+            </AuthProvider>
+          </TextSizeProvider>
         </ThemeProvider>
       </LocalizationProvider>
     </BrowserRouter>
