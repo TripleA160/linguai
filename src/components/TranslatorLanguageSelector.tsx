@@ -44,7 +44,7 @@ const TranslatorLanguageSelector = ({
   };
 
   return (
-    <div className="w-full md:w-auto flex flex-col items-center justify-center gap-2">
+    <div className="w-full md:w-43 flex flex-col items-center justify-center gap-2">
       <label
         dir="auto"
         htmlFor={id}

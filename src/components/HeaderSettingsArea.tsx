@@ -82,7 +82,15 @@ const HeaderSettingsArea = ({ className }: { className?: string }) => {
 
         <DropdownMenu ref={dropdownRef} className="min-w-40">
           <LanguageSelector />
+          <div
+            className="w-full h-px will-change-transform bg-primary-100 dark:bg-primary-dark-100
+              opacity-20"
+          ></div>
           <ThemeSettings />
+          <div
+            className="w-full h-px will-change-transform bg-primary-100 dark:bg-primary-dark-100
+              opacity-20"
+          ></div>
           <TextSizeSettings />
         </DropdownMenu>
       </div>

@@ -156,7 +156,7 @@ const HamburgerMenu = ({
           "transition-transform duration-100" }`}
       >
         <div className="overflow-auto touch-pan-y flex flex-col flex-1 p-6 pt-18">
-          <div className="flex w-full mb-6">
+          <div className="flex w-full mb-10.5">
             <HamburgerUserArea
               onLogin={onClose}
               onSignUp={onClose}
@@ -164,9 +164,17 @@ const HamburgerMenu = ({
             />
           </div>
           <div className="flex flex-col flex-1 items-center justify-between gap-4">
-            <div className="flex flex-col items-center gap-4 w-full">
+            <div className="flex flex-col items-center gap-5.25 w-full">
               <LanguageSelector selectWidth="50%" />
+              <div
+                className="w-full h-px will-change-transform bg-primary-100 dark:bg-primary-dark-100
+                  opacity-20"
+              ></div>
               <ThemeSettings toggleWidth="50%" />
+              <div
+                className="w-full h-px will-change-transform bg-primary-100 dark:bg-primary-dark-100
+                  opacity-20"
+              ></div>
               <TextSizeSettings controlsWidth="50%" />
             </div>
             {currentUser && (
