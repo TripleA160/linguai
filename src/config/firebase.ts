@@ -22,6 +22,12 @@ export const geminiModels = {
       model: "gemini-2.5-flash",
     }),
   },
+  gemini25Lite: {
+    name: "Gemini 2.5 Lite",
+    model: getGenerativeModel(geminiAi, {
+      model: "gemini-2.5-flash-lite",
+    }),
+  },
   gemini20Flash: {
     name: "Gemini 2.0 Flash",
     model: getGenerativeModel(geminiAi, {

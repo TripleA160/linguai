@@ -50,9 +50,11 @@ ${input}`;
       ? [
           geminiModels.gemini25Flash,
           geminiModels.gemini20Flash,
+          geminiModels.gemini25Lite,
           geminiModels.gemini20Lite,
         ]
       : [
+          geminiModels.gemini25Lite,
           geminiModels.gemini20Lite,
           geminiModels.gemini25Flash,
           geminiModels.gemini20Flash,
