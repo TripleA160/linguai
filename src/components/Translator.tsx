@@ -226,6 +226,11 @@ const Translator = ({
         (lang) => lang.code === savedTarget,
       );
       if (language) setTargetLanguage(language);
+    } else {
+      const language = translatorLanguages.find(
+        (lang) => lang.code === "en" || lang.code === "en-US",
+      );
+      if (language) setTargetLanguage(language);
     }
 
     return () => {
