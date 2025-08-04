@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://ai-translator-react.vercel.app/sitemap.xml
+Sitemap: https://linguai-app.vercel.app/sitemap.xml
