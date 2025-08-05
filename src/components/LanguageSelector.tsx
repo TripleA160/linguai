@@ -71,7 +71,7 @@ const LanguageSelector = ({
       >
         {supportedLanguages.current.map((lang) => (
           <option key={lang.code} value={lang.code}>
-            {lang.localName ? `${lang.localName} (${lang.name})` : lang.name}
+            {lang.localName ? `${lang.name} (${lang.localName})` : lang.name}
           </option>
         ))}
       </select>

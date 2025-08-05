@@ -10,6 +10,7 @@ const loadedLocales: Partial<Record<Language, Locale>> = { en };
 const localeLoaders: Record<Language, () => Promise<{ default: Locale }>> = {
   en: () => import("../../locales/en"),
   ar: () => import("../../locales/ar"),
+  fr: () => import("../../locales/fr"),
 };
 
 export const initialLocale: Locale = en;
@@ -25,6 +26,12 @@ export const languagesMeta: LanguageMeta[] = [
     name: "Arabic",
     localName: "العربية",
     direction: "rtl",
+  },
+  {
+    code: "fr",
+    name: "French",
+    localName: "Français",
+    direction: "ltr",
   },
 ];
 

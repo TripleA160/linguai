@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 
-export type Language = "en" | "ar";
+export type Language = "en" | "ar" | "fr";
 
 export type LanguageMeta = {
   code: Language;
