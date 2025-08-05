@@ -330,7 +330,7 @@ const Translator = ({
             justify-between gap-4 md:gap-8 w-full"
         >
           <div
-            className={`select-none text-sm
+            className={`select-none text-sm min-w-1/6
               ${translateInput.length <= 4000 ? "text-secondary-200 dark:text-secondary-dark-200" : "text-red-400 dark:text-red-300"}
               whitespace-nowrap`}
           >
@@ -360,7 +360,7 @@ const Translator = ({
               id="target-language-select"
             />
           </div>
-          <div className="flex gap-4 justify-end md:items-end w-full md:w-auto md:h-full">
+          <div className="flex gap-4 justify-end md:items-end w-full md:w-auto md:h-full min-w-1/6">
             <CopyButton text={translatedText} />
             <SaveButton
               ref={saveButtonRef}

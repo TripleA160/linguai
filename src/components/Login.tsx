@@ -73,6 +73,7 @@ const Login = () => {
             {currentLocale.auth.email}
           </label>
           <input
+            autoComplete="email"
             ref={emailRef}
             type="email"
             id="email"
@@ -89,6 +90,7 @@ const Login = () => {
             {currentLocale.auth.password}
           </label>
           <input
+            autoComplete="current-password"
             ref={passwordRef}
             type="password"
             id="password"

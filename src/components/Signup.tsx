@@ -108,6 +108,7 @@ const Signup = () => {
             {currentLocale.auth.displayName}
           </label>
           <input
+            autoComplete="name"
             ref={nameRef}
             type="text"
             id="display-name"
@@ -125,7 +126,7 @@ const Signup = () => {
             {currentLocale.auth.email}
           </label>
           <input
-            ref={emailRef}
+            autoComplete="email"
             type="email"
             id="email"
             name="email"
@@ -141,6 +142,7 @@ const Signup = () => {
             {currentLocale.auth.password}
           </label>
           <input
+            autoComplete="new-password"
             ref={passwordRef}
             type="password"
             id="password"
@@ -157,6 +159,7 @@ const Signup = () => {
             {currentLocale.auth.confirmPassword}
           </label>
           <input
+            autoComplete="new-password"
             ref={passwordConfirmRef}
             type="password"
             id="password-confirm"
