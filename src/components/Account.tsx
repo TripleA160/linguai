@@ -251,6 +251,7 @@ const Account = () => {
             {currentLocale.auth.displayName} {hasNameChanged && "*"}
           </label>
           <input
+            autoComplete="name"
             ref={nameRef}
             onChange={handleNameChange}
             disabled={!currentUser?.emailVerified}
@@ -273,6 +274,7 @@ const Account = () => {
             {currentLocale.auth.email} {hasEmailChanged && "*"}
           </label>
           <input
+            autoComplete="email"
             ref={emailRef}
             onChange={handleEmailChange}
             disabled={!currentUser?.emailVerified}
@@ -296,6 +298,7 @@ const Account = () => {
             ${hasEmailChanged ? " visible" : " invisible"}`}
         >
           <input
+            autoComplete="current-password"
             ref={emailPasswordRef}
             disabled={!hasEmailChanged}
             type="password"
@@ -364,6 +367,7 @@ const Account = () => {
             {currentLocale.auth.currentPassword}
           </label>
           <input
+            autoComplete="current-password"
             ref={currentPasswordRef}
             onChange={handlePasswordChange}
             type="password"
@@ -386,6 +390,7 @@ const Account = () => {
             {currentLocale.auth.newPassword}
           </label>
           <input
+            autoComplete="new-password"
             ref={newPasswordRef}
             onChange={handlePasswordChange}
             type="password"
@@ -408,11 +413,12 @@ const Account = () => {
             {currentLocale.auth.confirmPassword}
           </label>
           <input
+            autoComplete="new-password"
             ref={passwordConfirmRef}
             onChange={handlePasswordChange}
             type="password"
             id="confirm-password"
-            name="confirm-password"
+            name="new-password"
             required
             className={`${
               isPasswordUpdated

@@ -164,7 +164,7 @@ const Signup = () => {
             ref={passwordConfirmRef}
             type="password"
             id="password-confirm"
-            name="password-confirm"
+            name="password"
             className="border-border-100 focus:outline-primary-200 dark:focus:outline-primary-dark-200
               focus:border-primary-200 dark:focus:border-primary-dark-200 h-11 w-full
               rounded-md border-2 p-2 outline-1 outline-transparent transition-colors
